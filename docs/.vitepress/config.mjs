@@ -46,6 +46,13 @@ export default defineConfig({
             text: 'Fluent React',
             link: '/react/FluentReact/index',
             items: FluentReactItems,
+          },
+          {
+            text: 'Next',
+            collapsed: true,
+            items: [
+              { text: 'Next的亿点点好处', link: '/react/Next/Why-Next' }
+            ]
           }
         ]
       },

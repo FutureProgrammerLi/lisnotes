@@ -51,7 +51,8 @@ export default defineConfig({
             text: 'Next',
             collapsed: true,
             items: [
-              { text: 'Next的亿点点好处', link: '/react/Next/Why-Next' }
+              { text: 'Next的亿点点好处', link: '/react/Next/Why-Next' },
+              { text: '官方教程学习过程', link: '/react/Next/Official-Tutorial' }
             ]
           }
         ]

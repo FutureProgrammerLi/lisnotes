@@ -91,7 +91,7 @@ import clsx from 'clsx';
 
 大概能看出来,根据status的值,适用`bg-gray-100 text-gray-500`或者`bg-green-500 text-white`这两个类.
 
-<!-- Phase 2 -->
+<!-- Phase 2 (2-7) -->
 
 ### Fonts and Images
 * 怎么全局改字体?  
@@ -243,3 +243,20 @@ const cardData = await fetchCardData(); // 这要等fetchLatestInvoices()
 坏处是如果数据各不相关,网络效率就会很低.  
 解决办法之一是利用JS原生的`Promise.all()`或者`Promise.allSettled()`.  
 这时就又有问题了,如果有一个请求特别特别慢呢?
+
+<!-- Phase 3 (8-10) -->
+*** 
+要解决的两个问题:
+1. request waterfall, 有一个请求特别慢时怎么办?(`Streaming`)
+2. 静态网页,如果数据需要实时更新,怎么动态渲染?(每次请求都要获取到最新的数据而不是静态的)
+
+loading.tsx有个问题,文件在顶层,如果加载动画是skeleton模糊框架,那么所有的子路径都会用到这个loading效果.
+
+grouping routes是什么意思? 为什么是(overview)而不是其它?是怎么限定的?
+
+Suspense / Loading move fetches down to the components.
+
+***
+Search and pagination 
+查找要用`useSearchParams`可以理解,分页为什么要用到`usePathname`和`useRouter`?
+

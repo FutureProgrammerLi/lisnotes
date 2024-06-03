@@ -30,6 +30,14 @@ export default defineConfig({
       {
         text: 'Vue',
         collapsed: true,
+        items: [
+          {
+            text: 'Nuxt',
+            items: [
+              { text: "简介", link: '/vue/Nuxt/Introduction' }
+            ]
+          }
+        ]
       },
       {
         text: 'React',

@@ -80,6 +80,18 @@ export default defineConfig({
             text: 'Array.reduce() 是最最最最伟大的', link: '/js/reduce',
           }
         ]
+      },
+      {
+        text: "CSS",
+        collapsed: true,
+        items: [
+          {
+            text: 'TailwindCSS', 
+            items:[
+              {text:'基础',link:'/css/TailwindCSS/Basis'}
+            ]
+          }
+        ]
       }
     ],
 

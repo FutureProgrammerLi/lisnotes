@@ -48,4 +48,105 @@ export function Counter(){
 **用户希望每个动作都是有反馈的.**   
 比如搭电梯,你知道按了楼层按钮不会立马到达对应楼层,但你按了按钮后,按钮的高亮,是作为最基本的反馈,表明你已经向电梯说明了你要去第几层.推门把手时也是,门没锁的话,你扭动推开后门不立即打开,你肯定就怀疑门把手是不是坏了,而不是我这个动作会导致门把手"有延迟"(这个想法还挺搞笑的哈哈哈哈).
 
-**作为开发者,在构建网页时,要尽可能快地响应用户的操作.(低延迟,"零"网络往返感知)**
+**作为开发者,在构建网页时,要尽可能快地响应用户的操作.(低延迟,"零"网络往返感知)**  
+
+你之前可能在哪里看过,React的心智模式可以理解为像这样的等式:*UI是状态的一个函数,或者说`UI=f(state)`.* 这当然不是简单的意味着UI在字面上只是作为接收状态的一个简单函数;它想说的是页面的展示取决于当前的状态.当状态被改变,页面就要重新计算展示.由于这些状态是在你的电脑里面的,重新计算要展示的界面这个过程,自然也在你的电脑上进行了.  
+为什么代码要在你的电脑上运行,这个概念大概就解释完了,接着我们换过来说一下,代码为什么又要在我的电脑上运行?
+***
+所以,为什么代码还要在我(作者,写代码的人)的电脑上运行呢?  
+这是一个介绍另外一篇博客的概要卡片:
+```jsx
+<PostPreview slug="a-chain-reaction" />
+```
+
+// Todo, \<PostPreview />,一个统计网页字数的组件
+这个组件又是怎么知道,另一个页面有多少个字的呢?(牛)  
+如果你在开发者工具中看Network标签,你会看到其中并没有额外的请求(没有请求访问这个另外的页面).我没有为了统计这个另外的页面,而另外的将这一整篇的文章下载下来.我也没有把这个页面的内容添加到我这篇文章当中.我没有调用任何API来统计字数(?真的没有吗).当当然然,我没有自己一个一个字的去数那篇文章有多少个字.(XD)  
+所以这个组件是怎么实现的呢?  
+
+```jsx
+import { readFile } from 'fs/promises';
+import matter from 'gray-matter';
+
+export async function PostPreview({slug}){
+  const fileContent = await readFile("./public/" + slug + "/index.md","utf-8"); // 是Dan本地的,知道文章文件组织后编写的代码,随便换一个项目这个路径就变了,所以我要怎么在本地拼接呢???
+  const { data, content } = matter(fileContet);
+  const wordCount = content.split(" ").filter(Boolean).length;
+
+  return (
+     <section className="rounded-md bg-black/5 p-2">
+      <h5 className="font-bold">
+        <a href={"/" + slug} target="_blank">
+          {data.title}
+        </a>
+      </h5>
+      <i>{wordCount} words</i>
+    </section>
+  )
+}
+```
+
+这个组件在我的电脑上,运行时自然畅通无阻了.我用`fs.readFile`来读取一个文件,用`gray-matter`来编译Markdown语法的标题,用`split,length`这些属性就能统计字数.**我根本不用额外做什么,我的代码正好就在这些数据上运行.** (直接操作这些数据)  
+如果我要列举出我所有的博客的标题跟对应字数统计呢?  
+这可太简单了. (???怎么用Vue重写aaaa)
+```jsx
+<PostList />
+```
+
+// Todo \<PostList/>  
+我要做的只是为每一个post文件夹渲染对应的`<PostPreview/>`就可以了:
+```jsx
+import { readDir } from 'fs/promises';
+import { PostPreview } from './post-preview';
+
+export async function PostList(){
+  const entries = await readdir('./public/', {withFileTypes:true});
+  const dirs = entries.fitler(entry => entry.isDiretory());
+
+  return (
+    <div className="mb-4 flex h-72 flex-col gap-2 overflow-scroll font-sans">
+      {dirs.map(dir => (
+        <PostPreview key={dir.name} slug={dir.name} />
+      ))}
+    </div>
+  )
+}
+```
+以上的代码完全不需要在你的电脑上运行--想跑也跑不动,你的电脑上也没有我的文件.  
+看看上面这段代码是什么时候运行的吧?
+```jsx
+<p className="text-purple-500 font-bold">
+  {new Date().toString()}
+</p>
+```
+
+//Todo \<WhenItRuns />  
+啊哈--这是我上次静态部署网页时候的时间!我的组件代码在打包的时候被运行了!这样服务器就知道我的博客有哪些,再统计对应字数了!  
+**像这样,组件跟数据源相近,它就能直接读取数据,将数据预处理,之后再发送给你的设备了**(总感觉话里有话??)  
+其实在你加载完这个页面的时候,早就没有什么`<PostList>,<PostPreview>,fileContent,dirs,fs,gray-matter`这些奇奇怪怪的东西了(有的,有更奇怪的东西,被编译后的东西).取而代之的是`<div>,<section>,<a>,<i>`,各种嵌套而已了.你的设备上*接收到的界面,只是一些必须要展示的东西*而已了(对应博客标题,超链接,字数统计这些),不是组件需要的,电脑用来计算UI展示的完整"原数据"了(就是本来超链接里的实际博客).  
+用这种观念去想的话,*UI是服务器数据的一个函数,或者说`UI=f(data)`.* 这里的数据只存在于我的设备上,当然这个组件也应该是在我的电脑上运行了.  
+到这也就解释完组件为什么需要在我的电脑上了.
+
+***
+UI是由组件组成的,不过我们可以从两个完全不同的角度去看待:
+* `UI=f(state)`,这里的`state`是在客户端上的,`f`直接在客户端上运行.这种方式适合编写那些需要立即跟用户交互的组件,像上面的`<Counter/>`组件.(这里的`f`也可以是在服务器端上运行,用最初状态生成HTML后交给客户端.?Counter的0吗?)  
+* `UI=f(data)`,`data`是在服务器上的,`f`只在服务器上运行.这种方式适合编写需要数据处理的组件,像`<PostPreview/>`(这里的`f`只能在服务器上运行.构建部署的时候作为服务器运行`f`).  
+
+如果它们不是长得很像的话,其实它们各自都能很好地发挥自己的作用的.不过,如果真的把这两种观念抽出来讲,它们又好像是互不兼容的.(?为什么说是互不兼容?)  
+需要即时交互(像`<Count/>`),就要客户端运行代码;需要数据处理(像`<PostPreview/>`),又不能在客户端上运行,因为它用了像`readFile`这样的`服务器端API`.(这就很矛盾了,如果不是用了这种API的话它也可以在客户端上运行了.)  
+好吧,既然如此那就全在服务器端上跑好了.可是可是,在服务器端上像`<Counter/>`这样的组件,又只能渲染初次状态(initial state).服务器不知道交互后这个状态会发生什么变化,如果真要每次都server-client-server-client这样传递那简直不要太慢,很多情况下也不现实.(比如说我的"博客服务器",只在我部署那刻才运行,你传数据给我是没有用的).  
+难道我们真的只能二选一了吗?
+* 客户端`UI=f(state)`,写`<Counter/>`类组件;
+* 服务器端`UI=f(data)`,写`<PostPreview/>`类组件.  
+
+当然不是,现实更像是,`UI=f(data,state)`,我全都要!实际开发中没有`data`或者没有`state`,应用当然也是能跑的.只不过理想的情况是两种情况都能兼顾,不用再去想另外的抽象概念--你应该也想这样吧?  
+我们要解决的问题,是如何把这里的`f`,同时应用到两种变成环境当中.这真的可能吗?回想一下,这里的`f`不是真正的函数,它代表着我们所有的组件.  
+我们能不能把组件通过某种方式,划分成在你电脑上运行的,以及在我电脑上(服务器端)运行的呢?当然中间还要保留它是React的组件.(划着划着不是React组件了那还的了哈哈哈哈).  
+我们是否可以组合嵌套两种不同的环境呢?  
+具体又要怎么实现呢?  
+怎么办呢怎么办呢?  
+想想吧~下次我们来比较一下我们的笔记~  
+***
+(Thanks for watching,其实Dan在2024ReactConf上已经给出解决方案了,`'use client'和'use server'`,一个1月,一个5月.对比一下Dan的presentation和blog,发现还挺一体的,通俗,幽默,又不乏创新.不愧是我偶像!)
+
+// 三个React写的组件要怎么用Vue写aaaaa

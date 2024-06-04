@@ -9,10 +9,14 @@ const FluentReactItems = [
   { text: 'Server-side React', link: '/react/FluentReact/Server-side-React' },
 ];
 
-const tailwindCDN = ['script', { src: 'https://cdn.tailwindcss.com' }]
+const tailwindCDN = ['script', { src: 'https://cdn.tailwindcss.com' }];
+const favicon = ['link', { rel: 'icon', href: '/favicon.ico' }];
+// const favicon = ['link', { rel: 'icon', href: '/public/favicon.ico' }];
+
 export default defineConfig({
   head: [
-    tailwindCDN
+    tailwindCDN,
+    favicon
   ],
   title: "What I've learned",
   description: "Learning record",
@@ -34,7 +38,8 @@ export default defineConfig({
           {
             text: 'Nuxt',
             items: [
-              { text: "简介", link: '/vue/Nuxt/Introduction' }
+              { text: "简介", link: '/vue/Nuxt/Introduction' },
+              { text: "自动导入", link: '/vue/Nuxt/Auto-imports' }
             ]
           }
         ]

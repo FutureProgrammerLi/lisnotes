@@ -39,7 +39,9 @@ export default defineConfig({
             text: 'Nuxt',
             items: [
               { text: "简介", link: '/vue/Nuxt/Introduction' },
-              { text: "自动导入", link: '/vue/Nuxt/Auto-imports' }
+              { text: "自动导入", link: '/vue/Nuxt/Auto-imports' },
+              { text: "服务器", link: '/vue/Nuxt/Server' },
+              { text: "杂七杂八", link: '/vue/Nuxt/Experience' },
             ]
           }
         ]

@@ -9,6 +9,24 @@ const FluentReactItems = [
   { text: 'Server-side React', link: '/react/FluentReact/Server-side-React' },
 ];
 
+const NuxtItems = [
+
+  {
+    text: "Guide", items: [
+      { text: "简介", link: '/vue/Nuxt/Introduction' },
+      { text: "自动导入", link: '/vue/Nuxt/Auto-imports' },
+      { text: "路由", link: '/vue/Nuxt/Routing' },
+    ]
+  },
+  {
+    text: 'Directory Structure', items: [
+      { text: "服务器", link: '/vue/Nuxt/Server' },
+      { text: "页面", link: '/vue/Nuxt/Pages' },
+    ]
+  },
+  { text: "杂七杂八", link: '/vue/Nuxt/Experience' },
+];
+
 const tailwindCDN = ['script', { src: 'https://cdn.tailwindcss.com' }];
 const favicon = ['link', { rel: 'icon', href: '/favicon.ico' }];
 // const favicon = ['link', { rel: 'icon', href: '/public/favicon.ico' }];
@@ -37,12 +55,7 @@ export default defineConfig({
         items: [
           {
             text: 'Nuxt',
-            items: [
-              { text: "简介", link: '/vue/Nuxt/Introduction' },
-              { text: "自动导入", link: '/vue/Nuxt/Auto-imports' },
-              { text: "服务器", link: '/vue/Nuxt/Server' },
-              { text: "杂七杂八", link: '/vue/Nuxt/Experience' },
-            ]
+            items: NuxtItems,
           }
         ]
       },
@@ -62,6 +75,7 @@ export default defineConfig({
           }, {
             text: 'Fluent React',
             link: '/react/FluentReact/index',
+            collapsed: true,
             items: FluentReactItems,
           },
           {
@@ -88,9 +102,9 @@ export default defineConfig({
         collapsed: true,
         items: [
           {
-            text: 'TailwindCSS', 
-            items:[
-              {text:'基础',link:'/css/TailwindCSS/Basis'}
+            text: 'TailwindCSS',
+            items: [
+              { text: '基础', link: '/css/TailwindCSS/Basis' }
             ]
           }
         ]

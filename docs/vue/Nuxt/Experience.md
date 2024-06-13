@@ -5,6 +5,7 @@
 * [动态路由和动态传参([name].ts和getRouterParam())](./Experience.md#怎么动态传参-依赖值或参数发生变化时重新发送请求-getrouterparam)
 * [怎么使用全局变量?](./Experience.md#全局变量)
 * [怎么根据命令行切换端口?(根据开发环境切换接口地址)](./Experience.md#根据开发生产环境切换端口)
+* [Nuxt里怎么使用jsx?渲染组件的方式有多少种?](./Experience.md#怎么用jsx)
 
 ## 布局
 ### 开启布局
@@ -261,4 +262,28 @@ PORT = 3002
 ```bash
 $ npm run dev  #开发环境,端口是5000
 $ npm run pro  #生产环境,端口是3002
+```
+
+## 怎么用jsx
+定义组件的方式有三种:
+```ts 
+// 对应三个不同文件,为了方便理解放在一起
+// pages/index.tsx
+export default defineComponent({
+    render(){
+        return <h1>Rendered by tsx</h1>
+    }
+});
+
+// pages/posts/index.tsx
+export default defineComponent({
+    render(){
+        return h('h1','Index page')
+    }
+})
+
+// pages/preview/index.vue
+<template>
+    <h1>Rendered with template</h1> 
+</template>
 ```

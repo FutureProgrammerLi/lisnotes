@@ -1,10 +1,16 @@
 # 页面
+> https://nuxt.com/docs/guide/directory-structure/pages#child-route-keys
 <p class='text-2xl font-bold'>Nuxt为你的网页应用提供基于文件结构的路由系统</p>
 
 ***
 ::: tip
 为了压缩应用的打包体积,这个`pages`目录并不是必须要有的.就是说你单用`app.vue`定义你整个应用的话,`vue-router`直接就不会作为依赖被添加到你的项目之中了.如果你需要强制开启这个路由功能,可以在`nuxt.config`里设置`pages:true`,或者创建`app/router.options.ts`这个文件在里面配置.
 :::
+* [定义组件的三种方法](./Pages.md#用法)
+* [动态路由](./Pages.md#动态路由)
+* [嵌套路由,既显示父组件也显示子组件内容](./Pages.md#嵌套路由)
+* [页面元数据](./Pages.md#一些特殊的元数据)
+* [导航](./Pages.md#导航)
 
 ## 用法
 页面就是Vue组件,一些扩展定义组件的方法也是允许的.(不限于vue文件定义组件,js/ts返回jsx也是可以的.默认允许的有:`.vue`,`.js`,`.jsx`,`.mjs`,`.ts`以及`.tsx`)  
@@ -204,3 +210,149 @@ definePageMeta({
 })
 </script>
 ```
+
+## 页面元数据
+你可以通过`definePageMeta()`这个宏定义函数(macro,类似`defineProps()`,不用引入就能直接用.),为你的每个页面定义元数据.这个宏函数在`<script>`,`<script setup>`中都是允许的.
+```vue
+<script setup lang='ts'>
+definePageMeta({
+  title:'My home page'
+})
+</script>
+```
+
+这里定义的元数据可以通过`route.meta`对象获取.
+```vue
+<script setup lang='ts'>
+const route = useRoute();
+console.log(route.meta.title);
+</script>
+```
+
+而如果碰巧你用了嵌套路由,那么页面的所有元数据就会整合到同一个对象之中(类似多个函数嵌套定义,最里层的函数?).更多关于路由元数据的内容,[可以看vue-router的相关文档](https://router.vuejs.org/guide/advanced/meta.html#route-meta-fields)  
+跟`defineEmits`和`defineProps`很相似的是,`definePageMeta`也是编译器宏函数(compiler macro).在编译阶段,它会被转换为其它内容,因此你不能够在组件其它地方再指示或是索引它了(功能单一且完成后会自动消失).而对于`definePageMeta`这个宏的功能就是,将元数据会提升到组件之外.这样的结果就是你不能通过元数据对象,指向定义它的那个组件了(或是该组件定义的其它值).不过,它可以指向一些引入的绑定值.(?imported bindings):
+
+```vue
+<script setup lang='ts'>
+import { someData } from "~/utils/example";
+const title = ref('');
+definePageMeta({
+  title,    //这里会报错
+  someData
+})
+</script>
+```
+<p class="text-xs text-blue-300">???迷惑.本组件的ref不能,引进来的就可以?</p>
+
+### 一些特殊的元数据
+你当然可以按需要任意定义你应用的元数据.不过`definePageMeta`中,一些元数据的定义,有对应特殊的功能.  
+* `alias:`顾名思义,定义页面的别名,通过不同的路径可以访问到相同的组件页面.可以是字符串,也可以是字符串数组.([Vue-router alias](https://router.vuejs.org/guide/essentials/redirect-and-alias.html#Alias))  
+* `keepalive:`如果你在元数据定义中设置了`keepalive:true`,那么Nuxt会自动将你的组件用`<KeepAlive>`包裹起来.父组件中有许多动态子组件,而你又需要在路由切换时保留页面的数据状态的话,这个功能就派上用场了.  
+如果你想在父组件中将状态持久化,你可以在父组件里,`<NuxtLink keepalive/>`.另一个做法就是手动包裹,用`<KeepAlive>`,`include,exclude,max`这些结合使用.(是不是有点离题了?metadata呢?)  
+如果你`KeepAlive`的页面有很多,你还可以在`nuxt.config`里,给`keepalive`设置默认值,这个值默认为`false`,改为`true`就可以实现你的目的了.
+```ts
+// nuxt.config.ts
+export default defineNuxtConfig({
+  app:{
+    keepalive:true
+  }
+})
+```
+* `key:`[看本页面的这里](./Pages.md#子路由关键字)
+* `layout:`你可以在这里定义你想应用到当前页面的布局,它的值可以是`false`(禁止布局应用),字符串,或是响应值ref/computed(如果你想页面的布局也是响应式的话).[更多关于布局的内容](https://nuxt.com/docs/guide/directory-structure/layouts)
+* `layoutTransition`和`pageTransition`:你可以在这个属性中定义很多`<transition>`可以接收的属性值,或者传个`false`就直接禁用`<transition>`包裹当前路由了.`<transition>`可以接收的东西[在这](https://vuejs.org/api/built-in-components.html#transition),或者你可以了解一下[transitions是如何实现的](https://vuejs.org/guide/built-ins/transition.html#transition).  
+跟keepalive一样,可以在`nuxt.config`里为这两个属性设定一个默认值.(默认都为false)
+* `middleware:`这个属性可以用来决定,当前路由加载之前,作用于当前路由的中间件有哪些.如果其它中间件符合作用于当前路由的条件,那它们会整合到一起.(???所以作用是什么,符合的发挥作用,不符合的需要在这里额外声明才能发挥作用是吗?只有include没有exclude是吧?)  
+值可以是字符串,可以是函数(匿名/行内中间件,定义跟全局守卫模式相同),或是数组(字符串数组,函数数组).[更多关于具名中间件](https://nuxt.com/docs/guide/directory-structure/middleware).
+
+* `name:`为当前页面路由定义一个名字.
+* `path:`当你不满足于文件名作为路径这个功能时,你可以在这里定义你想要的,路径匹配符.这就[看你对vue-router的熟悉程度](https://router.vuejs.org/guide/essentials/route-matching-syntax.html#custom-regex-in-params)了.
+
+### 自定义元数据类型
+如果你要添加额外的自定义元数据,你可能希望这些新的,也还是跟其它一样,是类型安全的(type-safe).  
+你可以通过增强`definePageMeta`对象的类型实现目的:
+```ts
+// index.d.ts
+declare module '#app' {
+  interface PageMeta{
+    pageType?: string
+  }
+}
+
+export {}  //这很重要!
+```
+
+## 导航
+页面之间的导航,一般通过`<NuxtLink>`实现.  
+这个组件是自带的,你不需要额外的声明导入.  
+简单如导航到`/pages/index.vue`的例子长这样:
+```vue
+<template>
+  <NuxtLink to='/'>Home page</NuxtLink>
+</template>
+```
+::: tip
+[更多关于`<NuxtLink>`组件](https://nuxt.com/docs/api/components/nuxt-link)
+:::
+
+## 编程式导航
+Nuxt3实现编程式导航的方法是:`navigateTo()`.这个函数可以理解为手动触发页面跳转.对于接收用户输入,然后动态地在网页应用中切换页面这样的场景中,这个函数可以说是必不可少的了.  
+以下就是用户在搜索框中输入,提交表格后实现页面跳转的例子:
+::: tip
+记得用`await`"装饰"`navigateTo`这个函数,或是通过函数的返回,使其结果链式化(chain its result by returning from functions?)
+:::
+
+```vue
+<script setup lang='ts'>
+const name = ref('');
+const type = ref(1);
+
+function navigate() {
+  return navigateTo({  //这大概就是chain its result by returning from functions?
+    path:'/search',
+    query:{
+      name:name.value,
+      type:type.value
+    }
+  })
+}
+</script>
+```
+
+## 仅客户端页面
+通过给文件命名添加后缀`.client.vue`的方式,你可以把页面定义为["仅客户端页面"](https://nuxt.com/docs/guide/directory-structure/components#client-components).这种页面是不会在服务器上渲染的.
+
+## 仅服务器端页面
+同样,文件命名后缀为`.server.vue`,页面就成了["仅服务器端页面"](https://nuxt.com/docs/guide/directory-structure/components#server-components).尽管你能够通过由vue-router控制的,客户端导航,切换到该页面,它还是自动会作为服务器组件渲染到页面上,也就是说渲染当前页面所需的代码,在服务器端上而不在客户端包(client-side bundle)上.
+
+::: tip
+仅服务器端页面的定义必须仅有一个根元素(注释也可以是根元素).
+:::
+
+## 自定义路由
+如果你的应用庞大复杂到,本身路由功能都不够用了,还要更加的灵活[,Nuxt把路由器,路由,路由器选项等等一系列](https://nuxt.com/docs/guide/recipes/custom-routing)可定制化的东西都暴露给你了.看你怎么用了.(天啊还能这么复杂)
+
+## "多个"pages目录
+默认情况是一个项目一个`pages/`目录就够了.  
+不过你可以利用[`Nuxt Layers`](https://nuxt.com/docs/getting-started/layers)来将你的应用页面进行分组:
+```text
+-| some-app/
+---| nuxt.config.ts
+---| pages
+-----| app-page.vue
+-| nuxt.config.ts
+```
+```ts
+// some-app/nuxt.config.ts
+export default defineNuxtConfig({})
+```
+```ts
+// nuxt.config.ts
+export default defineNuxtConfig({
+  extends:['./some-app']
+})
+```
+
+:::tip
+[更多关于层面问题](https://nuxt.com/docs/guide/going-further/layers)
+:::

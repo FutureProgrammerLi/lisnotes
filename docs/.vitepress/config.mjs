@@ -10,7 +10,6 @@ const FluentReactItems = [
 ];
 
 const NuxtItems = [
-
   {
     text: "Guide", items: [
       { text: "简介", link: '/vue/Nuxt/Introduction' },
@@ -44,7 +43,7 @@ export default defineConfig({
     },
     nav: [
       { text: 'Home', link: '/' },
-      { text: 'Notes', link: '/api-examples' }
+      { text: 'Notes', link: '/vue/Nuxt/Experience.html' }
       // { text: 'Examples', link: '/markdown-examples' } // 保留, 学怎么用
     ],
 

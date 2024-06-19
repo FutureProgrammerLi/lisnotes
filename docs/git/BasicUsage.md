@@ -112,9 +112,42 @@ $ git stash drop stash@{0}
 ---
 
 ## git分支
-* 创建分支
+* (增)创建分支
 ```bash
 $ git branch <branchname>
 # 或者
 $ git checkout -b <branchname>
+```
+* (删)删除分支
+```bash
+$ git branch -d <branchname1> <branchname2> #...
+$ git push origin -d <branchname>
+```
+
+* (改)分支重命名/复制并重命名
+```bash
+$ git branch -m oldName newName
+# 复制并重命名
+$ git branch -c oldName sameAndNew
+```
+
+* (改)切换分支
+```bash
+$ git switch <branchname>
+# 语义上switch更清晰,但实际运用上 checkout -b好像更多!?
+# 或者,创建并切换到该分支
+$ git checkout -b <branchname>
+# 等价于
+$ git branch <branchname>
+$ git switch <branchname>
+```
+::: danger
+`git switch`到一个不存在的分支时会报错.
+:::
+
+* (查)查看本地/远程分支
+```bash
+$ git branch -a # 包括本地及远程仓库的所有分支
+$ git branch [--list] # 查看本地仓库的分支 
+$ gut branch -r # 查看远程仓库分支
 ```

@@ -40,10 +40,10 @@ $ git merge <repository>/<branchname>
 * `git merge`或者`git checkout -m`,将拉到本地仓库的代码,与当前你所在的工作区代码进行合并.*此时你可能会遇到冲突需要手动解决.  
 
 ## 基本的概念
-* 工作区
-* 暂存区
-* 本地仓库
-* 远程仓库
+* 工作区(workspace):未进行任何操作时的git仓库.
+* 暂存区(Stage): `git add` 的目的地,暂时存放在磁盘(?)
+* 本地仓库(Repository):`git commit`的目的地,开始"有迹可循"(别人不一定看到,你没push的话.但在自身电脑的git log上起码有条记录了.)
+* 远程仓库(Remote):`git push`的目的地.多人协作的最终目的.在本地电脑上写的东西真正在这里与他人共享/合作.
 
 ### 什么都没有时,你可能需要的配置
 1. 初始化git仓库: `git init`  
@@ -82,7 +82,6 @@ $ git push -u origin main
 ```bash
 # ...为当前分支开发得满头大汗...
 # ...被叫去其它分支修复BUG...
-<<<<<<< HEAD
 # ...working in main branch...
 $ git stash  # 将当前修改内容放到暂存区
 # git switch sub
@@ -118,7 +117,7 @@ $ git stash drop stash@{0}
 
 ---
 
-## git分支
+## git分支 branch
 * (增)创建分支
 ```bash
 $ git branch <branchname>
@@ -180,5 +179,64 @@ $ git pull
 * 切换到某次commit
 ```bash
 $ git checkout <commit-hash>
-
+$ git checkout main~0 # 切换回main分支最新的一次commit上
+# 或者
+$ git checkout main
+$ git reset --hard HEAD     # 同上,切换到最新的main commit上
 ```
+
+* 撤销某次commit
+```bash{4}
+$ git revert commit_hash
+
+# 撤销到第四次commit并创建一次新的commit with reverted changes
+$ git revert HEAD~3 # 好用好理解
+
+# 放弃上面的修改内容返回到revert之前的状态
+$ git revert --abort
+```
+
+## 文件状态分析
+![File status](/status-flow.png)
+新建的文件<span class="text-green-400 inline">Untracked</span>->  
+`git add`之后,<span class='text-green-400'>Staged/Index Added</span>->   
+`git commit`之后, 该文件变成<span class='text-orange-300'>Tracked</span>->  
+再对该文件进行修改<span class='text-orange-300'>Modified</span>   
+
+***
+一般VSC的颜色提示就能知道文件的状态.如无提醒可用`git status`查看当前仓库下各文件状态.
+![File Status hinted by IDE](/file-status.png)
+
+## 差点玩脱
+提交这些代码的时候,发现自己不在正经分支上?是个乱码(Detached HEAD).似乎是checkout的时候出了点问题:
+```bash
+$ git checkout <branchname> # 切换到某个确切分支上
+
+# 下面是问题所在:
+$ git checkout <commit_id> # 切换到某次commit上,HEAD就会处于游离状态
+```
+
+解决方法:  
+问题是在`git push`时出现的,`git add`,`git commit`都没有问题.  
+在切换回main分支的时候给出了答案:
+```text
+Warning: you are leaving 1 commit behind, not connected to
+any of your branches:
+
+  7a08773 "halfway" finished git basic usage
+
+If you want to keep it by creating a new branch, this may be a good time
+to do so with:
+
+ git branch <new-branch-name> 7a08773
+```
+* 创建新的临时分支将HEAD指针指向确切的临时分支.
+```bash
+$ git branch temp 7a08773
+```
+* 切换回main分支,对temp分支进行内容合并
+```bash
+$ git switch main
+$ git merge temp
+```
+(好像有点水,但就是遇到各种各样的小问题.啊啊啊啊啊啊)

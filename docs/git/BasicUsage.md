@@ -82,8 +82,4 @@ $ git commit -a -m "Fix a hurry"
 $ git stash pop
 ```
 
-test: do some changes.blablabla,test which branch will the stash change.
-
-This line is commited on the main branch.
-
-some changes in sub branch, hope not seeing you in the main branch.
+Do some content changes to test merge command

@@ -7,9 +7,15 @@
 
 ## 最日常的流程
 ```bash
+# 开发前与远程仓库同步
+$ git pull origin dev # 从远程的origin分支代码拉到本地dev分支上
+# ... 处理可能的冲突
+$ git commit -m 'solving conflicts'
+
+# ... 开始本地开发
 $ git add .
 $ git commit -m 'This is a commit'
-$ git push
+$ git push  #如果当前分支名和远程分支名相同的话可行 
 ```
 
 ## 从本地到远程的流程
@@ -118,10 +124,20 @@ $ git stash drop stash@{0}
 $ git branch <branchname>
 # 或者
 $ git checkout -b <branchname>
+
+$ git checkout -b <branchname> origin/<remote_branch_name>
+# 把远程remote_branch_name的内容拉取到本地的branchname这个分支上,并切换到branchname分支
+
+# 创建远程分支
+$ git push -u origin local_branchname:remote_new_branch
+$ git push origin remote_new_branch
+$ git push origin HEAD # 本地分支与远程分支名称一样时要这样操作,把HEAD指回当前main分支
 ```
 * (删)删除分支
 ```bash
 $ git branch -d <branchname1> <branchname2> #...
+
+# 删除远程分支
 $ git push origin -d <branchname>
 ```
 
@@ -150,8 +166,19 @@ $ git switch <branchname>
 ```bash
 $ git branch -a # 包括本地及远程仓库的所有分支
 $ git branch [--list] # 查看本地仓库的分支 
-$ gut branch -r # 查看远程仓库分支
+$ git branch -r # 查看远程仓库分支
 ```
-=======
 
->>>>>>> sub
+* 合并分支
+```bash
+$ git merge <branchname>
+
+$ git pull
+```
+
+## 切换到某次commit,撤销某次commit
+* 切换到某次commit
+```bash
+$ git checkout <commit-hash>
+
+```

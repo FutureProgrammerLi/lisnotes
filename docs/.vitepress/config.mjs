@@ -107,6 +107,16 @@ export default defineConfig({
             ]
           }
         ]
+      },
+      {
+        text: "Git",
+        collapsed: true,
+        items: [
+          {
+            text: 'Basic Usage',
+            link: '/git/BasicUsage'
+          }
+        ]
       }
     ],
 

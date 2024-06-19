@@ -76,12 +76,45 @@ $ git push -u origin main
 ```bash
 # ...为当前分支开发得满头大汗...
 # ...被叫去其它分支修复BUG...
+# ...working in main branch...
 $ git stash  # 将当前修改内容放到暂存区
+# git switch sub
 $ edit emergency fix
 $ git commit -a -m "Fix a hurry"
+$ git switch main
 $ git stash pop
 ```
 
-test: do some changes.blablabla,test which branch will the stash change.
+`git stash`, `git commit`, `git switch sub`会有三种不同的内容.  
+在main分支上,`git stash`的内容,是在`git commit`上一次提交之后进行的修改.这些内容如果你不进行新一次的commit,或者再stash,是**无法进行分支切换的**.  
+新一次stash或者commit之后,你可以切换到其它分支`git switch sub`.对应内容是sub分支的上一次commit内容.  
+而在sub分支上完成修改commit以后,你才可以切换到main分支,`git stash pop`对你已经修改的内容继续修改.  
+上一次commit -> 新修改 -> (中断需要去别的分支) -> stash -> switch -> 其它分支上的新修改并commit -> 切换到原来的分支 -> stash pop继续修改
+![Stash flow](/stash-flow.png)
+<p class="text-xs font-bold text-blue-300">自己画的流程,希望之后再看还能看懂吧(!?)</p>
 
-This line is commited on the main branch.
+::: danger
+stash的东西是分不清分支的,你在main分支的东西,可以在sub分支上pop.一般不这样用,但确实可以这样做错.
+:::
+
+弄清`git stash`这条命令之后,可以对它进行一些细节操作了:(增删改查)
+* (增)`git stash -m 'Stash with some message'` (类似`git commit -m 'message'`)
+* (改/删)`git stash pop` 或者`git stash apply [--index] [<stash>] + git stash drop [--index] [<stash>]`.区别就是`pop`默认用stash栈上的第一个,后者`apply`不会对stash栈进行删除.(一般都是用--index,格式是stash@{0}这样的.\<stash>这个哈希值不知道从哪查的)
+```bash
+$ git stash pop 
+# 等价于
+$ git stash apply stash@{0}
+$ git stash drop stash@{0}
+```
+* (查) `git stash list`:查看stash过哪些,如果不加message根本分不清stash了哪些内容.
+* (删) `git stash clear`: 清空stash栈.
+
+---
+
+## git分支
+* 创建分支
+```bash
+$ git branch <branchname>
+# 或者
+$ git checkout -b <branchname>
+```

@@ -76,6 +76,7 @@ $ git push -u origin main
 ```bash
 # ...为当前分支开发得满头大汗...
 # ...被叫去其它分支修复BUG...
+<<<<<<< HEAD
 # ...working in main branch...
 $ git stash  # 将当前修改内容放到暂存区
 # git switch sub
@@ -151,3 +152,6 @@ $ git branch -a # 包括本地及远程仓库的所有分支
 $ git branch [--list] # 查看本地仓库的分支 
 $ gut branch -r # 查看远程仓库分支
 ```
+=======
+
+>>>>>>> sub

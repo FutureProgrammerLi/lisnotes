@@ -70,6 +70,7 @@ export default defineConfig({
               { text: 'A Chain Reaction', link: '/react/DansBlogs/A-Chain-Reaction' },
               { text: 'A Complete Guide to useEffect', link: '/react/DansBlogs/A-Complete-Guide-to-useEffect' },
               { text: 'The Two Reacts', link: '/react/DansBlogs/The-Two-Reacts' },
+              { text: 'Diary', link: '/react/DansBlogs/Diary' },
             ]
           }, {
             text: 'Fluent React',

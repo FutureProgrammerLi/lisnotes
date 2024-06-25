@@ -70,7 +70,6 @@ export default defineConfig({
               { text: 'A Chain Reaction', link: '/react/DansBlogs/A-Chain-Reaction' },
               { text: 'A Complete Guide to useEffect', link: '/react/DansBlogs/A-Complete-Guide-to-useEffect' },
               { text: 'The Two Reacts', link: '/react/DansBlogs/The-Two-Reacts' },
-              { text: 'Diary', link: '/react/DansBlogs/Diary' },
             ]
           }, {
             text: 'Fluent React',
@@ -116,7 +115,19 @@ export default defineConfig({
           {
             text: 'Basic Usage',
             link: '/git/BasicUsage'
+          },
+          {
+            text: '提交规范',
+            link: '/git/CommitSpec'
           }
+        ]
+      },
+      {
+        text: "随记/心情",
+        collapsed: true,
+        items: [
+          { text: '1', link: '/blogs/hotchpotch' },
+          { text: '2', link: '/blogs/libraries' },
         ]
       }
     ],

@@ -128,6 +128,7 @@ export default defineConfig({
         items: [
           { text: '1', link: '/blogs/hotchpotch' },
           { text: '2', link: '/blogs/libraries' },
+          { text: '3', link: '/blogs/it' },
         ]
       }
     ],

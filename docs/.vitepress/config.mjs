@@ -130,6 +130,7 @@ export default defineConfig({
           { text: '2', link: '/blogs/libraries' },
           { text: '3', link: '/blogs/it' },
           { text: '4', link: '/blogs/UseYourHead' },
+          { text: '5', link: '/blogs/flow' },
         ]
       }
     ],

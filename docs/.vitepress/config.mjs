@@ -91,9 +91,9 @@ export default defineConfig({
         text: "Javascript",
         collapsed: true,
         items: [
-          {
-            text: 'Array.reduce() 是最最最最伟大的', link: '/js/reduce',
-          }
+          { text: 'Array.reduce() 是最最最最伟大的', link: '/js/reduce', },
+          { text: '重启', link: '/js/Restart' },
+          { text: '框架选择的一些考虑', link: '/js/Frameworks-pick' },
         ]
       },
       {
@@ -131,6 +131,7 @@ export default defineConfig({
           { text: '3', link: '/blogs/it' },
           { text: '4', link: '/blogs/UseYourHead' },
           { text: '5', link: '/blogs/flow' },
+          { text: '6', link: '/blogs/motivation' },
         ]
       }
     ],

@@ -26,13 +26,13 @@ const NuxtItems = [
   { text: "杂七杂八", link: '/vue/Nuxt/Experience' },
 ];
 
-const tailwindCDN = ['script', { src: 'https://cdn.tailwindcss.com' }];
+// const tailwindCDN = ['script', { src: 'https://cdn.tailwindcss.com' }];
 const favicon = ['link', { rel: 'icon', href: '/favicon.ico' }];
 // const favicon = ['link', { rel: 'icon', href: '/public/favicon.ico' }];
 
 export default defineConfig({
   head: [
-    tailwindCDN,
+    // tailwindCDN,
     favicon
   ],
   title: "What I've learned",
@@ -103,7 +103,8 @@ export default defineConfig({
           {
             text: 'TailwindCSS',
             items: [
-              { text: '基础', link: '/css/TailwindCSS/Basis' }
+              { text: '基础', link: '/css/TailwindCSS/Basis' },
+              { text: '样式重用', link: '/css/TailwindCSS/ReusingStyles/Reusing' }
             ]
           }
         ]

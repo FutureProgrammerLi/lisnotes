@@ -145,3 +145,44 @@ function Notification({ imageUrl, imageAlt, title, message }) {
 ## 利用@apply
 
 <button class='btn-primary'>Save changes</button>
+```html
+<button class="py-2 px-5 bg-violet-500 text-white font-semibold rounded-full shadow-md hover:bg-violet-700 focus:outline-none focus:ring focus:ring-violet-400 focus:ring-opacity-75">
+  Save changes
+</button>
+
+<button class='btn-primary'>Save changes</button>
+```
+
+回归初心,一大串类怎么提取出来?`@apply`  
+在tailwind指令文件里
+```css
+@tailwind base
+@layer components{
+  .composition{
+    @apply flex ml-2 mt-5/* 随便你想集合的,tailwind为你提供的类的集合  */
+  }
+}
+```
+
+```css
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  .btn-primary {
+    @apply py-2 px-5 bg-violet-500 text-white font-semibold rounded-full shadow-md hover:bg-violet-700 focus:outline-none focus:ring focus:ring-violet-400 focus:ring-opacity-75;
+  }
+}
+```
+
+## 避免过早的抽象
+来自官方的建议,不要为了代码看起来简洁而滥用`@apply`指令.  
+> "You are throwing away all of the workflow and maintainability adavantages Tailwind gives you.  
+
+1. 你还是要想类名,像上面的`.btn-primary`
+2. 改变样式时又要来回文件跳跃
+3. 一改就是全局改."又要挖爆哪条水管呢?"(比喻小小的改动导致整个应用样式崩溃)
+
+是个解决方法,但还是建议结合组件的优势,把样式限制到组件层面上.  
+这种方法希望你能用到小而复用性高的组件上,像按钮,控制表格这些.  

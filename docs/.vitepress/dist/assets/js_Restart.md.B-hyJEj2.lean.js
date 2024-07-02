@@ -1,0 +1,1 @@
+import{_ as t,c as e,o as i,a3 as a}from"./chunks/framework.D006jthy.js";const m=JSON.parse('{"title":"重新开始","description":"","frontmatter":{},"headers":[],"relativePath":"js/Restart.md","filePath":"js/Restart.md"}'),l={name:"js/Restart.md"},o=a("",7),s=[o];function n(r,c,p,_,d,u){return i(),e("div",null,s)}const f=t(l,[["render",n]]);export{m as __pageData,f as default};

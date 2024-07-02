@@ -133,6 +133,7 @@ export default defineConfig({
           { text: '4', link: '/blogs/UseYourHead' },
           { text: '5', link: '/blogs/flow' },
           { text: '6', link: '/blogs/motivation' },
+          { text: '7', link: '/blogs/memory' },
         ]
       }
     ],

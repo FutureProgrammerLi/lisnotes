@@ -9,6 +9,7 @@
 [是在`Stackoverflow`上找到的答案,Vitepress里怎么配置TailwindCSS. ](https://stackoverflow.com/questions/77638671/tailwindcss-in-vitepress)  
 Tailwind有针对Vite使用方法,没针对VitePress的..  
 
+## 安装
 1. 基本安装
 ```bash
 $ npm install -D tailwindcss postcss autoprefixer
@@ -65,3 +66,55 @@ export default DefaultTheme
 // src/main.js
 import './style.css'
 ```
+
+## CSS知识
+没错,用框架学原生.
+
+### box-sizing
+| Class | Properties|
+| ---   | ---       |
+| box-border | box-sizing: border-box;|
+| box-content | box-sizing: border-content | 
+
+**`border-box`:盒子的宽度和高度,包括`border`和`padding`的宽度.**  
+**`border-content`:不包括盒子的`border`和`padding`,给的宽高只是内容的宽高,一般实质盒子的宽高大于这个数.**  
+
+### display
+| Class   | Properties |
+| ---  | ---|
+| block   | display:block; |
+|  inline-block |  display:inline-block  |
+|  inline |  display:inline;  |
+|  flex | display:flex;   |
+|  inline-flex |  display:inline-flex;  |
+|  table |  display:table; |
+|  inline-table |  display:inline-table;  |
+|  grid  | display:grid;   |
+|  hidden |  display:none;  |
+
+* 块级对象元素单独占行,多个block元素为各自新奇一行,并可设置width和height
+* 内联对象元素前后不会产生换行,多个inline元素都在一行内显示,直到该行排满,不可设置width和height
+* 既有宽高,又可同行显示,则为`inline-block`.*之后的内联对象元素会被排列在同一行内.*
+
+### Objection position
+可视范围超出图片大小时,将可看到的内容聚焦到特定方位上.
+`object-*`: `left-top`,`top`,`right-top`,`left`,`center`,`right`,`left-bottom`,`bottom`,`right-bottom`.
+
+### Overflow
+溢出内容后的内容要怎么显示.  
+`overflow-*`:`auto`,`visible`,`hidden`,`scroll`,`clip`.(可以加xy轴限制特定方向,比如`x-scroll`,横向滑行条可拉动)
+
+* 默认`visible`.
+* `overflow:scroll`,总是显示滚动条.
+* `overflow:auto`是什么意思? 根据内容多少决定它的值?除了变`scroll`还有什么情况?
+* `overflow:clip`,对溢出的内容进行裁剪,配合`overflow-clip-margin`.否则与`hidden`行为相似.
+
+### Position
+
+| Class   | Properties |
+| ---  | ---|
+| static   | position:static; |
+|  fixed |  position:fixed;  |
+|  absolute |  position:absolute;  |
+|  relative |  position:relative;   |
+|  sticky |  position:sticky;  |

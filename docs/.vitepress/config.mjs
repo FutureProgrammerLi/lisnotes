@@ -94,6 +94,13 @@ export default defineConfig({
           { text: 'Array.reduce() 是最最最最伟大的', link: '/js/reduce', },
           { text: '重启', link: '/js/Restart' },
           { text: '框架选择的一些考虑', link: '/js/Frameworks-pick' },
+          {
+            text: 'Javascript.info',
+            collapsed: true,
+            items: [
+              { text: '基础', link: '/js/javascript-info/first' }
+            ]
+          },
         ]
       },
       {
@@ -127,13 +134,26 @@ export default defineConfig({
         text: "随记/心情",
         collapsed: true,
         items: [
-          { text: '1', link: '/blogs/hotchpotch' },
-          { text: '2', link: '/blogs/libraries' },
-          { text: '3', link: '/blogs/it' },
-          { text: '4', link: '/blogs/UseYourHead' },
-          { text: '5', link: '/blogs/flow' },
-          { text: '6', link: '/blogs/motivation' },
-          { text: '7', link: '/blogs/memory' },
+          {
+            text: 'phase1',
+            collapsed: true,
+            items: [
+              { text: '1', link: '/blogs/phase1/hotchpotch' },
+              { text: '2', link: '/blogs/phase1/libraries' },
+              { text: '3', link: '/blogs/phase1/it' },
+              { text: '4', link: '/blogs/phase1/UseYourHead' },
+              { text: '5', link: '/blogs/phase1/flow' },
+              { text: '6', link: '/blogs/phase1/motivation' },
+              { text: '7', link: '/blogs/phase1/memory' },
+            ],
+          },
+          {
+            text:'phase2',
+            collapsed:true,
+            items:[
+              {text:'Restart again',link:'/blogs/phase2/sum'}
+            ]
+          }
         ]
       }
     ],

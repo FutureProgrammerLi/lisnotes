@@ -101,7 +101,17 @@ export default defineConfig({
               { text: '基础', link: '/js/javascript-info/first' }
             ]
           },
+          {
+            text: 'ES6 Premier',
+            collapsed: true,
+            items: [
+              { text: '块级作用域', link: '/js/es6/understanding-es6/block-scope' },
+              { text: '数组', link: '/js/es6/understanding-es6/Array' }
+            ]
+          },
+          { text: 'Set新增操作', link: '/js/Set.md' },
         ]
+        
       },
       {
         text: "CSS",

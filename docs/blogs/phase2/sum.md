@@ -28,7 +28,7 @@
 <span class="text-red-500 font-bold">---分割线但又没完全分割---</span><br>
 翻开<<深入理解ES6>>的序,看到了一个熟悉的名字,*Dan Abramov*.  
 很神奇的感觉.原来原来,嗯,你好啊我的React老师.  
-我的Javascript老师,*Nicolas Zakas*,这本书的作者,原来早就认识了阿.嗯,感觉微妙就对了.  
+我的Javascript老师,*Nicholas Zakas*,这本书的作者,原来早就认识了阿.嗯,感觉微妙就对了.  
 
 ---
 回顾了自己技术上的前瞻,再总结一下生活上的期望以及经验吧.

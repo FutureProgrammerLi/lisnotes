@@ -21,6 +21,15 @@ const set1 = new Set([1,2,3]);
 const set2 = new Set([2,3,4]);
 const set3 = new Set([4,5,6]);
 
+const set4 = new Set([1,2]);  //for illustration
+
 set1.intersection(set3).size === 0? true : false;  //true
 set1.isDisjointFrom(set3);  //true
+
+set1.intersection(set2);  // [2,3]
+set1.union(set2);  //[1,2,3,4]
+set1.difference(set2); //[1,4]
+
+set4.isSubsetOf(set1); //true
+set1.isSupersetOf(set4); // true
 ```

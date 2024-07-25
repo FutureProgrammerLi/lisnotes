@@ -106,7 +106,8 @@ export default defineConfig({
             collapsed: true,
             items: [
               { text: '块级作用域', link: '/js/es6/understanding-es6/block-scope' },
-              { text: '数组', link: '/js/es6/understanding-es6/Array' }
+              { text: '数组', link: '/js/es6/understanding-es6/Array' },
+              { text: '对象', link: '/js/es6/understanding-es6/Object' },
             ]
           },
           { text: 'Set新增操作', link: '/js/Set.md' },

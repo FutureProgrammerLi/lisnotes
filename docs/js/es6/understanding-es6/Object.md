@@ -66,7 +66,7 @@ map.get(key2);  //'understanding-es6'
 
 ```
 
-Set新增的交并差等方法:[Set新增的一些方法](/docs/js/Set.md)  
+Set新增的交并差等方法:[Set新增的一些方法](/js/Set.md)  
 `intersection(),union(),difference(),symmetricDifference()`.  
 `isSubsetOf(),isSupersetOf(),isDisjointFrom()`.  
 *希望你能从名称知道每个方法的作用(不然就是命名不够直觉化了不是你的问题hh)

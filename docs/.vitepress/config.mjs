@@ -82,7 +82,22 @@ export default defineConfig({
             collapsed: true,
             items: [
               { text: 'Next的亿点点好处', link: '/react/Next/Why-Next' },
-              { text: '官方教程学习过程', link: '/react/Next/Official-Tutorial' }
+              { text: '官方教程学习过程', link: '/react/Next/Official-Tutorial' },
+              {
+                text: '官方文档',
+                collapsed:true,
+                link: '/react/Next/Official-Docs/Start-up',
+                items: [
+                  {
+                    text: '路由',
+                    link: '/react/Next/Official-Docs/Routing/index',
+                    items: [
+                      {text:'路由定义',link:"react/Next/Official-Docs/Routing/defining-routes"},
+                      {text:'页面和布局',link:"react/Next/Official-Docs/Routing/pages-and-layouts"},
+                    ]
+                  }
+                ]
+              }
             ]
           }
         ]
@@ -112,7 +127,7 @@ export default defineConfig({
           },
           { text: 'Set新增操作', link: '/js/Set.md' },
         ]
-        
+
       },
       {
         text: "CSS",
@@ -159,10 +174,10 @@ export default defineConfig({
             ],
           },
           {
-            text:'phase2',
-            collapsed:true,
-            items:[
-              {text:'Restart again',link:'/blogs/phase2/sum'}
+            text: 'phase2',
+            collapsed: true,
+            items: [
+              { text: 'Restart again', link: '/blogs/phase2/sum' }
             ]
           }
         ]

@@ -97,9 +97,9 @@ Nextjs中的文件名也有大智慧,不是随便起的.一些名字有特定的
 
 ## 接下来
 看完概况,你应该对前端路由有一定的了解了.试着跟随以下的步骤,搭建属于你自己的路由吧!
-* 路由定义
-* 页面及布局
-* 链接和导航
+* [路由定义](defining-routes.md)
+* [页面及布局](pages-and-layouts.md)
+* [链接和导航](linking-and-navigating.md)
 * 加载中UI和流(Streaming)
 * 错误处理
 * 重定向

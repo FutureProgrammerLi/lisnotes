@@ -100,8 +100,8 @@ Nextjs中的文件名也有大智慧,不是随便起的.一些名字有特定的
 * [路由定义](defining-routes.md)
 * [页面及布局](pages-and-layouts.md)
 * [链接和导航](linking-and-navigating.md)
-* 加载中UI和流(Streaming)
-* 错误处理
+* [加载中UI和流(Streaming)](loading-and-streaming.md)
+* [错误处理](error-handling.md)
 * 重定向
 * 路由分组
 * 项目组织

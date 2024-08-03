@@ -101,6 +101,7 @@ export default defineConfig({
                   { text: '错误处理', link: "react/Next/Official-Docs/Routing/error-handling" },
                   { text: '重定向', link: "react/Next/Official-Docs/Routing/redirect" },
                   { text: '路由分组', link: "react/Next/Official-Docs/Routing/route-groups" },
+                  { text: '项目文件组织', link: "react/Next/Official-Docs/Routing/project-organization" },
                 ]
               }
             ]

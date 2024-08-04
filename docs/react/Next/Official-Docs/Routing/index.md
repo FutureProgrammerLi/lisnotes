@@ -104,9 +104,9 @@ Nextjs中的文件名也有大智慧,不是随便起的.一些名字有特定的
 * [错误处理](error-handling.md)
 * [重定向](redirect.md)
 * [路由分组](route-groups.md)
-* 项目组织
-* 动态路由
-* 平行路由
+* [项目组织](project-organization.md)
+* [动态路由](dynamic-routes.md)
+* [平行路由](parallel-routes.md)
 * 穿插路由
 * 路由处理器
 * 中间件

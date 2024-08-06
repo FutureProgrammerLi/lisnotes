@@ -104,6 +104,8 @@ export default defineConfig({
                   { text: '项目文件组织', link: "react/Next/Official-Docs/Routing/project-organization" },
                   { text: '动态路由', link: "react/Next/Official-Docs/Routing/dynamic-routes" },
                   { text: '平行路由', link: "react/Next/Official-Docs/Routing/parallel-routes" },
+                  { text: '穿插路由', link: "react/Next/Official-Docs/Routing/intercepting-routes" },
+                  { text: '路由处理器', link: "react/Next/Official-Docs/Routing/route-handlers" },
                 ]
               }
             ]

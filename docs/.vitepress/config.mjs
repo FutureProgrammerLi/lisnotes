@@ -106,6 +106,7 @@ export default defineConfig({
                   { text: '平行路由', link: "react/Next/Official-Docs/Routing/parallel-routes" },
                   { text: '穿插路由', link: "react/Next/Official-Docs/Routing/intercepting-routes" },
                   { text: '路由处理器', link: "react/Next/Official-Docs/Routing/route-handlers" },
+                  { text: '中间件', link: "react/Next/Official-Docs/Routing/middleware" },
                 ]
               }
             ]

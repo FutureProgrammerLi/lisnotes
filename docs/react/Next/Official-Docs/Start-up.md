@@ -34,3 +34,4 @@ Next.js是一个为你搭建灵活的,全栈网页应用的大框架.这篇指�
 以下是自己翻译的目录,翻译一个写一个吧,还不知道翻译完一章也需要多久时间.  
 
 * 1. [路由](./Routing/index.md)
+* 2. [数据获取](./Data-Fetching/fetching-caching-revalidating.md)

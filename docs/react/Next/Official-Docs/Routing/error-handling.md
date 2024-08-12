@@ -112,7 +112,7 @@ export default function GlobalError({
 上面这些说的都是客户端组件(Client Component)出错时的处理方式,那服务器组件(Server Component)里出错了怎么办呢?  
 Next会将一个`Error`对象作为属性,发送给最近一层的`error.js`.(生产环境还会去除掉敏感错误信息)
 
-### 保证一些敏感的错误信息
+### 保护一些敏感的错误信息
 生产环境中,服务器发送给客户端的`Error`对象,只会包括一个通用(generic?)的`message`和`digest`属性.  
 这样做就是为了避免把一些敏感的细节信息发送回给客户端.  
 `message`顾名思义就是描述发生错误的一般描述,而`digest`属性则包含一个自动生成的关于错误的哈希值,用于匹配服务器上的错误日志.

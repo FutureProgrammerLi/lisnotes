@@ -109,6 +109,13 @@ export default defineConfig({
                   { text: '中间件', link: "react/Next/Official-Docs/Routing/middleware" },
                   { text: '国际化', link: "react/Next/Official-Docs/Routing/internationalization" },
                 ]
+              },
+              {
+                text:'数据获取',
+                items:[
+                  {text:'获取,缓存及重校验',link:'react/Next/Official-Docs/Data-Fetching/fetching-caching-revalidating'},
+                  {text:'数据获取',link:'react/Next/Official-Docs/Data-Fetching/fetching'},
+                ]
               }
             ]
           },

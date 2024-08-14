@@ -115,6 +115,7 @@ export default defineConfig({
                 items:[
                   {text:'获取,缓存及重校验',link:'react/Next/Official-Docs/Data-Fetching/fetching-caching-revalidating'},
                   {text:'数据获取',link:'react/Next/Official-Docs/Data-Fetching/fetching'},
+                  {text:'数据缓存及重校验',link:'react/Next/Official-Docs/Data-Fetching/caching-and-revalidating'},
                   {text:'服务器行为及数据改变',link:'react/Next/Official-Docs/Data-Fetching/server-actions-and-mutations'},
                 ]
               }

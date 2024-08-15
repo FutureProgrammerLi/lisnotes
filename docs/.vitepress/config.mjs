@@ -49,6 +49,9 @@ const NextDocsItems = {
     { text: '服务器行为及数据改变', link: '/react/Next/Official-Docs/Data-Fetching/server-actions-and-mutations' },
     { text: '获取,缓存及重校验', link: '/react/Next/Official-Docs/Data-Fetching/fetching-caching-revalidating' },
   ],
+  styling:[
+    { text: 'CSS', link: '/react/Next/Official-Docs/Styling/CSS' },
+  ]
 }
 
 // const tailwindCDN = ['script', { src: 'https://cdn.tailwindcss.com' }];
@@ -124,8 +127,13 @@ export default defineConfig({
           },
           {
             text: '数据获取',
-            link: 'react/Next/Official-Docs/Data-Fetching/fetching',
+            link: '/react/Next/Official-Docs/Data-Fetching/fetching',
             items: NextDocsItems.fetching
+          },
+          {
+            text: '样式',
+            link: '/react/Next/Official-Docs/Styling/summary',
+            items: NextDocsItems.styling
           },
         ]
       },
@@ -213,7 +221,11 @@ export default defineConfig({
 
     socialLinks: [
       { icon: 'github', link: 'https://github.com/FutureProgrammerLi' }
-    ]
+    ],
+    footer:{
+      message:'No License Released HIHI',
+      copyright:'Copyright @LiLiLi'
+    }
   }
 });
 

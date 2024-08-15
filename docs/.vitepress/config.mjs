@@ -51,6 +51,9 @@ const NextDocsItems = {
   ],
   styling:[
     { text: 'CSS', link: '/react/Next/Official-Docs/Styling/CSS' },
+    { text: 'TailwindCSS', link: '/react/Next/Official-Docs/Styling/TailwindCSS' },
+    { text: 'Sass', link: '/react/Next/Official-Docs/Styling/Sass' },
+    { text: 'CSS-in-JS', link: '/react/Next/Official-Docs/Styling/CSS-in-JS' },
   ]
 }
 
@@ -132,7 +135,7 @@ export default defineConfig({
           },
           {
             text: '样式',
-            link: '/react/Next/Official-Docs/Styling/summary',
+            link: '/react/Next/Official-Docs/Styling/overview',
             items: NextDocsItems.styling
           },
         ]

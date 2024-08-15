@@ -26,6 +26,31 @@ const NuxtItems = [
   { text: "杂七杂八", link: '/vue/Nuxt/Experience' },
 ];
 
+const NextDocsItems = {
+  routing: [
+    { text: '路由定义', link: "/react/Next/Official-Docs/Routing/defining-routes" },
+    { text: '页面和布局', link: "/react/Next/Official-Docs/Routing/pages-and-layouts" },
+    { text: '链接与导航', link: "/react/Next/Official-Docs/Routing/linking-and-navigating" },
+    { text: '加载中界面和流', link: "/react/Next/Official-Docs/Routing/loading-and-streaming" },
+    { text: '错误处理', link: "/react/Next/Official-Docs/Routing/error-handling" },
+    { text: '重定向', link: "/react/Next/Official-Docs/Routing/redirect" },
+    { text: '路由分组', link: "/react/Next/Official-Docs/Routing/route-groups" },
+    { text: '项目文件组织', link: "/react/Next/Official-Docs/Routing/project-organization" },
+    { text: '动态路由', link: "/react/Next/Official-Docs/Routing/dynamic-routes" },
+    { text: '平行路由', link: "/react/Next/Official-Docs/Routing/parallel-routes" },
+    { text: '穿插路由', link: "/react/Next/Official-Docs/Routing/intercepting-routes" },
+    { text: '路由处理器', link: "/react/Next/Official-Docs/Routing/route-handlers" },
+    { text: '中间件', link: "/react/Next/Official-Docs/Routing/middleware" },
+    { text: '国际化', link: "/react/Next/Official-Docs/Routing/internationalization" }
+  ],
+  fetching: [
+    { text: '数据获取', link: '/react/Next/Official-Docs/Data-Fetching/fetching' },
+    { text: '数据缓存及重校验', link: '/react/Next/Official-Docs/Data-Fetching/caching-and-revalidating' },
+    { text: '服务器行为及数据改变', link: '/react/Next/Official-Docs/Data-Fetching/server-actions-and-mutations' },
+    { text: '获取,缓存及重校验', link: '/react/Next/Official-Docs/Data-Fetching/fetching-caching-revalidating' },
+  ],
+}
+
 // const tailwindCDN = ['script', { src: 'https://cdn.tailwindcss.com' }];
 const favicon = ['link', { rel: 'icon', href: '/favicon.ico' }];
 // const favicon = ['link', { rel: 'icon', href: '/public/favicon.ico' }];
@@ -95,33 +120,13 @@ export default defineConfig({
           {
             text: '路由',
             link: '/react/Next/Official-Docs/Routing/basis',
-            items: [
-              { text: '路由定义', link: "react/Next/Official-Docs/Routing/defining-routes" },
-              { text: '页面和布局', link: "react/Next/Official-Docs/Routing/pages-and-layouts" },
-              { text: '链接与导航', link: "react/Next/Official-Docs/Routing/linking-and-navigating" },
-              { text: '加载中界面和流', link: "react/Next/Official-Docs/Routing/loading-and-streaming" },
-              { text: '错误处理', link: "react/Next/Official-Docs/Routing/error-handling" },
-              { text: '重定向', link: "react/Next/Official-Docs/Routing/redirect" },
-              { text: '路由分组', link: "react/Next/Official-Docs/Routing/route-groups" },
-              { text: '项目文件组织', link: "react/Next/Official-Docs/Routing/project-organization" },
-              { text: '动态路由', link: "react/Next/Official-Docs/Routing/dynamic-routes" },
-              { text: '平行路由', link: "react/Next/Official-Docs/Routing/parallel-routes" },
-              { text: '穿插路由', link: "react/Next/Official-Docs/Routing/intercepting-routes" },
-              { text: '路由处理器', link: "react/Next/Official-Docs/Routing/route-handlers" },
-              { text: '中间件', link: "react/Next/Official-Docs/Routing/middleware" },
-              { text: '国际化', link: "react/Next/Official-Docs/Routing/internationalization" },
-            ]
+            items: NextDocsItems.routing
           },
           {
-            text:'数据获取',
-            link:'react/Next/Official-Docs/Data-Fetching/fetching',
-            items:[
-              {text:'数据获取',link:'react/Next/Official-Docs/Data-Fetching/fetching'},
-              {text:'数据缓存及重校验',link:'react/Next/Official-Docs/Data-Fetching/caching-and-revalidating'},
-              {text:'服务器行为及数据改变',link:'react/Next/Official-Docs/Data-Fetching/server-actions-and-mutations'},
-              {text:'获取,缓存及重校验',link:'react/Next/Official-Docs/Data-Fetching/fetching-caching-revalidating'},
-            ]
-          }
+            text: '数据获取',
+            link: 'react/Next/Official-Docs/Data-Fetching/fetching',
+            items: NextDocsItems.fetching
+          },
         ]
       },
       {

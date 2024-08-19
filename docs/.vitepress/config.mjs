@@ -54,6 +54,9 @@ const NextDocsItems = {
     { text: 'TailwindCSS', link: '/react/Next/Official-Docs/Styling/TailwindCSS' },
     { text: 'Sass', link: '/react/Next/Official-Docs/Styling/Sass' },
     { text: 'CSS-in-JS', link: '/react/Next/Official-Docs/Styling/CSS-in-JS' },
+  ],
+  rendering:[
+
   ]
 }
 
@@ -74,7 +77,7 @@ export default defineConfig({
     },
     nav: [
       { text: 'Home', link: '/' },
-      { text: 'Notes', link: '/vue/Nuxt/Experience.html' }
+      { text: 'Notes', link: '/react/Next/Official-Docs/Start-up.html' }
       // { text: 'Examples', link: '/markdown-examples' } // 保留, 学怎么用
     ],
 
@@ -137,6 +140,11 @@ export default defineConfig({
             text: '样式',
             link: '/react/Next/Official-Docs/Styling/overview',
             items: NextDocsItems.styling
+          },
+          {
+            text: '渲染',
+            link: '/react/Next/Official-Docs/Rendering/overview',
+            items: NextDocsItems.rendering
           },
         ]
       },

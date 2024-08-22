@@ -56,7 +56,7 @@ const NextDocsItems = {
     { text: 'CSS-in-JS', link: '/react/Next/Official-Docs/Styling/CSS-in-JS' },
   ],
   rendering:[
-
+    { text: '服务器组件', link: '/react/Next/Official-Docs/Rendering/ServerComponents' },
   ]
 }
 
@@ -137,14 +137,14 @@ export default defineConfig({
             items: NextDocsItems.fetching
           },
           {
-            text: '样式',
-            link: '/react/Next/Official-Docs/Styling/overview',
-            items: NextDocsItems.styling
-          },
-          {
             text: '渲染',
             link: '/react/Next/Official-Docs/Rendering/overview',
             items: NextDocsItems.rendering
+          },
+          {
+            text: '样式',
+            link: '/react/Next/Official-Docs/Styling/overview',
+            items: NextDocsItems.styling
           },
         ]
       },

@@ -4,7 +4,7 @@
 ## 基础
 首先,我们先要清楚三个基本的网络概念:
 - 应用代码能够在哪些环境([Environments](https://nextjs.org/docs/app/building-your-application/rendering#rendering-environments))下被执行:服务器上和客户端上.
-- 当用户访问页面时,[请求响应的生命周期](https://nextjs.org/docs/app/building-your-application/rendering#request-response-lifecycle)是怎样的.
+- 当用户访问页面时,[请求响应的生命周期](https://nextjs.org/docs/app/building-your-application/rendering#request-response-lifecycle)是怎样的?
 - 区分服务器和客户端代码的["网络边界"](https://nextjs.org/docs/app/building-your-application/rendering#network-boundary)又是什么?
 
 ### 渲染环境

@@ -58,6 +58,7 @@ const NextDocsItems = {
   rendering:[
     { text: '服务器组件', link: '/react/Next/Official-Docs/Rendering/ServerComponents' },
     { text: '客户端组件', link: '/react/Next/Official-Docs/Rendering/ClientComponents' },
+    { text: '组合模式', link: '/react/Next/Official-Docs/Rendering/CompositionPatterns' },
   ]
 }
 

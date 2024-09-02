@@ -61,7 +61,8 @@ const NextDocsItems = {
     { text: '组合模式', link: '/react/Next/Official-Docs/Rendering/CompositionPatterns' },
     { text: '部分预渲染', link: '/react/Next/Official-Docs/Rendering/PartialPrerendering' },
     { text: '运行时', link: '/react/Next/Official-Docs/Rendering/Runtimes' },
-  ]
+  ],
+  cache:[],
 }
 
 // const tailwindCDN = ['script', { src: 'https://cdn.tailwindcss.com' }];
@@ -132,21 +133,29 @@ export default defineConfig({
         items: [
           {
             text: '路由',
+            collapsed:true,
             link: '/react/Next/Official-Docs/Routing/basis',
             items: NextDocsItems.routing
           },
           {
             text: '数据获取',
+            collapsed:true,
             link: '/react/Next/Official-Docs/Data-Fetching/fetching',
             items: NextDocsItems.fetching
           },
           {
             text: '渲染',
+            collapsed:true,
             link: '/react/Next/Official-Docs/Rendering/overview',
             items: NextDocsItems.rendering
           },
           {
+            text: '缓存',
+            link: '/react/Next/Official-Docs/Cache/Full-Content',
+          },
+          {
             text: '样式',
+            collapsed:true,
             link: '/react/Next/Official-Docs/Styling/overview',
             items: NextDocsItems.styling
           },
@@ -231,6 +240,13 @@ export default defineConfig({
               { text: '8月随笔', link: '/blogs/phase2/August' },
             ]
           }
+        ]
+      },{
+        text:'All about ENGLISH',
+        collapsed:true,
+        items:[
+          {text:'Why',link:'/English/overview.md'},
+          {text:'Excerpts',link:'/English/excerpts/proses'}
         ]
       }
     ],

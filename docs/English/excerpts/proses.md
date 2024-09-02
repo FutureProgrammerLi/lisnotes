@@ -5,7 +5,7 @@ Whatever it takes, give it a shot! :)
 
 A paradox stroke me in the process of excerpting the following content:  
 - Transcribing too much, makes me, TLDR, less prone to read in future for the content are too much.
-- Too few, makes me wonder, what am I transcribing? Does it make their own sense? Is there enough sentences to make a context for understanding?  
+- Too few, makes me wonder, what am I transcribing? Does it make their own sense? Are there enough sentences to make a context for understanding?  
 
 The answer for the above paradox remains unknown. Alright, JUST DO THINGS and explore it.  
 

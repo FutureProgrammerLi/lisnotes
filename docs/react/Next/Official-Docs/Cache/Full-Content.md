@@ -160,5 +160,44 @@ RSC Payload是一种服务器组件树的二进制代表.服务于React,以更�
 - 服务器组件的渲染结果
 - 客户端组件的占位符,告知需要被渲染的位置在哪里,以及对应的JS文件是什么.
 - 一些由服务器组件传递给客户端组件的props.  
-更多相关内容可以区看[服务器组件的介绍文档](https://nextjs.org/docs/app/building-your-application/rendering/server-components).
+更多相关内容可以去看[服务器组件的介绍文档](https://nextjs.org/docs/app/building-your-application/rendering/server-components).
 :::
+
+### 2.Next在服务器上的缓存(全路由缓存)
+![full-route-cache](imgs/full-route-cache.jpg)
+
+Next的默认行为就会将路由渲染的结果缓存在服务器上(具体点就是RSC Payload和HTML).这种缓存机制适用于打包时的静态渲染路由或是重校验期间.
+
+### 3.React在客户端上的水合和协调(hydration and reconciliation)
+请求期间,客户端上会发生的事情:  
+1. 从服务器端返回的,快速的暂时无法交互的HTML先用于展示,这HTML属于客户端组件和服务器组件的预览.
+2. RSC Payload会被用于协调客户端和渲染好的服务器组件树,并用来更新浏览器DOM.
+3. Next使用JS指令,水合客户端组件,使页面变得最终可交互.  
+
+### 4.客户端上的Next缓存(路由器缓存)
+RSC Payload会被存储在客户端[路由器缓存处](https://nextjs.org/docs/app/building-your-application/caching#client-side-router-cache) -- 一个以路由分块划分的,独立的内存缓存区.这个路由器缓存区以存储浏览过的路由,预获取可能要浏览的路由,两种方式来提升导航性能体验.
+
+### 5.后续的导航
+在后续的导航或预获取路由期间,Next会检查路由器缓存区里是否已有对应的RSC Payload.如果已经有了,就直接从这里取而不不会向服务器发起请求.  
+如果相应内容不存在于缓存中时,那Next就向服务器请求获取,将对应内容展示到客户端上.(populate the Router Cache?)
+
+### 静态渲染和动态渲染
+路由是否会在构建时被缓存下来,取决于该路由是静态渲染,还是动态渲染的.静态路由默认就会被缓存下来;动态路由正则在请求周期内被渲染,不会被缓存.  
+下图展示的是带有缓存数据/没有缓存数据的,静态渲染和动态渲染的路由区别:
+![static-and-dynamic-rendering](imgs/static-and-dynamic-routes.jpg)
+[更多关于静态渲染和动态渲染的内容](https://nextjs.org/docs/app/building-your-application/rendering/server-components#server-rendering-strategies)
+
+### 持续时间
+默认全路由缓存是持久化的.也就是说渲染的结果会缓存于所有请求之间(across user requests).
+
+### 无效化
+停用全路由缓存的方法有两种:
+- [重校验数据](https://nextjs.org/docs/app/building-your-application/caching#revalidating):重校验数据缓存区会使路由器缓存区内容失效,因为会重渲染服务器上的组件,转而缓存新的渲染结果.
+- 重新部署:不像数据缓存区那样,缓存的内容会在各个部署中都持久下来.全路由缓存每次部署都会被清空.
+
+### 选择不使用功能
+你可以选择不用全路由缓存,换句话说就是,每次请求都动态渲染组件,方式如下:
+- **使用动态函数:** 这就是显式表明不用全路由缓存,请求时动态渲染该路由了.此时数据缓存区还是可用的.
+- **使用路由分块配置`dynamic = 'force-dynmaic'或'revalidate = 0'`:** 这样配置会同时跳过全路由缓存和数据缓存.也就是说,每次向服务器请求时,组件都会被重新渲染,数据也会被重新获取.此时的路由器缓存是可用的,因为它是客户端上的缓存区.
+- **选择不使用数据缓存区:** 如果路由中有`fetch`请求是不被缓存的,那么会致使该路由不使用全路由缓存这个功能.某些特定的`fetch`请求数据会在每次请求时重新获取.其它没有选择不用缓存的`fetch`请求,依旧会缓存于数据缓存区.也就产生一种"混合"的缓存行为,一些被缓存,另一些不被缓存.
+

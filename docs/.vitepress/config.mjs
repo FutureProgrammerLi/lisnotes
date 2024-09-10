@@ -246,7 +246,8 @@ export default defineConfig({
         collapsed:true,
         items:[
           {text:'Why',link:'/English/overview.md'},
-          {text:'Excerpts',link:'/English/excerpts/proses'}
+          {text:'Excerpts',link:'/English/excerpts/proses'},
+          {text:'OfStudy',link:'/English/excerpts/OfStudy'},
         ]
       }
     ],

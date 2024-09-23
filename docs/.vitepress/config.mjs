@@ -49,20 +49,20 @@ const NextDocsItems = {
     { text: '服务器行为及数据改变', link: '/react/Next/Official-Docs/Data-Fetching/server-actions-and-mutations' },
     { text: '获取,缓存及重校验', link: '/react/Next/Official-Docs/Data-Fetching/fetching-caching-revalidating' },
   ],
-  styling:[
+  styling: [
     { text: 'CSS', link: '/react/Next/Official-Docs/Styling/CSS' },
     { text: 'TailwindCSS', link: '/react/Next/Official-Docs/Styling/TailwindCSS' },
     { text: 'Sass', link: '/react/Next/Official-Docs/Styling/Sass' },
     { text: 'CSS-in-JS', link: '/react/Next/Official-Docs/Styling/CSS-in-JS' },
   ],
-  rendering:[
+  rendering: [
     { text: '服务器组件', link: '/react/Next/Official-Docs/Rendering/ServerComponents' },
     { text: '客户端组件', link: '/react/Next/Official-Docs/Rendering/ClientComponents' },
     { text: '组合模式', link: '/react/Next/Official-Docs/Rendering/CompositionPatterns' },
     { text: '部分预渲染', link: '/react/Next/Official-Docs/Rendering/PartialPrerendering' },
     { text: '运行时', link: '/react/Next/Official-Docs/Rendering/Runtimes' },
   ],
-  cache:[],
+  cache: [],
 }
 
 // const tailwindCDN = ['script', { src: 'https://cdn.tailwindcss.com' }];
@@ -124,6 +124,7 @@ export default defineConfig({
         items: [
           { text: 'Next的亿点点好处', link: '/react/Next/Why-Next' },
           { text: '官方教程学习过程', link: '/react/Next/Official-Tutorial' },
+          { text: 'Zod的一点学习记录', link: '/react/Next/Zod/Glance.md' }
         ]
       },
       {
@@ -133,19 +134,19 @@ export default defineConfig({
         items: [
           {
             text: '路由',
-            collapsed:true,
+            collapsed: true,
             link: '/react/Next/Official-Docs/Routing/basis',
             items: NextDocsItems.routing
           },
           {
             text: '数据获取',
-            collapsed:true,
+            collapsed: true,
             link: '/react/Next/Official-Docs/Data-Fetching/fetching',
             items: NextDocsItems.fetching
           },
           {
             text: '渲染',
-            collapsed:true,
+            collapsed: true,
             link: '/react/Next/Official-Docs/Rendering/overview',
             items: NextDocsItems.rendering
           },
@@ -155,7 +156,7 @@ export default defineConfig({
           },
           {
             text: '样式',
-            collapsed:true,
+            collapsed: true,
             link: '/react/Next/Official-Docs/Styling/overview',
             items: NextDocsItems.styling
           },
@@ -241,13 +242,13 @@ export default defineConfig({
             ]
           }
         ]
-      },{
-        text:'All about ENGLISH',
-        collapsed:true,
-        items:[
-          {text:'Why',link:'/English/overview.md'},
-          {text:'Excerpts',link:'/English/excerpts/proses'},
-          {text:'OfStudy',link:'/English/excerpts/OfStudy'},
+      }, {
+        text: 'All about ENGLISH',
+        collapsed: true,
+        items: [
+          { text: 'Why', link: '/English/overview.md' },
+          { text: 'Excerpts', link: '/English/excerpts/proses' },
+          { text: 'OfStudy', link: '/English/excerpts/OfStudy' },
         ]
       }
     ],
@@ -255,9 +256,9 @@ export default defineConfig({
     socialLinks: [
       { icon: 'github', link: 'https://github.com/FutureProgrammerLi' }
     ],
-    footer:{
-      message:'No License Released HIHI',
-      copyright:'Copyright @LiLiLi'
+    footer: {
+      message: 'No License Released HIHI',
+      copyright: 'Copyright @LiLiLi'
     }
   }
 });

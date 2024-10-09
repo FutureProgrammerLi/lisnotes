@@ -1,5 +1,6 @@
 # 初试Zod
 
+> 参考文章: https://zhuanlan.zhihu.com/p/688752427
 在Next的官方教程里大概接触过Zod这个东西,用在了表单校验.  
 那它跟Typescript又有什么关系呢?  
 为什么有了Typescript的<静态类型检测>, 还要Zod进行下一步验证呢?  
@@ -160,3 +161,125 @@ console.log(res.birthday, person.birthday);    // 1997 undefined
 简单来说是不是, 前端要拿什么属性由Schema决定:少了,类型错了-> 报错; 多了,Schema没定义,那就不是错.(?)
 
 next: 用zod检验对象数组, 表单验证.
+
+在用react-form之前,先看看怎么单独用Zod对表格进行校验, 有Zod就行的话,为什么还要React Form呢?
+
+搭配原生的form,很麻烦,相当麻烦.  
+粒度是每个输入框.type,placeholder,name,register函数这些等等,都要填入每个FormField里.  
+问题最大的是好像跟zod,react-form都没什么关系,需要代码优化才能解决.  
+
+https://www.freecodecamp.org/news/react-form-validation-zod-react-hook-form/  
+上面这篇看完也是云里雾里的,好像要我懂但我就是没懂.跟着可能看出每个属性的作用,自己想基本是想不出的.  
+https://dev.to/majiedo/using-zod-with-react-hook-form-using-typescript-1mgk  
+似乎跟上面一篇没什么区别,原来react-form-hook跟zod搭配就是要这样写?要死记硬背?  
+
+---
+
+记一下一些,如果没有框架,需要绑定的表单,跟校验需要哪些步骤吧:
+1. 表单有哪些数据?
+2. 每项数据分别是什么类型?需要进行怎样的校验?
+3. Typescript方面要进行什么操作?Zod又要怎么操作?
+4. 怎么把Typescript或Zod定义的,校验操作,绑定到对应表单项之中?
+
+我能懂的,想到的步骤,先记录一下,缺了什么再重新去看.
+
+1. 账号名username,密码password, 密码确认confirmPassword
+2. string*3, minlength > 6, password === confirmPassword
+3. TS和Zod任意选择先进行哪个定义.看起来利用`z.infer`,先定义Zod更方便.
+::: tip
+**区别先定义FormData还是先定义FormSchema:**
+1. 先定义FormSchema, 则`type FormData = z.infer<typeof FormSchema>`
+2. 先定义type FormData, 则FormSchema的类型是ZodType\<FormData>
+:::
+
+```ts
+// 1. 先定义Schema
+// @/types.ts
+export const UserSchema = z.object({
+    username:z.string().min(6,"minLength must be greater than 6!"),
+    password:z.string().min(6,"minLength must be greater than 6!")
+    confirmPassword:z.string().min(6,"minLength must be greater than 6!")
+}).refine(data => data.password === data.confirmPassword,{'Passwords do not match!'})
+
+export type User = z.infer<typeof UserSchema>  // [!code highlight]
+```
+
+```ts
+// 2.先定义FormData
+// @/types.ts
+import {z, ZodType} from 'zod'
+export type FormData = {
+    username:string;
+    password: string;
+    confirmPassword:string;
+}
+
+export const FormSchema: Zodtype<FormData> = z.object({  // [!code highlight]
+    username:z.string().min(6,"minLength must be greater than 6!"),
+    password:z.string().min(6,"minLength must be greater than 6!")
+    confirmPassword:z.string().min(6,"minLength must be greater than 6!")
+}).refine(data => data.password === data.confirmPassword,{'Passwords do not match!'})
+
+```
+
+既然都要定义Zod,为什么不省事让Zod为我们实现类型推断呢?ZodType\<FormData>看起来除了提示外,不值得大费周章重新再定义.
+
+---
+
+回到FormField的定义, 收回之前的话, 对比FormField, 更麻烦的是(input& errors.message)的结合,前者起码把错误展示和输入框的类型整合到一起了.
+```tsx
+export default function FormField({
+    type,
+    register,
+    placeholder,
+    error,
+    name
+}) {
+    return (
+        <>
+        <input 
+            type={type}
+            placeholder={placeholder}
+            {...register(name)}
+        />
+        {error && error.message}
+        </>
+    )
+}
+
+```
+
+```tsx
+import { useForm } from 'react-hook-form';
+import {zodResovler} from 'zod'
+import FormField from '../components/FormField'
+export default function Form(){
+    const {
+        register,
+        formState:{errors},
+        handleSubmit
+    } = useForm<User>(
+        {resolver: zodResovler(UserSchema)}
+    );
+    async function onSubmit(data:User){
+        console.log(data)
+    }
+    return (
+        <>
+            <form onSubmit={handleSubmit(onSubmit)}>
+                <FormField
+                    type="text"
+                    placeholder="username"
+                    name="username"
+                    register={register}
+                    error={errors.username}
+                    />
+                <button type="submit">Submit</button>
+            </form>
+        </>
+    )
+}
+```
+
+好的一点是可扩展性强,不用绑定input和errors.  
+通过error prop,把errors.username.message(举例)拆解出来了,不用每次都`{errors && <span>{errors.username.message}</span>}`

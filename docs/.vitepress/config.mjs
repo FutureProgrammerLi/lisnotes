@@ -190,6 +190,19 @@ export default defineConfig({
 
       },
       {
+        text: "Typescript",
+        items: [
+          {
+            text: 'Typescript in Vue',
+            link: '/ts/Vue'
+          },
+          {
+            text: 'Typescript in React',
+            link: '/ts/React'
+          },
+        ]
+      },
+      {
         text: "CSS",
         collapsed: true,
         items: [

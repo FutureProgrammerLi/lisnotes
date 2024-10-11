@@ -1,0 +1,1 @@
+import{_ as s,c as i,o as a,a3 as n}from"./chunks/framework.oAOP1Qjo.js";const g=JSON.parse('{"title":"初识Pinia","description":"","frontmatter":{},"headers":[],"relativePath":"SM/pinia.md","filePath":"SM/pinia.md"}'),t={name:"SM/pinia.md"},e=n("",25),l=[e];function p(h,k,o,r,d,c){return a(),i("div",null,l)}const y=s(t,[["render",p]]);export{g as __pageData,y as default};

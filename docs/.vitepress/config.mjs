@@ -117,6 +117,10 @@ export default defineConfig({
               {
                 text:'Types of React Component',
                 link:'/react/RobinsBlogs/ComponentTypes'
+              },
+              {
+                text:'Data Fetching in React',
+                link:'/react/RobinsBlogs/FetchData'
               }
             ]
           },{

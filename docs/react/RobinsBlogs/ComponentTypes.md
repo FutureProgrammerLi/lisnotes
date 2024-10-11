@@ -1,24 +1,22 @@
 # React组件的类型
 > Robin Wieruch, 看了Blog才知道,很久前翻译过他一篇how to fetch data in react. 才发现好熟悉.  
 > 既然那么有缘,而且文章内容也算不错,就也翻译一下吧.
-> 算是对React 组件进化史的一个了解了.  
+> 算是对React组件进化史的一个了解了.  
 > 原文地址: https://www.robinwieruch.de/react-component-types/
 
 自React诞生的2013年起,各种各样的组件类型也随之出现.一些对现代React应用仍是至关重要的,而另一些没那么适用现代环境的,可能就留存在旧项目中了.  
 本篇文章主要为初学者介绍一下,现代组件和模式的一个概况,再进一步分析,为什么一些会被沿用至今,一些则被历史海浪所淹没.读完这篇文章你大概就能分辨出,哪些组件和模式,是"历史遗物",哪些又是"现代"前沿的组件类型.  
 
---- 
 ## 内容目录
 - 回顾历史
-* `createClass`
-* Mixin (Pattern)
-* Class Component
-* Higher-Order Component(Pattern) 
-- 认清现在
-- 展望未来
-* Function Components
-* Server Components
-* Async Components
+    * `createClass`
+    * Mixin (Pattern)
+    * Class Component
+    * Higher-Order Component(Pattern) 
+- 认清现在,展望未来
+    * Function Components
+    * Server Components
+    * Async Components
 
 (ClassComponent -> FC -> RSC,为了方便理解,暂且不翻译标题)
 
@@ -55,7 +53,7 @@ export default CreateClassComponent;
 ```
 例子解释开来就是,`createClass`工厂接受一个对象作为参数,这个对象中为React组件定义各种方法.  
 `getInitialState()`,用于定义组件的初始状态;而`render`这个必须要有的函数,用以搭配JSX,处理需要展示的内容.  
-一些额外的方法,比如`incrementCounter()`,可以作为对象方法,作为组件的事件处理器,添加到组件中.  
+一些额外的方法,比如`incrementCounter()`,可以以对象方法的方式,作为组件的事件处理器,添加到组件中.  
 
 一些处理副作用的生命周期方法也是可用的.比如,把输入值text,从组件状态转存为浏览器localStorage,我们则可以用`componentDidUpdate()`方法.此外,对应值也可以在组件接收到初始状态值时,从localStorage中读取出来.
 ```js
@@ -168,7 +166,7 @@ export default ClassComponent;
 ```
 React组件用上JS类,就更加方便,带上一些额外的方法了,比如`constructor`-- 在React的作用是设置初始组件状态,以及方法绑定 -- 还有一个必须有的渲染函数,`render`,返回JSX作为最终展示.  
 
-所有的组件逻辑,都是基于**面向对象的继承特性的.**不过值得注意的是,除了必要的`constructor`,更多的继承特性都是不推荐再使用了.官方更加推荐的,从来都是使用复合(composition),而不是继承.  
+所有的组件逻辑,都是基于**面向对象的继承特性的.** 不过值得注意的是,除了必要的`constructor`,更多的继承特性都是不推荐再使用了.官方更加推荐的,从来都是使用复合(composition),而不是继承.  
 ::: tip
 [关于React里的复合](https://www.robinwieruch.de/react-component-composition/)
 :::
@@ -352,11 +350,11 @@ const ReactServerComponent = async () => {
     const posts = await db.query("SELECT * FROM posts");
     return (
         <div>
-        <ul>
-            {posts?.map((post) => (
-            <li key={post.id}>{post.title}</li>
-            ))}
-        </ul>
+            <ul>
+                {posts?.map((post) => (
+                <li key={post.id}>{post.title}</li>
+                ))}
+            </ul>
         </div>
     );
 }

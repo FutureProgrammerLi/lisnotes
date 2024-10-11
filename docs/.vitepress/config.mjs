@@ -111,6 +111,15 @@ export default defineConfig({
               { text: 'The Two Reacts', link: '/react/DansBlogs/The-Two-Reacts' },
             ]
           }, {
+            text:"Robin\'s blogs",
+            collapsed:true,
+            items:[
+              {
+                text:'Types of React Component',
+                link:'/react/RobinsBlogs/ComponentTypes'
+              }
+            ]
+          },{
             text: 'Fluent React',
             link: '/react/FluentReact/index',
             collapsed: true,
@@ -226,6 +235,15 @@ export default defineConfig({
           {
             text: '提交规范',
             link: '/git/CommitSpec'
+          }
+        ]
+      },
+      {
+        text: "State Management",
+        items: [
+          {
+            text: 'Pinia',
+            link: '/SM/pinia'
           }
         ]
       },

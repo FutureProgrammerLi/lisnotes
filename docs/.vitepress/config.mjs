@@ -94,6 +94,19 @@ export default defineConfig({
           {
             text: 'Nuxt',
             items: NuxtItems,
+          },
+          {
+            text:'script setup',
+            items:[
+              {
+                text:'setup的自己探讨',
+                link:'/vue/playaround/iceberg'
+              },
+              {
+                text:'官网script setup介绍翻译',
+                link:'/vue/playaround/SetupScript'
+              },
+            ]
           }
         ]
       },

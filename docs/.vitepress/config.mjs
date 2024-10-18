@@ -96,18 +96,22 @@ export default defineConfig({
             items: NuxtItems,
           },
           {
-            text:'script setup',
-            items:[
+            text: 'script setup',
+            items: [
               {
-                text:'setup的自己探讨',
-                link:'/vue/playaround/iceberg'
+                text: 'setup的自己探讨',
+                link: '/vue/playaround/iceberg'
               },
               {
-                text:'官网script setup介绍翻译',
-                link:'/vue/playaround/SetupScript'
+                text: '官网script setup介绍翻译',
+                link: '/vue/playaround/SetupScript'
               },
             ]
-          }
+          },
+          {
+            text: '响应性',
+            link: '/vue/playaround/reactivity'
+          },
         ]
       },
       {
@@ -124,19 +128,19 @@ export default defineConfig({
               { text: 'The Two Reacts', link: '/react/DansBlogs/The-Two-Reacts' },
             ]
           }, {
-            text:"Robin\'s blogs",
-            collapsed:true,
-            items:[
+            text: "Robin\'s blogs",
+            collapsed: true,
+            items: [
               {
-                text:'Types of React Component',
-                link:'/react/RobinsBlogs/ComponentTypes'
+                text: 'Types of React Component',
+                link: '/react/RobinsBlogs/ComponentTypes'
               },
               {
-                text:'Data Fetching in React',
-                link:'/react/RobinsBlogs/FetchData'
+                text: 'Data Fetching in React',
+                link: '/react/RobinsBlogs/FetchData'
               }
             ]
-          },{
+          }, {
             text: 'Fluent React',
             link: '/react/FluentReact/index',
             collapsed: true,

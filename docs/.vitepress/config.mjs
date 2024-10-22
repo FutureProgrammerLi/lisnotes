@@ -112,6 +112,10 @@ export default defineConfig({
             text: '响应性',
             link: '/vue/playaround/reactivity'
           },
+          {
+            text: '渲染机制',
+            link: '/vue/playaround/rendering'
+          },
         ]
       },
       {

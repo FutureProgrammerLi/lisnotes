@@ -116,6 +116,10 @@ export default defineConfig({
             text: '渲染机制',
             link: '/vue/playaround/rendering'
           },
+          {
+            text: '渲染函数和JSX',
+            link: '/vue/playaround/RenderFunctions'
+          },
         ]
       },
       {

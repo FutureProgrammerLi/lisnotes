@@ -69,9 +69,24 @@ const NextDocsItems = {
 const favicon = ['link', { rel: 'icon', href: '/favicon.ico' }];
 // const favicon = ['link', { rel: 'icon', href: '/public/favicon.ico' }];
 
+const statisticsWithBaiDu =  [
+  'script',
+  {},
+  `
+  window._hmt = window._hmt || [];
+  (function() {
+    var hm = document.createElement("script");
+    hm.src = "https://hm.baidu.com/hm.js?abcdefgeggsdfsdf123123";
+    var s = document.getElementsByTagName("script")[0]; 
+    s.parentNode.insertBefore(hm, s);
+  })();
+  `,
+];
+
 export default defineConfig({
   head: [
     // tailwindCDN,
+    statisticsWithBaiDu,
     favicon
   ],
   title: "What I've learned",
@@ -224,6 +239,7 @@ export default defineConfig({
             ]
           },
           { text: 'Set新增操作', link: '/js/Set.md' },
+          { text: 'Proxy对象的自行探讨', link: '/js/Proxy.md' },
         ]
 
       },

@@ -69,24 +69,30 @@ const NextDocsItems = {
 const favicon = ['link', { rel: 'icon', href: '/favicon.ico' }];
 // const favicon = ['link', { rel: 'icon', href: '/public/favicon.ico' }];
 
-const statisticsWithBaiDu =  [
-  'script',
-  {},
-  `
-  window._hmt = window._hmt || [];
-  (function() {
-    var hm = document.createElement("script");
-    hm.src = "https://hm.baidu.com/hm.js?abcdefgeggsdfsdf123123";
-    var s = document.getElementsByTagName("script")[0]; 
-    s.parentNode.insertBefore(hm, s);
-  })();
-  `,
+const statisticsWithGoogle = [
+  [
+    'script',
+    {
+      async: true,
+      src: 'https://www.googletagmanager.com/gtag/js?id=G-V9YQ1190L3'
+    }
+  ],
+  [
+    'script',
+    {},
+    `
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-V9YQ1190L3');
+    `
+  ]
 ];
 
 export default defineConfig({
   head: [
+    ...statisticsWithGoogle,
     // tailwindCDN,
-    statisticsWithBaiDu,
     favicon
   ],
   title: "What I've learned",

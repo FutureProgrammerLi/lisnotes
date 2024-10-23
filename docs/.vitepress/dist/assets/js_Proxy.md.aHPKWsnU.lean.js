@@ -1,0 +1,1 @@
+import{_ as s,c as i,o as a,a3 as n}from"./chunks/framework.oAOP1Qjo.js";const g=JSON.parse('{"title":"Proxy","description":"","frontmatter":{},"headers":[],"relativePath":"js/Proxy.md","filePath":"js/Proxy.md"}'),e={name:"js/Proxy.md"},t=n("",51),l=[t];function h(p,k,d,r,E,o){return a(),i("div",null,l)}const y=s(e,[["render",h]]);export{g as __pageData,y as default};

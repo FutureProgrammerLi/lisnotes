@@ -251,6 +251,7 @@ export default defineConfig({
       },
       {
         text: "Typescript",
+        collapsed:true,
         items: [
           {
             text: 'Typescript in Vue',
@@ -291,6 +292,7 @@ export default defineConfig({
       },
       {
         text: "State Management",
+        collapsed:true,
         items: [
           {
             text: 'Pinia',

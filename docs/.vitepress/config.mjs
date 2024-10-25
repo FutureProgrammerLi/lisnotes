@@ -1,4 +1,5 @@
 import { defineConfig } from 'vitepress';
+import { generateSidebar } from 'vitepress-sidebar';
 
 const FluentReactItems = [
   { text: 'The Entry-level Stuff', link: '/react/FluentReact/Entry-Level-Stuff' },
@@ -90,6 +91,12 @@ const statisticsWithGoogle = [
 ];
 
 export default defineConfig({
+  vite: {
+    server: {
+      open: true,
+      port: 5173
+    }
+  },
   head: [
     ...statisticsWithGoogle,
     // tailwindCDN,
@@ -107,6 +114,9 @@ export default defineConfig({
       // { text: 'Examples', link: '/markdown-examples' } // 保留, 学怎么用
     ],
 
+    // sidebar:generateSidebar({
+    //   collapsed:true
+    // }),
     sidebar: [
       {
         text: 'Vue',
@@ -114,6 +124,7 @@ export default defineConfig({
         items: [
           {
             text: 'Nuxt',
+            collapsed: true,
             items: NuxtItems,
           },
           {
@@ -251,7 +262,7 @@ export default defineConfig({
       },
       {
         text: "Typescript",
-        collapsed:true,
+        collapsed: true,
         items: [
           {
             text: 'Typescript in Vue',
@@ -260,6 +271,10 @@ export default defineConfig({
           {
             text: 'Typescript in React',
             link: '/ts/React'
+          },
+          {
+            text: '三个比较常见的TS类型问题',
+            link: '/ts/QuestionsOnTs'
           },
         ]
       },
@@ -292,12 +307,19 @@ export default defineConfig({
       },
       {
         text: "State Management",
-        collapsed:true,
+        collapsed: true,
         items: [
           {
             text: 'Pinia',
             link: '/SM/pinia'
           }
+        ]
+      },
+      {
+        text: "Building",
+        collapsed: true,
+        items: [
+          { text: 'vite', link: '/building/vite/Screwedup' },
         ]
       },
       {

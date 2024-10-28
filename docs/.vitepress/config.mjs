@@ -119,6 +119,16 @@ export default defineConfig({
     // }),
     sidebar: [
       {
+        text: 'Comparisons',
+        collapsed: true,
+        items: [
+          {
+            text:'Vue  vs. React',
+            link: '/comparisons/VueVSReact'
+          },
+        ]
+      },
+      {
         text: 'Vue',
         collapsed: true,
         items: [

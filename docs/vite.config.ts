@@ -1,7 +1,7 @@
 import { defineConfig } from "vite";
 // import { defineConfig } from 'vitepress';
 import { compression } from 'vite-plugin-compression2';
-import { visualizer } from 'rollup-plugin-visualizer';
+// import { visualizer } from 'rollup-plugin-visualizer';
 import { ViteImageOptimizer } from "vite-plugin-image-optimizer";
 
 export default defineConfig({
@@ -10,10 +10,10 @@ export default defineConfig({
         compression({
             filename: 'compressed.gz',
         }),
-        visualizer({
-            open: true,
-            filename: 'bundle-visualizer.html'
-        })
+        // visualizer({
+        //     open: true,
+        //     filename: 'bundle-visualizer.html'
+        // })
     ]
 })
 

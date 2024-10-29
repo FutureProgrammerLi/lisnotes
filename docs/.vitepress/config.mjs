@@ -286,6 +286,10 @@ export default defineConfig({
             text: '三个比较常见的TS类型问题',
             link: '/ts/QuestionsOnTs'
           },
+          {
+            text: '7个常见的使用案例',
+            link: '/ts/Usecases'
+          },
         ]
       },
       {

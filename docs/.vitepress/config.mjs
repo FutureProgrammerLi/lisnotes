@@ -169,6 +169,7 @@ export default defineConfig({
         collapsed: true,
         items: [
           { text: 'JSX是如何工作的', link: '/react/How-JSX-Works' },
+          { text: 'ReactCompiler', link: '/react/React-Compiler' },
           {
             text: "Dan\'s blogs",
             collapsed: true,

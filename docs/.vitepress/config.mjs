@@ -284,12 +284,20 @@ export default defineConfig({
             link: '/ts/React'
           },
           {
+            text: 'Typescript with React hooks',
+            link: '/ts/Hooks-in-React'
+          },
+          {
             text: '三个比较常见的TS类型问题',
             link: '/ts/QuestionsOnTs'
           },
           {
             text: '7个常见的使用案例',
             link: '/ts/Usecases'
+          },
+          {
+            text: '自行探索遇到的问题',
+            link: '/ts/Self-Explored'
           },
         ]
       },
@@ -370,6 +378,7 @@ export default defineConfig({
           { text: 'Why', link: '/English/overview.md' },
           { text: 'Excerpts', link: '/English/excerpts/proses' },
           { text: 'OfStudy', link: '/English/excerpts/OfStudy' },
+          { text: 'Thinking', link: '/English/book-reviews/thinking' },
         ]
       }
     ],

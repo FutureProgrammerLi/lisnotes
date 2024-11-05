@@ -288,6 +288,10 @@ export default defineConfig({
             link: '/ts/Hooks-in-React'
           },
           {
+            text: 'React patterns with Typescript',
+            link: '/ts/Patterns'
+          },
+          {
             text: '三个比较常见的TS类型问题',
             link: '/ts/QuestionsOnTs'
           },

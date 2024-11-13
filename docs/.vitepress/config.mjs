@@ -373,6 +373,12 @@ export default defineConfig({
               { text: 'Restart again', link: '/blogs/phase2/sum' },
               { text: '8月随笔', link: '/blogs/phase2/August' },
             ]
+          },
+          {
+            text:'Novermber',
+            items:[
+              {text:'11/13总结',link:'/blogs/November/Recent'}
+            ]
           }
         ]
       }, {

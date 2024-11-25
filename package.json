@@ -5,6 +5,7 @@
   "main": "index.md",
   "scripts": {
     "test": "vitepress dev docs",
+    "dev": "vitepress dev docs",
     "build": "vitepress build docs ",
     "preview": "vitepress preview docs ",
     "docs:build": "npm run build"

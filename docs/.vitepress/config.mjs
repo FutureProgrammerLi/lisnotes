@@ -1,9 +1,6 @@
 import { defineConfig } from 'vitepress';
-import { sidebarItems } from './sidebar';
+// import { sidebarItems } from './sidebar';
 import { generateSidebar } from 'vitepress-sidebar';
-
-
-
 
 // const tailwindCDN = ['script', { src: 'https://cdn.tailwindcss.com' }];
 const favicon = ['link', { rel: 'icon', href: '/favicon.ico' }];
@@ -29,17 +26,19 @@ const statisticsWithGoogle = [
   ]
 ];
 
-const vitepressSidebarOptions = {
+
+const SidebarItemsWithPlugins = generateSidebar({
   documentRootPath: '/docs',
-  excludePattern: ['api-examples.md', 'markdown-examples.md'],
+
   collapsed: true,
   capitalizeEachWords: true,
-  manualSortFileNameByPriority: ['vue', 'react', 'js', 'ts', 'css', 'SM', 'building', 'git', 'blogs', 'comparisons', 'english']
-};
+  manualSortFileNameByPriority: ['vue', 'react', 'js', 'ts', 'css', 'StateManagement', 'building', 'git', 'blogs', 'comparisons', 'english'],
+  hyphenToSpace: true,
+  underscoreToSpace: true,
+  excludePattern: ['api-examples.md', 'markdown-examples.md','public/'],
+});
 
-const SidebarItemsWithPlugins = generateSidebar(vitepressSidebarOptions);
-
-const vitepressOptions = {
+export default defineConfig({
   vite: {
     server: {
       open: true,
@@ -73,12 +72,6 @@ const vitepressOptions = {
       copyright: 'Copyright @LiLiLi'
     }
   }
-};
-
-
-
-
-
-export default defineConfig(vitepressOptions);
+});
 
 

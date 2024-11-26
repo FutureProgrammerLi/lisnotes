@@ -283,7 +283,7 @@ export const sidebarItems = [
         items: [
             {
                 text: 'Pinia',
-                link: '/SM/pinia'
+                link: '/StateManagement/pinia'
             }
         ]
     },

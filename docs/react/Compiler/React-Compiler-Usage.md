@@ -11,7 +11,7 @@
 这些以前需要手动进行的优化操作有了RC后,就交由给这个"插件"完成了.  
 所以,怎么知道RC是否生效了呢?我们的页面是否被优化了呢?有两种方式:
 1. **直接利用React devTools查看组件树.** 优化后的组件都有"Memo✨"的标识:
-![with-react-devtool](imgs/blink.png)
+![with-react-devtool](/blink.png)
 2. **手动检验,父组件状态变化时,无相关props变化的子组件是否被重渲染.**
 (3.执行命令`npx react-compiler-healthcheck`.需要额外下载依赖,并且可能命令执行成功但项目运行不起来.也有可能是我自己的问题)  
 手动检测子组件是否被重渲染的代码:(当然还有很多其它校验组件是否被重渲染的方法,`useCallback`,`useEffect`,`useMemo`,`React.memo`等都是可以的)

@@ -32,7 +32,7 @@ const SidebarItemsWithPlugins = generateSidebar({
 
   collapsed: true,
   capitalizeEachWords: true,
-  manualSortFileNameByPriority: ['vue', 'react', 'js', 'ts', 'css', 'StateManagement', 'building', 'git', 'blogs', 'comparisons', 'english'],
+  manualSortFileNameByPriority: ['vue', 'react', 'js', 'ts', 'css', 'State_Management', 'building', 'git', 'blogs', 'comparisons', 'english'],
   hyphenToSpace: true,
   underscoreToSpace: true,
   excludePattern: ['api-examples.md', 'markdown-examples.md','public/'],

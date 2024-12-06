@@ -43,6 +43,7 @@ npm install -D react-compiler-runtime eslint-plugin-react-compiler babel-plugin-
 # npm install react-compiler-healthcheck
 ```
 
+### Vite
 假如你的项目脚手架是用Vite,那就去`vite.config.ts`配置
 ```ts
 // vite.config.ts
@@ -63,5 +64,20 @@ export default defineConfig({
         }
     })],
 });
+
+```
+
+### Next.js
+果然是亲生的,添加起来就是容易  
+1. 安装`babel-plugin-react-compiler`
+2. 在`next.config.ts`里设置`experimental:{reactCompiler:true}`就可以了
+```ts
+// next.config.ts
+const nextConfig = {
+    // ...
+    experimental:{
+        reactCompiler:true,
+    }
+}
 
 ```

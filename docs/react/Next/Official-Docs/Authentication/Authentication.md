@@ -564,3 +564,199 @@ export const getUser = cache(async () => {
 :::
 
 ### 使用数据传输对象(DTO)
+当获取数据时,我们的建议是只返回需要用到的必要信息,而不是完整的用户对象信息.比如在获取用户数据时,只返回用户ID和名称,而不是包括密码/电话号码等敏感信息的完整对象.  
+
+不过,当你无法控制数据返回的结构,而你又要避免将完整数据对象传递给客户端时,你就要使用一些策略了,比如指明用户对象的哪些信息是安全的,可以暴露给客户端.
+```ts
+// app/lib/dto.ts
+import 'server-only';
+import { getUser } from '@/app/lib/dal';
+
+function canSeeUsername(viewer:User){
+    return true;
+}
+
+function canSeePhoneNumber(viewer:User,team:string){
+    return viewer.isAdmin || team === viewer.team;
+}
+
+export async function getProfileDTO(slug:string){
+    const data = await db.query.users.findMany({
+        where:eq(users.slug, slug),
+        // 在此指明需要返回的数据列
+    });
+    const user = data[0];
+    const currentUser = await getUser(user.id);
+
+    // 或者在这个函数里过滤一下, 仅返回查询到的内容
+    return {
+        username: canSeeUsername(currentUser)? user.username : null,
+        phoneNumber: canSeePhoneNumber(currentUser, user.team) ? user.phoneNumber : null,
+    }
+}
+```
+通过使用DAL和DTO集中处理数据请求和授权逻辑,你就能进一步确保数据的安全性和一致性,让后续的开发更易于维护和调试了.
+
+::: tip
+- 定义DTO的方式有很多种,如`toJSON()`,上例的独立过滤函数,或是利用JS类.这些其实属于JS模式,跟React和Next关系不大,我们建议你通过一些调查和探索,找到适合自己项目的最佳办法.
+- 更多Next应用的安全策略最佳实践,可以[参考这篇文章.](https://nextjs.org/blog/security-nextjs-server-components-actions)
+:::
+
+### 服务器组件
+你可以很好地利用服务器组件实现基于应用角色的控制访问.比如基于用户角色,条件化地渲染一些组件:
+```tsx
+// app/dahboard/page.tsx
+import { verifySession } from '@/app/lib/dal';
+
+export default function Dashboard(){
+    const session = await verifySession();
+    const userRole = session?.user?.role;     // 假设'role'属性是会话数据的一部分
+    
+    if(userRole === 'admin'){
+        return <AdminDashboard />
+    } else if(userRole === 'user'){
+        return <UserDashboard />
+    } else {
+        redirect('/login');
+    }
+}
+```
+上例中我们利用了DAL的`verifySession()`以检查用户是'admin管理员','user普通用户',还是'未授权访问者'.这种模式的实现可以根据用户具体角色展示对应的组件.
+
+### 布局和权限校验
+如果你对Next的部分渲染机制足够熟悉,在布局文件里做校验时你就要多加注意了,因为布局文件不会在所有页面的切换时都重新渲染,换句话说就是,用户的会话内容不会在每次路由的变化时都被校验.  
+
+更好的办法是,在尽可能接近数据源的地方,或需要条件化渲染的组件内部进行校验.  
+
+想象一下,我们有一个获取了用户信息,并在导航栏展示了用户头像的导航栏,这个导航栏的渲染就是在一个共享的布局文件中的(Layout.tsx里有个`<nav>`,`<nav>`里有个`<img src={user.avatarUrl}/>`)  
+
+不要在布局文件里做权限校验,可以在布局里获取用户数据(`getUser()`),在DAL里做权限校验.  
+
+这样无论你在应用哪里调用了`getUser()`都能实现权限校验,而不会忘记是否已经对访问数据的用户进行权限校验了.  
+::: code-group
+```tsx [app/layout.tsx]
+export default async function Layout({
+    children
+}:{
+    children: React.ReactNode
+}){
+    const user = await getUser();
+
+    return (
+        //...
+    )
+}
+
+```
+
+```ts [/lib/dal.ts]
+export const getUser = cache(async () => {
+    const session = await verifySession();
+    if(!session) return null
+    // 从session中获取userId并以此获取后续数据
+})
+```
+:::
+
+### Server Actions
+Server Actions的安全性,可以认为跟公开的API接口一样,用户进行任何修改前都需要进行校验.  
+下面这个例子就是,先校验调用用户的角色,再进行后续的操作:
+```ts
+//  /lib/actions.ts
+'use server';
+import { verifySession } from '@/app/lib/dal';
+
+export async function serverAction(formData: FormData){
+    const session = await verifySession();
+    const userRole = session?.user?.role;
+
+    // 如果用户角色不是'管理员',那就不允许进行后续操作而提早退出函数
+    if(userRole !== 'admin'){
+        return null;
+    }
+
+    // 后续操作...
+}
+
+```
+
+### 路由处理器(Route handlers)
+和Server Actions一样, 也要把它的安全性看作公开API接口一样.调用前对其进行一定的角色校验:
+
+```ts
+// app/api/route.ts
+import { verifySession } from '@/app/lib/dal';
+
+export async function GET(){
+    const session = await verifySession();
+    if(!session){
+        return new Response(null,{ status: 401});
+    }
+    if(session?.user?.role !== 'admin'){
+        return new Response(null, { status: 403 });
+    }
+
+    // 其它角色校验或后续已授权用户对应操作
+}
+
+```
+上例进行了两层校验: 一层校验会话是否合法,二层校验用户身份是否为'admin'.
+
+### 上下文提供者(Context Providers)
+你可以用上下文来进行权限校验,因为它是以"插入"的形式工作的.不过由于`context`上下文无法在服务器组件中工作,因此,**你只能在客户端组件中使用这种方法.**  
+
+可以说有用,也可以说没用.因为但凡组件树中包含服务器组件,该组件就读取不到这个上下文会话数据.
+```tsx
+// app/layout.tsx
+import { ContextProvider } from 'auth-lib';
+export default function RootLayout({children}){
+    return (
+        <html lang="en">
+            <body>
+                <ContextProvider>{children}</ContextProvider>
+            </body>
+        </html>
+    )
+}
+
+```
+
+```tsx
+'use client'
+import { useSession } from 'auth-lib';
+
+export default function Profile(){
+    const { userId } = useSession();
+    const { data } = useSWR(`/api/user/${userId}`, fetcher);
+
+    return (
+        //...
+    )
+}
+
+```
+如果客户端组件需要用到会话数据(比如要用来获取数据),你可以用React的`taintUniqueValue`API以防止更多会话敏感信息暴露给客户端.
+
+## 更多资源
+至此,你已经学会了Next里的认证了.以下是一些库和资源,希望能帮助你更深入和简便地实现认证管理:
+
+### 认证库
+- [Auth0](https://auth0.com/docs/quickstart/webapp/nextjs/01-login)
+- [Clerk](https://clerk.com/docs/quickstarts/nextjs)
+- [Kinde](https://kinde.com/docs/developer-tools/nextjs-sdk)
+- [NextAuth.js](https://authjs.dev/getting-started/installation?framework=next.js)
+- [Ory](https://www.ory.sh/docs/getting-started/integrate-auth/nextjs)
+- [Stack Auth](https://docs.stack-auth.com/getting-started/setup)
+- [Supabase](https://supabase.com/docs/guides/getting-started/quickstarts/nextjs)
+- [Stytch](https://stytch.com/docs/guides/quickstarts/nextjs)
+- [WorkOS](https://workos.com/docs/user-management/nextjs)
+### 会话管理库
+- [Iron Session](https://github.com/vvo/iron-session)
+- [Jose](https://github.com/panva/jose)
+
+## 后续学习
+更多关于认证和安全性的问题,可以查阅以下资料了解:
+- [Next.js中关于安全性的思考](https://nextjs.org/blog/security-nextjs-server-components-actions)
+- [了解XSS攻击](https://vercel.com/guides/understanding-xss-attacks)
+- [了解CSRF攻击](https://vercel.com/guides/understanding-csrf-attacks)
+- [The Copenhagen Book](https://thecopenhagenbook.com/)

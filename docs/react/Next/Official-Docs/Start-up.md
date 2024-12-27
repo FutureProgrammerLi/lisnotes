@@ -35,8 +35,8 @@ Next.js是一个为你搭建灵活的,全栈网页应用的大框架.这篇指�
 
 * 1. [路由](./Routing/basis.md)
 * 2. [数据获取](./Data-Fetching/fetching.md)
-* 3. [渲染](./Rendering/overview.md)
-* 4. [缓存](./Cache/Full-Content.md)
+* 3. [渲染](./Rendering/Rendering.md)
+* 4. [缓存](./Cache/Cache.md)
 * 5. [样式](./Styling/overview.md)
 
 p.s.  

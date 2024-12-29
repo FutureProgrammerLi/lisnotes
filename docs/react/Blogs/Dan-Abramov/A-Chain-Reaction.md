@@ -1,7 +1,7 @@
 <script setup>
-import Greeting from './components/Greeting.vue'
-import CollapsableGreeting from './components/CollapsableGreeting.vue';
-import WelcomePage from './components/WelcomePage.vue'
+import Greeting from '../components/Greeting.vue'
+import CollapsableGreeting from '../components/CollapsableGreeting.vue';
+import WelcomePage from '../components/WelcomePage.vue'
 </script>
 # A Chain Reaction 连锁反应
 > https://overreacted.io/a-chain-reaction/  

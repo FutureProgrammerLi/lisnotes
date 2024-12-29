@@ -38,6 +38,7 @@ Next.js是一个为你搭建灵活的,全栈网页应用的大框架.这篇指�
 * 3. [渲染](./Rendering/Rendering.md)
 * 4. [缓存](./Cache/Cache.md)
 * 5. [样式](./Styling/overview.md)
+* 6. [认证](./Authentication/Authentication.md)
 
 p.s.  
 缓存一节翻译完,有点乏力了.学习效果发现并没那么明显,可能一些别人的项目能够看懂,但自己实际运用就不知道怎么用了.  

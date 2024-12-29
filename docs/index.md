@@ -8,7 +8,7 @@ hero:
   actions: 
     - theme: brand
       text: A complete guide to useEffect
-      link: /react/DansBlogs/A-Complete-Guide-to-useEffect
+      link: /react/Blogs/Dan-Abramov/A-Complete-Guide-to-useEffect
 #     - theme: brand
 #       text: this will be hightlighted as well
 #       link: /api-examples
@@ -23,11 +23,11 @@ features:
   - icon: 🐝
     title: 'A complete guide to useEffect'
     details: A hook tutorial
-    link: /react/DansBlogs/A-Complete-Guide-to-useEffect
+    link: /react//Blogs/Dan-Abramov/A-Complete-Guide-to-useEffect
   - icon: 🔒
     title: A Chain Reaction
     details: Translator for browser
-    link:  /react/DansBlogs/A-Chain-Reaction
+    link:  /react/Blogs/Dan-Abramov/A-Chain-Reaction
 #   - icon: 🐝
 #     title: a tested feature
 #     details: Lorem ipsum

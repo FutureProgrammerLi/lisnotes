@@ -5,7 +5,7 @@
 就,相当于Conference的一篇手稿吧.  
 12:38 - 1:37
 <script setup>
-import Counter from './components/Counter.vue'
+import Counter from '../components/Counter.vue'
 </script>
 
 假设我需要在你屏幕上显示一些东西,无论是一个网页,一个应用,或者是一个从应用商城上下载来的APP,这个过程中,必然至少含有两个设备:**你的设备,还有我的设备**.  

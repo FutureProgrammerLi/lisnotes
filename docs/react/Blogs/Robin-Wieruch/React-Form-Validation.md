@@ -22,7 +22,7 @@
 **性能:** 客户端校验通过避免向服务器发送不必要的请求,从而减少服务器端负载,提升性能.  
 
 ---
-### 为什么你还会选用三方表单库?
+### 为什么你依旧需要选用三方表单库?
 **避免重新造轮子:** 表单三方库提供了很多开箱即用的方法特性,开发者就不必再创建类似的功能了.当然,三方库功能有限,是否需要使用三方库的功能,是否需要自己研发,还是要看具体需求.不过相同点是,你还是要在服务器端编写大概的反馈逻辑,前面我们编写的服务器端表单校验好处就在这时就体现出来了.  
 
 **团队共识:** 当作为团队一员开发时,一套使用规则的设定是很有必要的.三方库则自带这个功能.无论是为功能健壮性,表单功能介绍文档,还是表单的高级用法, 一个合格的三方表单库都能很好的提供这些内容特性,团队也能依赖于此共同的框架.  
@@ -87,7 +87,6 @@ export const createInvoice = async (formData:FormData) => {
 :::
 我们先说React里的服务器端校验,之后再说客户端表单校验吧.
 
----
 ## React服务器端表单校验
 首先,我们需要处理Server Action里,表单校验出错时的问题.以下的方式能稍微比直接崩溃好一点,把出错内容打印到控制台:
 ```ts{2,5-8}
@@ -190,9 +189,9 @@ export const createInvoice = async (formData: FormData) => {
         console.log(title,amount,draft,features);
         // TODO: create invoice
     } catch (error) {
-        fromErrorToActionState(error);           // ![code-highlight]
+        fromErrorToActionState(error);           // [!code highlight]
     }
-    return toActionState('Invoice created');   // ![code-highlight]
+    return toActionState('Invoice created');  // [!code highlight]
 }
 ```
 
@@ -319,3 +318,87 @@ return (
 你还可以将功能扩展到客户端上.接下来我们就讲讲如何将其进行扩展.
 
 ## React客户端表单校验
+接下来我们把表单组件的验证功能扩展到客户端.最简单的校验方法就是利用HTML的多个自带属性对表单项进行验证,如`required`,`min`,`max`,`pattern`,`maxLength`等.
+```html{2}
+<label htmlFor="title">Title:</label>
+<input type="text" name="title" id="name" required maxLength={10} />     
+
+<label htmlFor="amount">Amount:</label>
+<input type="number" name="amount" id="amount" required min={0} max={999} />     
+```
+可惜的是,原生HTML元素提供的校验功能有限,难以自定义化.如果需要更多的输入控制,我们不建议使用原生属性功能.  
+
+如何把服务器端校验共用到客户端呢? 先把Server Action里的校验模式提取到一个单独的文件去,这样我们就可以把这个校验模式导出,公用了.后续我们会在客户端校验中重用这个模式:
+```ts
+import { z } from 'zod';
+import { zfd } from 'zod-form-data';
+
+export const createInvoiceSchema = zfd.formData({
+    title:zfd.text(z.string().min(3).max(191)),
+    amount:zfd.numeric(z.number().positive()),
+    draft:zfd.checkbox(),
+    features:zfd.repeatable(),
+});
+```
+之后我们根据这个模式,为表单组件编写绑定一个事件处理器,触发服务器行为之前,在客户端对数据进行校验:
+```html
+<form action={formAction} onSubmit={handleSubmit}>
+    <!-- ... -->
+</form>
+```
+事件内部,我们先获取到表单数据项,并用模式对这些输入数据进行校验.  
+如果校验失败,则阻止表单提交,不触发服务器行为.否则,将数据通过服务器行为发送到服务器端.  
+这里同样地,如果你不想用`try-catch`块,你可以用`safeParse()`方法取代`parse()`方法,从而获得一个包含可选错误属性的对象:
+```ts
+const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    const formData = new FormData(event.currentTarget);
+    try {
+        createInvoiceSchema.parse(formData);
+    } catch (error) {
+        event.preventDefault();
+    }
+}
+```
+为了展示校验错误时的提示,我们需要在表单组件中得知具体出错的表单项内容.因此,我们使用客户端组件的`useState` hook来管理表单错误信息.不要忘了每次表单提交前重置这个校验状态.
+
+```tsx
+const [validation, setValidation] = useState<ActionState | null>(null);
+
+const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    const formData = new FormData(event.currentTarget);
+
+    setValidation(null); // [!code highlight]
+
+    try {
+        createInvoiceSchema.parse(formData);
+    } catch (error) {
+        setValidation(fromErrorToActionState(error));     // [!code highlight]
+        event.preventDefault();
+    }
+```
+
+至此,如果表单项输入有错,我们可以在其旁边展示错误信息了.如果没有,则会进而触发服务器端的校验:
+```tsx
+<label htmlFor="title">Title:</label>
+<input type="text" name="title" id="name" />
+<FieldError actionState={validation ?? actionState} name="title" />
+
+<label htmlFor="amount">Amount:</label>
+<input type="number" name="amount" id="amount" />
+<FieldError actionState={validation ?? actionState} name="amount" />
+```
+
+而要展示其它校验结果信息,我们可以用弹窗,或在表单下方进行提示.不过展示的前提是,表单项内容校验已经通过了:
+```tsx
+<button type="subtmi">Send</button>
+{validation? validation.message : actionState.message}
+```
+
+以上就是不使用表单三方库,自行实现客户端表单校验的大概.你可以在此基础上添加更多更复杂的校验规则,错误信息提示,以及更全面的错误处理.你还可以在表单项发生变化,或虚焦时就进行校验,而不用像上面,在提交时才进行校验.  
+
+我建议您使用三方库,以便于添加更复杂的表单校验规则,定制错误信息,并提供更好的用户体验.不过这都取决于你,表单足够简单的话也就不需要了.  
+
+---
+全栈应用中,服务器端的反馈是必不可少的.它不仅为用户提供一致的反馈,还能为用户提供一个结构化的API.从服务器端开始就对数据进行校验,无论对错,都能从结构化上进行正确地处理.而这是后续扩展到客户端验证所需的扎实基础.  
+
+感谢你能看到这里!

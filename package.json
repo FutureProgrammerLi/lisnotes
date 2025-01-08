@@ -19,5 +19,8 @@
     "vite": "^5.4.10",
     "vitepress": "latest",
     "vitepress-sidebar": "^1.28.0"
+  },
+  "dependencies": {
+    "update-browserslist-db": "latest"
   }
 }

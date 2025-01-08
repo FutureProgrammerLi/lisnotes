@@ -138,3 +138,5 @@ export const createInvoice = (formData:FormData) => {
 ```
 
 总结一下就是,你既可以用`Object.fromEntries()`将FormData格式数据简便地转换成Javascript对象格式,也可以结合Zod,对对象属性和数据类型进行限制校验.而使用`formData.getAll()`,可以正确处理同个键名多个键值的问题.而这种表单项情况如果还是常见的话,你还可以引入`zod-form-data`库进一步简化你的代码.
+
+感谢你能看到这里!

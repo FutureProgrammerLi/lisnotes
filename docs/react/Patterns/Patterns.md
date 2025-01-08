@@ -24,6 +24,7 @@
 * [渲染模式](./Render_Patterns/Client-Side-Rendering.md)
     * [客户端渲染](./Render_Patterns/Client-Side-Rendering.md)
     * [服务器端渲染](./Render_Patterns/Server-side-Rendering.md)
+    * [静态渲染](./Render_Patterns/Static-Rendering.md)
     * [增量静态生成](./Render_Patterns/Incremental-Static-Generation.md)
     * [渐进式注水](./Render_Patterns/Progressive-Hydration.md)
     * [选择性注水](./Render_Patterns/Selective-Hydration.md)

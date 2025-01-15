@@ -1,7 +1,7 @@
 import { defineConfig } from 'vitepress';
 // import { sidebarItems } from './sidebar';
 import { generateSidebar } from 'vitepress-sidebar';
-// import { ViteImageOptimizer } from 'vite-plugin-image-optimizer';
+import { ViteImageOptimizer } from 'vite-plugin-image-optimizer';
 // import CompressImgs from '../plugins/test';
 
 // const tailwindCDN = ['script', { src: 'https://cdn.tailwindcss.com' }];
@@ -51,8 +51,18 @@ export default defineConfig({
     ssr: true,
     build: {
       rollupOptions: {
+        plugins: [
+          // CompressImgs(),
+          ViteImageOptimizer({
+            logStats: true,
+            ansiColors: true,
+          }),
+        ],
         output: {
           manualChunks(id) {
+            if (id.includes('node_modules/sidebar')) {  // 没看出分块的作用,打包还是10s左右
+              return 'sidebar';
+            }
             if (id.includes('node_modules')) {
               return 'vendor';
             }
@@ -63,10 +73,10 @@ export default defineConfig({
     },
     plugins: [
       // CompressImgs(),
-      // ViteImageOptimizer({
-      //   logStats: true,
-      //   ansiColors: true,
-      // }),
+      ViteImageOptimizer({
+        logStats: true,
+        ansiColors: true,
+      }),
     ],
   },
   head: [

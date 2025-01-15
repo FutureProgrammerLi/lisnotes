@@ -35,8 +35,8 @@ const SidebarItemsWithPlugins = generateSidebar({
   manualSortFileNameByPriority: ['vue', 'react', 'js', 'ts', 'css', 'State_Management', 'building', 'git', 'blogs', 'comparisons', 'english'],
   hyphenToSpace: true,
   underscoreToSpace: true,
-  excludePattern: ['api-examples.md', 'markdown-examples.md','public/'],
-  useFolderLinkFromSameNameSubFile:true,      // Authentication/Authentication.md, 达到无subtree, 但实际目录结构是文件夹+文件的形式, 从而方便添加对应的Authentication/imgs目录
+  excludePattern: ['api-examples.md', 'markdown-examples.md', 'public/'],
+  useFolderLinkFromSameNameSubFile: true,      // Authentication/Authentication.md, 达到无subtree, 但实际目录结构是文件夹+文件的形式, 从而方便添加对应的Authentication/imgs目录
   // includeFolderIndexFile:true,    // index.md作为目录名称显示出来
 });
 
@@ -45,6 +45,19 @@ export default defineConfig({
     server: {
       open: true,
       port: 5173
+    },
+    ssr: true,
+    build: {
+      rollupOptions: {
+        output: {
+          manualChunks(id) {
+            if (id.includes('node_modules')) {
+              return 'vendor';
+            }
+          },
+
+        }
+      }
     }
   },
   head: [

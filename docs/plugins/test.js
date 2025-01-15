@@ -1,16 +1,14 @@
 import path from 'path';
 import fs from 'fs';
-import imagemin from "imagemin";
-import imageminMozjpeg from "imagemin-mozjpeg";
-import imageminPngquant from "imagemin-pngquant";
+// import imagemin from "imagemin";
+// import imageminMozjpeg from "imagemin-mozjpeg";
+// import imageminPngquant from "imagemin-pngquant";
+// import { Plugin } from 'vite';
 
 export default function CompressImgs() {
     return {
         name: 'CompressImgs',
-        apply: 'serve',
-        config() {
-            console.log('测试是否启用到了插件.');
-        },
+        // apply: 'build' , // |'serve'
         async transform(src, id) {
             if (!/\.(jpe?g|png)$/i.test(id)) {
                 return;

@@ -2,7 +2,7 @@ import { defineConfig } from 'vitepress';
 // import { sidebarItems } from './sidebar';
 import { generateSidebar } from 'vitepress-sidebar';
 // import { ViteImageOptimizer } from 'vite-plugin-image-optimizer';
-import CompressImgs from '../plugins/test';
+// import CompressImgs from '../plugins/test';
 
 // const tailwindCDN = ['script', { src: 'https://cdn.tailwindcss.com' }];
 const favicon = ['link', { rel: 'icon', href: '/favicon.ico' }];
@@ -62,7 +62,7 @@ export default defineConfig({
       }
     },
     plugins: [
-      CompressImgs(),
+      // CompressImgs(),
       // ViteImageOptimizer({
       //   logStats: true,
       //   ansiColors: true,

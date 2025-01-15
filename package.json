@@ -22,8 +22,6 @@
   },
   "dependencies": {
     "medium-zoom": "^1.1.0",
-    "sharp": "^0.33.5",
-    "update-browserslist-db": "latest",
-    "vite-plugin-image-optimizer": "^1.1.8"
+    "update-browserslist-db": "latest"
   }
 }

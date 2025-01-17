@@ -3,7 +3,7 @@
   registry: 'https://registry.npmmirror.com',
   pkgs: [
     {
-      name: 'imagemin-mozjpeg',
+      name: 'imagemin-pngquant',
       version: 'latest',
       type: 'tag',
       alias: undefined,
@@ -15,7 +15,7 @@
   cacheDir: 'C:\\Users\\liweijian\\.npminstall_tarball',
   env: {
     npm_config_registry: 'https://registry.npmmirror.com',
-    npm_config_argv: '{"remain":[],"cooked":["--fix-bug-versions","--china","--userconfig=C:\\\\Users\\\\liweijian\\\\.cnpmrc","--disturl=https://cdn.npmmirror.com/binaries/node","--registry=https://registry.npmmirror.com","imagemin-mozjpeg"],"original":["--fix-bug-versions","--china","--userconfig=C:\\\\Users\\\\liweijian\\\\.cnpmrc","--disturl=https://cdn.npmmirror.com/binaries/node","--registry=https://registry.npmmirror.com","imagemin-mozjpeg"]}',
+    npm_config_argv: '{"remain":[],"cooked":["--fix-bug-versions","--china","--userconfig=C:\\\\Users\\\\liweijian\\\\.cnpmrc","--disturl=https://cdn.npmmirror.com/binaries/node","--registry=https://registry.npmmirror.com","imagemin-pngquant"],"original":["--fix-bug-versions","--china","--userconfig=C:\\\\Users\\\\liweijian\\\\.cnpmrc","--disturl=https://cdn.npmmirror.com/binaries/node","--registry=https://registry.npmmirror.com","imagemin-pngquant"]}',
     npm_config_user_agent: 'npminstall/7.12.0 npm/? node/v20.12.1 win32 x64',
     npm_config_cache: 'C:\\Users\\liweijian\\.npminstall_tarball',
     NODE: 'C:\\Program Files\\nodejs\\node.exe',

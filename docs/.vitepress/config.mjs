@@ -60,16 +60,10 @@ export default defineConfig({
               return 'vendor';
             }
           },
-
         }
       }
     },
     plugins: [
-      // CompressImgs(),
-      // ViteImageOptimizer({
-      //   logStats: true,
-      //   ansiColors: true,
-      // }),
     ],
   },
   head: [
@@ -97,7 +91,8 @@ export default defineConfig({
     footer: {
       message: 'No License Released HIHI',
       copyright: 'Copyright @LiLiLi'
-    }
+    },
+    lastUpdated: true,
   }
 });
 

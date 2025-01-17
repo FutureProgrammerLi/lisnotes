@@ -53,9 +53,6 @@ export default defineConfig({
       rollupOptions: {
         output: {
           manualChunks(id) {
-            if (id.includes('node_modules/sidebar')) {  // 没看出分块的作用,打包还是10s左右
-              return 'sidebar';
-            }
             if (id.includes('node_modules')) {
               return 'vendor';
             }

@@ -23,7 +23,7 @@ export default {
         );
 
         // production 下 收集 web-vitals
-        if (process.env.NODE_ENV === 'production') {
+        if (import.meta.env.PROD) {
             onMounted(() => import('web-vitals').then(({ onCLS, onFCP, onLCP, onTTFB }) => {
                 onCLS(console.log)
                 onFCP(console.log)

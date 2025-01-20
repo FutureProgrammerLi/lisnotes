@@ -70,9 +70,16 @@ export default defineConfig({
             if (id.includes('vitepress-sidebar')) {
               return 'sidebar';
             }
+            if (id.includes('node_modules/vue')) {
+              return 'vue';
+            }
+            if (id.includes('node_modules/vitepress')) {
+              return 'vitepress';
+            }
             if (id.includes('node_modules')) {
               return 'vendor';
             }
+
           },
         }
       },

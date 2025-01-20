@@ -1,7 +1,7 @@
 import { defineConfig } from 'vitepress';
 // import { sidebarItems } from './sidebar';
 import { generateSidebar } from 'vitepress-sidebar';
-// import { ViteImageOptimizer } from 'vite-plugin-image-optimizer';
+import { visualizer } from 'rollup-plugin-visualizer';
 // import CompressImgs from '../plugins/test';
 
 // const tailwindCDN = ['script', { src: 'https://cdn.tailwindcss.com' }];
@@ -44,21 +44,33 @@ const SidebarItemsWithPlugins = generateSidebar({
 
 export default defineConfig({
   vite: {
+    ssr: true,
     server: {
       open: true,
       port: 5173
     },
-    ssr: true,
     build: {
+      emptyOutDir: true,
       rollupOptions: {
+        plugins: [
+          // both vite and rollup plugins, run on build.
+          visualizer({
+            open: true,
+            filename: 'bundle-visualizer.html',
+          }),
+          // ViteImageOptimizer(),
+        ],
         output: {
           manualChunks(id) {
+            if (id.includes('sidebar')) {
+              return 'sidebar';
+            }
             if (id.includes('node_modules')) {
               return 'vendor';
             }
           },
         }
-      }
+      },
     },
     plugins: [
     ],

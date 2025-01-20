@@ -15,9 +15,9 @@ hero:
 #     - theme: alt
 #       text: this will not be highlighted
 #       link: /api-examples
-#   image:
-#     src: ♥
-#     alt: This is the logo.
+  image:
+    src: /vitepress-logo-large.webp
+    alt: This is the logo.
     
 features: 
   - icon: 🐝

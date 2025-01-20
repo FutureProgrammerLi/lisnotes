@@ -44,7 +44,12 @@ const SidebarItemsWithPlugins = generateSidebar({
 
 export default defineConfig({
   vite: {
-    ssr: true,
+    ssr: {
+      noExternal: ['medium-zoom'],
+    },
+    optimizeDeps: {
+      include: ['medium-zoom'],
+    },
     server: {
       open: true,
       port: 5173
@@ -62,7 +67,7 @@ export default defineConfig({
         ],
         output: {
           manualChunks(id) {
-            if (id.includes('sidebar')) {
+            if (id.includes('vitepress-sidebar')) {
               return 'sidebar';
             }
             if (id.includes('node_modules')) {
@@ -74,6 +79,12 @@ export default defineConfig({
     },
     plugins: [
     ],
+  },
+  markdown: {
+    lineNumbers: true,
+    image: {
+      lazloading: true
+    }
   },
   head: [
     ...statisticsWithGoogle,

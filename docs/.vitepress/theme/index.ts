@@ -21,5 +21,15 @@ export default {
             () => route.path,
             () => nextTick(() => initZoom())
         );
+
+        // production 下 收集 web-vitals
+        if (process.env.NODE_ENV === 'production') {
+            onMounted(() => import('web-vitals').then(({ onCLS, onFCP, onLCP, onTTFB }) => {
+                onCLS(console.log)
+                onFCP(console.log)
+                onLCP(console.log)
+                onTTFB(console.log)
+            }))
+        }
     },
 }

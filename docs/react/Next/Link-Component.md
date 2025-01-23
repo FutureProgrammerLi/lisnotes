@@ -31,7 +31,7 @@ import Link from 'next/link';
 
 const links = [
     {href:'/home',title:'Home'},
-    {href:'/about',titlel:'About'},
+    {href:'/about',title:'About'},
     {href:'/contact',title:'Contact'},
 ]
 

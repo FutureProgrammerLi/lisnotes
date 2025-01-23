@@ -9,7 +9,7 @@
     "build": "vitepress build docs ",
     "preview": "vitepress preview docs ",
     "docs:build": "npm run build",
-    "commit": "git add . && git commit"
+    "commit": "git add . && git commit"  
   },
   "author": "",
   "license": "ISC",

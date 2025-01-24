@@ -1,7 +1,8 @@
 # `<Link>`,Next里的导航组件
 
 > [原文地址](https://dev.to/joodi/a-comprehensive-guide-to-the-nextjs-link-component-29jf?bb=205822)  
-> 是个了解文,建议速读.
+> 是个了解文,重点与官网内容相似,但并非官网内容,建议速读.
+> 官方文档: [Link](https://nextjs.org/docs/app/api-reference/components/link)
 
 Next里的`Link`组件是一个很好用的内置组件,可以助你构建更快,SEO更友好,可访问性更强的网站.  
 它的作用是在客户端路由之间实现导航,大幅提升客户端性能及用户体验.本文主要介绍`Link`从基础用法,到高级场景的应用,比如处理访问过的链接.  

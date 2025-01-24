@@ -9,7 +9,7 @@
     "build": "vitepress build docs ",
     "preview": "vitepress preview docs ",
     "docs:build": "npm run build",
-    "commit": "git add . && git commit"  
+    "commit": "git add . && git commit"
   },
   "author": "",
   "license": "ISC",
@@ -20,6 +20,7 @@
     "rollup-plugin-visualizer": "^5.14.0",
     "tailwindcss": "^3.4.4",
     "vite": "latest",
+    "vite-plugin-compression": "^0.5.1",
     "vitepress": "latest",
     "vitepress-sidebar": "^1.28.0"
   },

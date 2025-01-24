@@ -2,6 +2,7 @@ import { defineConfig } from 'vitepress';
 // import { sidebarItems } from './sidebar';
 import { generateSidebar } from 'vitepress-sidebar';
 import { visualizer } from 'rollup-plugin-visualizer';
+import viteCompress from 'vite-plugin-compression';
 // import CompressImgs from '../plugins/test';
 
 // const tailwindCDN = ['script', { src: 'https://cdn.tailwindcss.com' }];
@@ -34,7 +35,7 @@ const SidebarItemsWithPlugins = generateSidebar({
 
   collapsed: true,
   capitalizeEachWords: true,
-  manualSortFileNameByPriority: ['vue', 'react', 'js', 'ts', 'css', 'State_Management', 'building', 'git', 'blogs', 'comparisons', 'english'],
+  manualSortFileNameByPriority: ['vue', 'react', 'js', 'ts', 'css', 'State-Management', 'building', 'git', 'blogs', 'comparisons', 'english'],
   hyphenToSpace: true,
   underscoreToSpace: true,
   excludePattern: ['api-examples.md', 'markdown-examples.md', 'public/', 'plugins/'],
@@ -82,6 +83,7 @@ export default defineConfig({
       },
     },
     plugins: [
+      viteCompress(),
     ],
   },
   markdown: {
@@ -103,7 +105,7 @@ export default defineConfig({
     // },
     nav: [
       { text: 'Home', link: '/' },
-      { text: 'Notes', link: '/react/Next/Official-Docs/Start-up.html' }
+      { text: 'Notes', link: '/react/Next/Official-Docs/Official-Docs.html' }
       // { text: 'Examples', link: '/markdown-examples' } // 保留, 学怎么用
     ],
 

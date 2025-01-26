@@ -17,7 +17,8 @@
 2. 以为fetch缓存出现问题, 设置了`export const dynamic = 'force-dynamic`,以及`export const revalidate = 0`.无果.
 3. 以为fetch本身设置出现问题,改用axios发起请求.无果.
 
-4. 参考之前官方例子,用的是`useActionState`,跟自己的区别是例子里都要把事件触发改为form action.硬要把某些元素包裹到form里,比如input,button.只是不显示到页面上而已.
+4. 参考之前官方例子,用的是`useActionState`,跟自己的区别是例子里都要把事件触发改为form action.硬要把某些元素包裹到form里,比如input,button.只是不显示到页面上而已.  
+于是把`createItem`改为form action.触发元素包裹到form里.跟官方的例子进行一一比对.  
 ```tsx
 const [state,formAction] = useActionState(getList,null);
 return (
@@ -27,7 +28,7 @@ return (
     </form>
 )
 ```
-于是把`createItem`改为form action.触发元素包裹到form里.跟官方的例子进行一一比对.  
+
 最后还是无果,不过初见端倪:  
 这时应该要了解到了,<span className="text-red-500 font-bold">同样的console.log()语句,官方可行的例子会出现到终端命令行,而自己写的例子则出现到了浏览器控制台.</span>  
 

@@ -2,7 +2,7 @@ import { defineConfig } from 'vitepress';
 // import { sidebarItems } from './sidebar';
 import { generateSidebar } from 'vitepress-sidebar';
 import { visualizer } from 'rollup-plugin-visualizer';
-import viteCompress from 'vite-plugin-compression';
+// import viteCompress from 'vite-plugin-compression';
 // import CompressImgs from '../plugins/test';
 
 // const tailwindCDN = ['script', { src: 'https://cdn.tailwindcss.com' }];
@@ -83,7 +83,7 @@ export default defineConfig({
       },
     },
     plugins: [
-      viteCompress(),
+      // viteCompress(),
     ],
   },
   markdown: {

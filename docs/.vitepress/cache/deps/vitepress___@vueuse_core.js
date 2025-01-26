@@ -35,9 +35,9 @@ import {
   unref,
   watch,
   watchEffect
-} from "./chunk-HVGPDWU4.js";
+} from "./chunk-EF3OL2OY.js";
 
-// node_modules/.store/@vueuse+shared@12.4.0/node_modules/@vueuse/shared/index.mjs
+// node_modules/.store/@vueuse+shared@12.5.0/node_modules/@vueuse/shared/index.mjs
 function computedEager(fn, options) {
   var _a;
   const result = shallowRef();
@@ -344,6 +344,7 @@ function debounceFilter(ms, options = {}) {
     lastRejector();
     lastRejector = noop;
   };
+  let lastInvoker;
   const filter = (invoke2) => {
     const duration = toValue(ms);
     const maxDuration = toValue(options.maxWait);
@@ -358,12 +359,13 @@ function debounceFilter(ms, options = {}) {
     }
     return new Promise((resolve, reject) => {
       lastRejector = options.rejectOnCancel ? reject : resolve;
+      lastInvoker = invoke2;
       if (maxDuration && !maxTimer) {
         maxTimer = setTimeout(() => {
           if (timer)
             _clearTimeout(timer);
           maxTimer = null;
-          resolve(invoke2());
+          resolve(lastInvoker());
         }, maxDuration);
       }
       timer = setTimeout(() => {
@@ -1545,7 +1547,7 @@ function whenever(source, cb, options) {
   return stop;
 }
 
-// node_modules/.store/@vueuse+core@12.4.0/node_modules/@vueuse/core/index.mjs
+// node_modules/.store/@vueuse+core@12.5.0/node_modules/@vueuse/core/index.mjs
 function computedAsync(evaluationCallback, initialState, optionsOrRef) {
   let options;
   if (isRef(optionsOrRef)) {
@@ -1715,49 +1717,50 @@ function unrefElement(elRef) {
   return (_a = plain == null ? void 0 : plain.$el) != null ? _a : plain;
 }
 function useEventListener(...args) {
-  let target;
-  let events2;
-  let listeners;
-  let options;
-  if (typeof args[0] === "string" || Array.isArray(args[0])) {
-    [events2, listeners, options] = args;
-    target = defaultWindow;
-  } else {
-    [target, events2, listeners, options] = args;
-  }
-  if (!target)
-    return noop;
-  events2 = toArray(events2);
-  listeners = toArray(listeners);
   const cleanups = [];
   const cleanup = () => {
     cleanups.forEach((fn) => fn());
     cleanups.length = 0;
   };
-  const register = (el, event, listener, options2) => {
-    el.addEventListener(event, listener, options2);
-    return () => el.removeEventListener(event, listener, options2);
+  const register = (el, event, listener, options) => {
+    el.addEventListener(event, listener, options);
+    return () => el.removeEventListener(event, listener, options);
   };
-  const stopWatch = watch(
-    () => [unrefElement(target), toValue(options)],
-    ([el, options2]) => {
+  const firstParamTargets = computed(() => {
+    const test = toArray(toValue(args[0])).filter((e) => e != null);
+    return test.every((e) => typeof e !== "string") ? test : void 0;
+  });
+  const stopWatch = watchImmediate(
+    () => {
+      var _a, _b;
+      return [
+        (_b = (_a = firstParamTargets.value) == null ? void 0 : _a.map((e) => unrefElement(e))) != null ? _b : [defaultWindow].filter((e) => e != null),
+        toArray(toValue(firstParamTargets.value ? args[1] : args[0])),
+        toArray(unref(firstParamTargets.value ? args[2] : args[1])),
+        // @ts-expect-error - TypeScript gets the correct types, but somehow still complains
+        toValue(firstParamTargets.value ? args[3] : args[2])
+      ];
+    },
+    ([raw_targets, raw_events, raw_listeners, raw_options]) => {
       cleanup();
-      if (!el)
+      if (!(raw_targets == null ? void 0 : raw_targets.length) || !(raw_events == null ? void 0 : raw_events.length) || !(raw_listeners == null ? void 0 : raw_listeners.length))
         return;
-      const optionsClone = isObject(options2) ? { ...options2 } : options2;
+      const optionsClone = isObject(raw_options) ? { ...raw_options } : raw_options;
       cleanups.push(
-        ...events2.flatMap((event) => {
-          return listeners.map((listener) => register(el, event, listener, optionsClone));
-        })
+        ...raw_targets.flatMap(
+          (el) => raw_events.flatMap(
+            (event) => raw_listeners.map((listener) => register(el, event, listener, optionsClone))
+          )
+        )
       );
     },
-    { immediate: true, flush: "post" }
+    { flush: "post" }
   );
   const stop = () => {
     stopWatch();
     cleanup();
   };
-  tryOnScopeDispose(stop);
+  tryOnScopeDispose(cleanup);
   return stop;
 }
 var _iOSWorkaround = false;
@@ -1767,8 +1770,9 @@ function onClickOutside(target, handler, options = {}) {
     return noop;
   if (isIOS && !_iOSWorkaround) {
     _iOSWorkaround = true;
-    Array.from(window2.document.body.children).forEach((el) => el.addEventListener("click", noop));
-    window2.document.documentElement.addEventListener("click", noop);
+    const listenerOptions = { passive: true };
+    Array.from(window2.document.body.children).forEach((el) => useEventListener(el, "click", noop, listenerOptions));
+    useEventListener(window2.document.documentElement, "click", noop, listenerOptions);
   }
   let shouldListen = true;
   const shouldIgnore = (event) => {
@@ -2391,12 +2395,13 @@ function useAnimate(target, keyframes, options) {
       syncResume();
     onReady == null ? void 0 : onReady(animate.value);
   }
-  useEventListener(animate, ["cancel", "finish", "remove"], syncPause);
+  const listenerOptions = { passive: true };
+  useEventListener(animate, ["cancel", "finish", "remove"], syncPause, listenerOptions);
   useEventListener(animate, "finish", () => {
     var _a;
     if (commitStyles)
       (_a = animate.value) == null ? void 0 : _a.commitStyles();
-  });
+  }, listenerOptions);
   const { resume: resumeRef, pause: pauseRef } = useRafFn(() => {
     if (!animate.value)
       return;
@@ -2735,7 +2740,7 @@ function useBluetooth(options) {
   async function connectToBluetoothGATTServer() {
     error.value = null;
     if (device.value && device.value.gatt) {
-      device.value.addEventListener("gattserverdisconnected", reset);
+      useEventListener(device, "gattserverdisconnected", reset, { passive: true });
       try {
         server.value = await device.value.gatt.connect();
         isConnected.value = server.value.connected;
@@ -2782,20 +2787,12 @@ function useMediaQuery(query, options = {}) {
   const { window: window2 = defaultWindow, ssrWidth = useSSRWidth() } = options;
   const isSupported = useSupported(() => window2 && "matchMedia" in window2 && typeof window2.matchMedia === "function");
   const ssrSupport = ref(typeof ssrWidth === "number");
-  let mediaQuery;
+  const mediaQuery = shallowRef();
   const matches = ref(false);
   const handler = (event) => {
     matches.value = event.matches;
   };
-  const cleanup = () => {
-    if (!mediaQuery)
-      return;
-    if ("removeEventListener" in mediaQuery)
-      mediaQuery.removeEventListener("change", handler);
-    else
-      mediaQuery.removeListener(handler);
-  };
-  const stopWatch = watchEffect(() => {
+  watchEffect(() => {
     if (ssrSupport.value) {
       ssrSupport.value = !isSupported.value;
       const queryStrings = toValue(query).split(",");
@@ -2816,19 +2813,10 @@ function useMediaQuery(query, options = {}) {
     }
     if (!isSupported.value)
       return;
-    cleanup();
-    mediaQuery = window2.matchMedia(toValue(query));
-    if ("addEventListener" in mediaQuery)
-      mediaQuery.addEventListener("change", handler);
-    else
-      mediaQuery.addListener(handler);
-    matches.value = mediaQuery.matches;
+    mediaQuery.value = window2.matchMedia(toValue(query));
+    matches.value = mediaQuery.value.matches;
   });
-  tryOnScopeDispose(() => {
-    stopWatch();
-    cleanup();
-    mediaQuery = void 0;
-  });
+  useEventListener(mediaQuery, "change", handler, { passive: true });
   return computed(() => matches.value);
 }
 var breakpointsTailwind = {
@@ -3009,15 +2997,18 @@ function useBroadcastChannel(options) {
     tryOnMounted(() => {
       error.value = null;
       channel.value = new BroadcastChannel(name);
-      channel.value.addEventListener("message", (e) => {
+      const listenerOptions = {
+        passive: true
+      };
+      useEventListener(channel, "message", (e) => {
         data.value = e.data;
-      }, { passive: true });
-      channel.value.addEventListener("messageerror", (e) => {
+      }, listenerOptions);
+      useEventListener(channel, "messageerror", (e) => {
         error.value = e;
-      }, { passive: true });
-      channel.value.addEventListener("close", () => {
+      }, listenerOptions);
+      useEventListener(channel, "close", () => {
         isClosed.value = true;
-      });
+      }, listenerOptions);
     });
   }
   tryOnScopeDispose(() => {
@@ -3071,8 +3062,9 @@ function useBrowserLocation(options = {}) {
   };
   const state = ref(buildState("load"));
   if (window2) {
-    useEventListener(window2, "popstate", () => state.value = buildState("popstate"), { passive: true });
-    useEventListener(window2, "hashchange", () => state.value = buildState("hashchange"), { passive: true });
+    const listenerOptions = { passive: true };
+    useEventListener(window2, "popstate", () => state.value = buildState("popstate"), listenerOptions);
+    useEventListener(window2, "hashchange", () => state.value = buildState("hashchange"), listenerOptions);
   }
   return state;
 }
@@ -3140,11 +3132,17 @@ function useClipboard(options = {}) {
   const copied = ref(false);
   const timeout = useTimeoutFn(() => copied.value = false, copiedDuring, { immediate: false });
   function updateText() {
-    if (isClipboardApiSupported.value && isAllowed(permissionRead.value)) {
-      navigator2.clipboard.readText().then((value) => {
-        text.value = value;
-      });
-    } else {
+    let useLegacy = !(isClipboardApiSupported.value && isAllowed(permissionRead.value));
+    if (!useLegacy) {
+      try {
+        navigator2.clipboard.readText().then((value) => {
+          text.value = value;
+        });
+      } catch (e) {
+        useLegacy = true;
+      }
+    }
+    if (useLegacy) {
       text.value = legacyRead();
     }
   }
@@ -3152,9 +3150,15 @@ function useClipboard(options = {}) {
     useEventListener(["copy", "cut"], updateText, { passive: true });
   async function copy(value = toValue(source)) {
     if (isSupported.value && value != null) {
-      if (isClipboardApiSupported.value && isAllowed(permissionWrite.value))
-        await navigator2.clipboard.writeText(value);
-      else
+      let useLegacy = !(isClipboardApiSupported.value && isAllowed(permissionWrite.value));
+      if (!useLegacy) {
+        try {
+          await navigator2.clipboard.writeText(value);
+        } catch (e) {
+          useLegacy = true;
+        }
+      }
+      if (useLegacy)
         legacyCopy(value);
       text.value = value;
       copied.value = true;
@@ -3563,6 +3567,47 @@ function useConfirmDialog(revealed = ref(false)) {
     onCancel: cancelHook.on
   };
 }
+function useCountdown(initialCountdown, options) {
+  var _a, _b;
+  const remaining = ref(toValue(initialCountdown));
+  const intervalController = useIntervalFn(() => {
+    var _a2, _b2;
+    const value = remaining.value - 1;
+    remaining.value = value < 0 ? 0 : value;
+    (_a2 = options == null ? void 0 : options.onTick) == null ? void 0 : _a2.call(options);
+    if (remaining.value <= 0) {
+      intervalController.pause();
+      (_b2 = options == null ? void 0 : options.onComplete) == null ? void 0 : _b2.call(options);
+    }
+  }, (_a = options == null ? void 0 : options.interval) != null ? _a : 1e3, { immediate: (_b = options == null ? void 0 : options.immediate) != null ? _b : false });
+  const reset = () => {
+    remaining.value = toValue(initialCountdown);
+  };
+  const stop = () => {
+    intervalController.pause();
+    reset();
+  };
+  const resume = () => {
+    if (!intervalController.isActive.value) {
+      if (remaining.value > 0) {
+        intervalController.resume();
+      }
+    }
+  };
+  const start = () => {
+    reset();
+    intervalController.resume();
+  };
+  return {
+    remaining,
+    reset,
+    stop,
+    start,
+    pause: intervalController.pause,
+    resume,
+    isActive: intervalController.isActive
+  };
+}
 function useCssVar(prop, target, options = {}) {
   const { window: window2 = defaultWindow, initialValue, observe = false } = options;
   const variable = ref(initialValue);
@@ -3954,20 +3999,15 @@ function useDevicePixelRatio(options = {}) {
     window: window2 = defaultWindow
   } = options;
   const pixelRatio = ref(1);
+  const query = useMediaQuery(() => `(resolution: ${pixelRatio.value}dppx)`, options);
+  let stop = noop;
   if (window2) {
-    let observe2 = function() {
-      pixelRatio.value = window2.devicePixelRatio;
-      cleanup2();
-      media = window2.matchMedia(`(resolution: ${pixelRatio.value}dppx)`);
-      media.addEventListener("change", observe2, { once: true });
-    }, cleanup2 = function() {
-      media == null ? void 0 : media.removeEventListener("change", observe2);
-    };
-    let media;
-    observe2();
-    tryOnScopeDispose(cleanup2);
+    stop = watchImmediate(query, () => pixelRatio.value = window2.devicePixelRatio);
   }
-  return { pixelRatio };
+  return {
+    pixelRatio: readonly(pixelRatio),
+    stop
+  };
 }
 function useDevicesList(options = {}) {
   const {
@@ -4048,7 +4088,7 @@ function useDisplayMedia(options = {}) {
     if (!isSupported.value || stream.value)
       return;
     stream.value = await navigator2.mediaDevices.getDisplayMedia(constraint);
-    (_a2 = stream.value) == null ? void 0 : _a2.getTracks().forEach((t) => t.addEventListener("ended", stop));
+    (_a2 = stream.value) == null ? void 0 : _a2.getTracks().forEach((t) => useEventListener(t, "ended", stop, { passive: true }));
     return stream.value;
   }
   async function _stop() {
@@ -4703,7 +4743,7 @@ function useEventSource(url, events2 = [], options = {}) {
       useEventListener(es, event_name, (e) => {
         event.value = event_name;
         data.value = e.data || null;
-      });
+      }, { passive: true });
     }
   };
   const open = () => {
@@ -4979,7 +5019,9 @@ function useFetch(url, ...args) {
       if (options.afterFetch) {
         ({ data: responseData } = await options.afterFetch({
           data: responseData,
-          response: fetchResponse
+          response: fetchResponse,
+          context,
+          execute
         }));
       }
       data.value = responseData;
@@ -4991,7 +5033,9 @@ function useFetch(url, ...args) {
         ({ error: errorData, data: responseData } = await options.onFetchError({
           data: responseData,
           error: fetchError,
-          response: response.value
+          response: response.value,
+          context,
+          execute
         }));
       }
       error.value = errorData;
@@ -5116,11 +5160,22 @@ var DEFAULT_OPTIONS = {
   reset: false,
   directory: false
 };
+function prepareInitialFiles(files) {
+  if (!files)
+    return null;
+  if (files instanceof FileList)
+    return files;
+  const dt = new DataTransfer();
+  for (const file of files) {
+    dt.items.add(file);
+  }
+  return dt.files;
+}
 function useFileDialog(options = {}) {
   const {
     document: document2 = defaultDocument
   } = options;
-  const files = ref(null);
+  const files = ref(prepareInitialFiles(options.initialFiles));
   const { on: onChange, trigger: changeTrigger } = createEventHook();
   const { on: onCancel, trigger: cancelTrigger } = createEventHook();
   let input;
@@ -5948,7 +6003,7 @@ function useKeyModifier(modifier, options = {}) {
       useEventListener(document2, listenerEvent, (evt) => {
         if (typeof evt.getModifierState === "function")
           state.value = evt.getModifierState(modifier);
-      });
+      }, { passive: true });
     });
   }
   return state;
@@ -6045,7 +6100,7 @@ function useMagicKeys(options = {}) {
         if (!(prop in refs)) {
           if (/[+_-]/.test(prop)) {
             const keys2 = prop.split(/[+_-]/g).map((i) => i.trim());
-            refs[prop] = computed(() => keys2.every((key) => toValue(proxy[key])));
+            refs[prop] = computed(() => keys2.map((key) => toValue(proxy[key])).every(Boolean));
           } else {
             refs[prop] = ref(false);
           }
@@ -6083,6 +6138,7 @@ function useMediaControls(target, options = {}) {
   const {
     document: document2 = defaultDocument
   } = options;
+  const listenerOptions = { passive: true };
   const currentTime = ref(0);
   const duration = ref(0);
   const seeking = ref(false);
@@ -6151,7 +6207,6 @@ function useMediaControls(target, options = {}) {
     else if (isObject(src))
       sources = [src];
     el.querySelectorAll("source").forEach((e) => {
-      e.removeEventListener("error", sourceErrorEvent.trigger);
       e.remove();
     });
     sources.forEach(({ src: src2, type, media }) => {
@@ -6159,16 +6214,10 @@ function useMediaControls(target, options = {}) {
       source.setAttribute("src", src2);
       source.setAttribute("type", type || "");
       source.setAttribute("media", media || "");
-      source.addEventListener("error", sourceErrorEvent.trigger);
+      useEventListener(source, "error", sourceErrorEvent.trigger, listenerOptions);
       el.appendChild(source);
     });
     el.load();
-  });
-  tryOnScopeDispose(() => {
-    const el = toValue(target);
-    if (!el)
-      return;
-    el.querySelectorAll("source").forEach((e) => e.removeEventListener("error", sourceErrorEvent.trigger));
   });
   watch([target, volume], () => {
     const el = toValue(target);
@@ -6227,7 +6276,6 @@ function useMediaControls(target, options = {}) {
       el.pause();
     }
   });
-  const listenerOptions = { passive: true };
   useEventListener(
     target,
     "timeupdate",
@@ -7274,13 +7322,16 @@ function useScriptTag(src, onLoaded = noop, options = {}) {
     } else if (el.hasAttribute("data-loaded")) {
       resolveWithElement(el);
     }
-    el.addEventListener("error", (event) => reject(event));
-    el.addEventListener("abort", (event) => reject(event));
-    el.addEventListener("load", () => {
+    const listenerOptions = {
+      passive: true
+    };
+    useEventListener(el, "error", (event) => reject(event), listenerOptions);
+    useEventListener(el, "abort", (event) => reject(event), listenerOptions);
+    useEventListener(el, "load", () => {
       el.setAttribute("data-loaded", "true");
       onLoaded(el);
       resolveWithElement(el);
-    });
+    }, listenerOptions);
     if (shouldAppend)
       el = document2.head.appendChild(el);
     if (!waitForScriptLoad)
@@ -8171,7 +8222,7 @@ function useTitle(newTitle = null, options = {}) {
   } = options;
   const originalTitle = (_a = document2 == null ? void 0 : document2.title) != null ? _a : "";
   const title = toRef2((_b = newTitle != null ? newTitle : document2 == null ? void 0 : document2.title) != null ? _b : null);
-  const isReadonly2 = newTitle && typeof newTitle === "function";
+  const isReadonly2 = !!(newTitle && typeof newTitle === "function");
   function format(t) {
     if (!("titleTemplate" in options))
       return t;
@@ -8180,9 +8231,9 @@ function useTitle(newTitle = null, options = {}) {
   }
   watch(
     title,
-    (t, o) => {
-      if (t !== o && document2)
-        document2.title = format(typeof t === "string" ? t : "");
+    (newValue, oldValue) => {
+      if (newValue !== oldValue && document2)
+        document2.title = format(newValue != null ? newValue : "");
     },
     { immediate: true }
   );
@@ -9458,6 +9509,7 @@ export {
   useCloned,
   useColorMode,
   useConfirmDialog,
+  useCountdown,
   useCounter,
   useCssVar,
   useCurrentElement,

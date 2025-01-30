@@ -105,7 +105,7 @@ export default defineConfig({
     // },
     nav: [
       { text: 'Home', link: '/' },
-      { text: 'Notes', link: '/react/Next/Official-Docs/Official-Docs.html' }
+      { text: 'Notes', link: '/react/Official-Docs/Next/Official-Docs' }
       // { text: 'Examples', link: '/markdown-examples' } // 保留, 学怎么用
     ],
 

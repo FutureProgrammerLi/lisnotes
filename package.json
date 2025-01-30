@@ -9,9 +9,10 @@
     "build": "vitepress build docs ",
     "preview": "vitepress preview docs ",
     "docs:build": "npm run build",
+    "ybuild": "yarn build",
     "commit": "git add . && git commit"
   },
-  "author": "",
+  "author": "FutureProgrammerLi <52388490+FutureProgrammerLi@users.noreply.github.com>",
   "license": "ISC",
   "devDependencies": {
     "@types/node": "^22.10.7",
@@ -27,5 +28,6 @@
     "medium-zoom": "^1.1.0",
     "update-browserslist-db": "latest",
     "web-vitals": "^4.2.4"
-  }
+  },
+  "repository": "https://github.com/FutureProgrammerLi/lisnote.git"
 }

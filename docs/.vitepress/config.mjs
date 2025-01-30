@@ -61,7 +61,7 @@ export default defineConfig({
         plugins: [
           // both vite and rollup plugins, run on build.
           visualizer({
-            open: true,
+            // open: true,
             filename: 'bundle-visualizer.html',
           }),
           // ViteImageOptimizer(),

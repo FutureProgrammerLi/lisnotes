@@ -119,3 +119,106 @@ function Counter() {
 ## 每次渲染都有自己的事件处理
 So far so good.那么,事件处理器呢?  
 看个例子,它会在点击Show alert后三秒提示count的值.
+```jsx
+function Counter(){
+    const [count,setCount] = useState(0);
+    function handleClick(){
+        setTimeout(() => {
+            alert('You clicked on:' + count);
+        },3000);
+    }
+    return (
+        <div>
+        <p>You clicked {count} times</p>
+        <button onClick={() => setCount(count+1)}>
+            Click me
+        </button>
+        </div>
+    )
+}
+```
+如果我按以下的步骤点击:
+- 先把count的值加到3
+- 点击"Show alert"
+- 在这3秒内把count的值加到5
+![counter](/useEffectBlog/counter.gif)
+你猜猜提示框里的count值时多少?是5 -- 弹窗弹出来前你看到的count值? 还是3 -- 你点击按钮时的count值?  
+
+---
+
+高能预警(spoilers ahead)
+
+
+---
+你自己先试试再往下看吧!
+
+如果你看到的和你预想的不太一样,想想这个更加实际的例子:一个存储接受者ID作为状态和一个点击按钮的聊天应用.这篇文章详细地解释了原因,但上面步骤count的最终值是 -- <span className='font-bold text-red-500'>3</span>.    
+alert提示的值,是你**点击按钮那一刻时的count值**.    
+(其实你用其它方法来获得5也是可以的,不过我们先关注它的默认行为.我们在起步搭建React的心智模式啊,**应该更关注最本质的行为(path of least resistance),而暂时不是学习使用技巧**.)  
+
+---
+但,为什么会这样呢?  
+前面说过,**每次调用函数组件的时候,count的值就像常量一样存在于每一次的调用中**.我们需要强调这一点 -- 函数组件会被调用很多次(一次渲染一次调用), 但是每一次的count就是常量,并被useState设置为特定值,存在于每一次调用中.  
+
+这并不是React特有的,普通的js函数也是像这样运行的:
+```js
+function sayHi(person) {
+  const name = person.name;
+  setTimeout(() => {
+    alert('Hello, ' + name);
+  }, 3000);
+}
+let someone = {name: 'Dan'};
+sayHi(someone);
+
+someone = {name: 'Yuzhi'};
+sayHi(someone);
+
+someone = {name: 'Dominic'};
+sayHi(someone);
+```
+在这个例子中,`someone`变量被改变了几次(就像在React中,当前组件的状态可以改变一样).不过在`sayHI`函数里有一个局部常量`name`,它与每次调用函数时传进来的person对象相关.这个常量是局部的,所以调用与调用之间互不关联(isolated).最终,当倒计时到时,每次的alert都能记住属于那一刻的`name`.  
+<span className='text-green-300'>(个人问题:是闭包吗?传个对象进来把某一部分取出来作为用处,直到alert)<br/>
+(正常是不是应该someone改变指向时,前一对象就被回收了?)</span>  
+
+以上解释了事件处理器是如何捕获在点击那一刻时的`count`值的.我们把同样的替换原则运用到React,每一次的渲染都有自己的`count`:
+
+```jsx
+// During first render
+function Counter() {
+  const count = 0; // Returned by useState()
+  // ...
+  function handleAlertClick() {
+    setTimeout(() => {
+      alert('You clicked on: ' + count);
+    }, 3000);
+  }
+  // ...
+}
+
+// After a click, our function is called again
+function Counter() {
+  const count = 1; // Returned by useState()
+  // ...
+  function handleAlertClick() {
+    setTimeout(() => {
+      alert('You clicked on: ' + count);
+    }, 3000);
+  }
+  // ...
+}
+
+// After another click, our function is called again
+function Counter() {
+  const count = 2; // Returned by useState()
+  // ...
+  function handleAlertClick() {
+    setTimeout(() => {
+      alert('You clicked on: ' + count);
+    }, 3000);
+  }
+  // ...
+}
+```
+所以,实际上每一次渲染都有属于自己"版本"的`handleAlertClick`(泛指事件处理).每一个版本自然就有每一个属于自己的`count`值了.
+

@@ -52,7 +52,7 @@
 
 ### 为什么说平行路由更像插槽?
 将插槽名称提取到文件系统,再在布局中引入并渲染对应内容,就是平行路由的具体实现.  
-![parallel-routing](../Next/Official-Docs/Routing/imgs/parallel-routes.jpg)
+![parallel-routing](./Official-Docs/Next/Routing/imgs/parallel-routes.jpg)
 
 **插槽名提取到文件系統**: 文件夹的名称就是插槽的名称.  
 **在布局中引入并渲染对应内容**:`@team/page.tsx`和`@analytics/page.tsx`的内容,在`layout.tsx`中变成了对应的props,直接在布局中跟`{children}`一样,`{team}`,`{analytics}`就可以渲染出对应内容.
@@ -63,7 +63,7 @@
 
 这跟拦截路由有什么联系? 拦截路由的存在可以同时满足以上两个场景.  
 **同一个路由分块下,内容可以仅为一个弹窗,也可以是一个全新的页面.**
-![intercepting-routes](../Next/Official-Docs/Routing/imgs/intercepted-routes-files.jpg)
+![intercepting-routes](./Official-Docs/Next/Routing/imgs/intercepted-routes-files.jpg)
 
 ### 用例:Modal弹窗的实现
 拦截路由会改变URL,平行路由允许在同一个布局下渲染一个或多个页面的内容.  

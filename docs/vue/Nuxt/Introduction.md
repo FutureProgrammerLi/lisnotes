@@ -1,7 +1,7 @@
 # Introduction
 > 看完了Next.js的教程,对比一下Nuxt.js  
 https://nuxt.com/docs/getting-started/introduction  
-"跟自己"对比一下就是,"Nuxt的亿点点好处(本文)" -> ["Next的亿点点好处"](/react/Next/Why-Next.md)
+"跟自己"对比一下就是,"Nuxt的亿点点好处(本文)" -> ["Next的亿点点好处"](/react/Why-Next.md)
 
 
 <p style="font-size:1.125rem;line-height:1.75rem;">Nuxt的目标是让网页开发更加简单易懂,为网页开发者提供更高性能的开发体验</p>

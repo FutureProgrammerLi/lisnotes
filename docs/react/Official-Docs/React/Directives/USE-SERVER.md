@@ -3,7 +3,6 @@
 
 `'use server'`可以将由客户端代码调用的函数,标记为服务器函数.  
 
-## 目录
 * [指引](#指引)
     * [`'use server'`](#use-server)
     * [安全考虑](#安全考虑)
@@ -14,7 +13,7 @@
     * [在`<form>`元素外调用服务器函数](#在-form-元素外调用服务器函数)
 
 ## 指引
-### `'use server'`
+## `'use server'`
 在异步函数体的顶部加上`'use server'`,这个函数就会被客户端标记为是可调用的.  
 我们称这些函数为服务器函数.  
 ```tsx
@@ -82,7 +81,7 @@ async function addToCart(data){
 * 事件处理器里的事件
 
 ## 用法
-### 表单里的服务器函数
+## 表单里的服务器函数
 服务器函数最常见的用法就是用以变更数据.在浏览器里,用户使用HTML form表单元素提交数据变更是最为传统的一种手段.  
 而React,利用服务器组件,提供了服务器函数作为表单Action的一类支持(first-class support?).  
 
@@ -110,7 +109,7 @@ export default function App(){
 
 通过向form的`action`属性传递服务器函数,React还能渐进式增强表单功能.([progressive enhance](https://developer.mozilla.org/en-US/docs/Glossary/Progressive_Enhancement)) 也就是说表单可以在JS包加载前就被提交.
 
-#### 处理表单的返回值
+### 处理表单的返回值
 在上面的用户名表单中,我们有可能获取不到username的值.这时`requestUsername`就需要告诉我们函数执行成功与否.  
 而要根据服务器函数的处理结果来更新客户端的界面的话,我们就要用到`useActionState`,增强表单功能了.  
 ::: code-group
@@ -152,7 +151,7 @@ function UserNameForm(){
 
 **跟其它hooks一样,`useActionState`也只能在客户端代码中被调用.**
 
-### 在`<form>`元素外调用服务器函数
+## 在`<form>`元素外调用服务器函数
 服务器函数可以说是暴露的服务器接口,它们可以在客户端代码中被任意调用.  
 
 而如果要在表单之外使用服务器函数的话,建议在[Transition](https://react.dev/reference/react/useTransition)里调用.这样你就可以展示加载状态,实现积极状态更新,更好地处理错误了.再提一次,表单调用的服务器函数是自动包裹在transition里调用的.

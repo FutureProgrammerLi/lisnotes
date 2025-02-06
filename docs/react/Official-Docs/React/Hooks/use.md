@@ -5,7 +5,7 @@
 > [官网](https://react.dev/reference/react/use#)
 
 `use`是一个React API,你可以用它来读取来自Promise或上下文提供的值.  
-**(这是个API,而`useActionState`是hook.需要区分.)**  
+**(这是个API,而`useActionState`是hook.需要区分.放到hooks是方便对比但有误导性)**  
 ```ts
 const value = use(resource);
 ```

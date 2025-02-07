@@ -48,7 +48,7 @@ export default function Page({params}:{params:Promise<{slug:string}>}){
     //  为什么神奇呢? 因为`use()`API也是v19才稳定的一个特性.API的出现,参数变成Promise,谁先谁后不好说.
 }
 ```
-[关于`use()`这个hook的介绍可以看这里](/react/Official-Docs/React/Hooks/use.md)
+[关于`use()`这个hook的介绍可以看这里](/react/Official-Docs/React/APIs/use.md)
 
 ## `Context`需不需要`Provider`?
 **不需要,但会报错.**  

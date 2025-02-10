@@ -1,13 +1,20 @@
 import DefaultTheme from 'vitepress/theme'
 import './custom.css'
+
 import mediumZoom from 'medium-zoom';
 import { onMounted, watch, nextTick } from 'vue';
 import { useRoute } from 'vitepress';
 
-// export default DefaultTheme;
+import vitepressBackToTop from 'vitepress-plugin-back-to-top';
+import 'vitepress-plugin-back-to-top/dist/style.css';
 
 export default {
     extends: DefaultTheme,
+    enhanceApp({ app }) {
+        vitepressBackToTop({
+            threshold: 300,
+        })
+    },
     setup() {
         const route = useRoute();
         const initZoom = () => {
@@ -23,7 +30,7 @@ export default {
         );
 
         // production 下 收集 web-vitals
-        // if (import.meta.env.PROD) {
+        // if (import.meta.env.PROD) {}
         if (process.env.NODE_ENV === 'production') {
             onMounted(() => import('web-vitals').then(({ onCLS, onFCP, onLCP, onTTFB }) => {
                 onCLS(console.log)

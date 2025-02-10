@@ -5,7 +5,7 @@ import { visualizer } from 'rollup-plugin-visualizer';
 // import viteCompress from 'vite-plugin-compression';
 // import CompressImgs from '../plugins/test';
 
-import { SearchPlugin } from "vitepress-plugin-search";
+// import { SearchPlugin } from "vitepress-plugin-search";
 
 // const tailwindCDN = ['script', { src: 'https://cdn.tailwindcss.com' }];
 const favicon = ['link', { rel: 'icon', href: '/favicon.ico' }];

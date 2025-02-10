@@ -86,7 +86,7 @@ export default defineConfig({
     },
     plugins: [
       // viteCompress(),
-      SearchPlugin(),
+      // SearchPlugin(),
     ],
   },
   markdown: {
@@ -109,7 +109,7 @@ export default defineConfig({
     nav: [
       { text: 'Home', link: '/' },
       { text: 'Notes', link: '/react/Official-Docs/Next/Official-Docs' }
-      // { text: 'Examples', link: '/markdown-examples' } // 保留, 学怎么用
+      // { text: '', link: '/markdown-examples' } // 保留, 学怎么用
     ],
 
     // sidebar: sidebarItems,

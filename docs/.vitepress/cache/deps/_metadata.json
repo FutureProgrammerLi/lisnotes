@@ -1,43 +1,43 @@
 {
-  "hash": "d171a7b1",
-  "configHash": "6bd3bf1b",
-  "lockfileHash": "18870d93",
-  "browserHash": "065c126d",
+  "hash": "3b3c0261",
+  "configHash": "7f98fbfb",
+  "lockfileHash": "df1a0125",
+  "browserHash": "438ba2b7",
   "optimized": {
     "vue": {
-      "src": "../../../../node_modules/vue/dist/vue.runtime.esm-bundler.js",
+      "src": "../../../../../../../node_modules/vue/dist/vue.runtime.esm-bundler.js",
       "file": "vue.js",
-      "fileHash": "c4684933",
+      "fileHash": "8da41091",
       "needsInterop": false
     },
     "vitepress > @vue/devtools-api": {
-      "src": "../../../../node_modules/@vue/devtools-api/dist/index.js",
+      "src": "../../../../node_modules/.store/@vue+devtools-api@7.7.1/node_modules/@vue/devtools-api/dist/index.js",
       "file": "vitepress___@vue_devtools-api.js",
-      "fileHash": "6aa65ad5",
+      "fileHash": "0d52057a",
       "needsInterop": false
     },
     "vitepress > @vueuse/core": {
-      "src": "../../../../node_modules/@vueuse/core/index.mjs",
+      "src": "../../../../node_modules/.store/@vueuse+core@12.5.0/node_modules/@vueuse/core/index.mjs",
       "file": "vitepress___@vueuse_core.js",
-      "fileHash": "387de02b",
+      "fileHash": "5ff62b76",
       "needsInterop": false
     },
     "medium-zoom": {
-      "src": "../../../../node_modules/medium-zoom/dist/medium-zoom.esm.js",
+      "src": "../../../../node_modules/.store/medium-zoom@1.1.0/node_modules/medium-zoom/dist/medium-zoom.esm.js",
       "file": "medium-zoom.js",
-      "fileHash": "c2903a20",
+      "fileHash": "7853c4c9",
       "needsInterop": false
     },
     "vitepress-plugin-back-to-top": {
       "src": "../../../../node_modules/.store/vitepress-plugin-back-to-top@1.0.1/node_modules/vitepress-plugin-back-to-top/dist/vitepress-plugin-back-to-top.js",
       "file": "vitepress-plugin-back-to-top.js",
-      "fileHash": "7b49224d",
+      "fileHash": "61eea6b9",
       "needsInterop": false
     }
   },
   "chunks": {
-    "chunk-LW4I4DCF": {
-      "file": "chunk-LW4I4DCF.js"
+    "chunk-EF3OL2OY": {
+      "file": "chunk-EF3OL2OY.js"
     }
   }
 }

@@ -7,34 +7,32 @@
 > 参考:https://refactoring.guru/design-patterns/catalog
 
 * Creational Patterns
-    * [Abstract Factory抽象工厂模式]()√
-    * [Builder构造者模式]()√
-    * [Factory Method工厂方法模式]()√
-    * [Prototype原型模式]()√
-    * [Singleton单例模式]()√
-
+    * Abstract Factory抽象工厂模式]()√
+    * Builder构造者模式]()√
+    * Factory Method工厂方法模式]()√
+    * Prototype原型模式]()√
+    * Singleton单例模式]()√
 * Structural Patterns
-    * [Adapter适配器模式]()√
-    * [Bridge桥接模式]()
-    * [Composite组合模式]()
-    * [Decorator装饰器模式]()√
-    * [Facade外观模式]()√
-    * [Flyweight享元模式]()
-    * [Proxy代理模式]()√
+    * Adapter适配器模式]()√
+    * Bridge桥接模式]()
+    * Composite组合模式]()
+    * Decorator装饰器模式]()√
+    * Facade外观模式]()√
+    * Flyweight享元模式]()
+    * Proxy代理模式]()√
 
 * Behavioral Patterns
-    * [Chain of Responsibility责任链模式]()√
-    * [Command命令模式]()
-    * [Interpreter解释器模式]()
-    * [Iterator迭代器模式]()√
-    * [Mediator中介者模式]()
-    * [Memento备忘录模式]()
-    * [Observer观察者模式]()√
-    * [State状态模式]()
-    * [Strategy策略模式]()
-    * [Template Method模板方法模式]()
-    * [Visitor访问者模式]()
-
+    * Chain of Responsibility责任链模式]()√
+    * Command命令模式]()
+    * Interpreter解释器模式]()
+    * Iterator迭代器模式]()√
+    * Mediator中介者模式]()
+    * Memento备忘录模式]()
+    * Observer观察者模式]()√
+    * State状态模式]()
+    * Strategy策略模式]()
+    * Template Method模板方法模式]()
+    * Visitor访问者模式]()
 
 Todo:
 1. Flyweight √

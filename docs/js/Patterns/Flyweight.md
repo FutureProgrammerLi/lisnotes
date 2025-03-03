@@ -1,3 +1,7 @@
+<script setup>
+import Divider from './components/Divider.vue';
+</script>
+
 # 享元模式
 > [原文地址](https://refactoring.guru/design-patterns/flyweight/)
 ## 设计意图
@@ -39,12 +43,7 @@
 这个方法可以在很多地方中定义.最明显的就是定义在享元容器中(flyweight container).你也可以创建新的工厂类.你还可以将工厂方法定义为静态的,并放置到真实的享元类中.  
 
 
-<hr style="border: 1px solid red;"/>
-
-**(分割线, 越说越靠近C++,就越不懂了.得赶紧跳回我们的Javascript去!)**  
-**(跳过类结构分析和伪代码,下面贴TS代码代替这一部分吧)**
-
-<hr style="border: 1px solid red;"/>
+<Divider />
 
 ## 可应用性
 当你的程序需要创建大量对象,数量甚至多到可能撑爆内存时,你可以考虑使用享元模式.  

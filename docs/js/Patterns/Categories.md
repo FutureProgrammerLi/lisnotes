@@ -19,7 +19,7 @@
     * Decorator装饰器模式]()√
     * Facade外观模式]()√
     * Flyweight享元模式]()
-    * Proxy代理模式]()√
+    * Proxy代理模式]()√ 
 
 * Behavioral Patterns
     * Chain of Responsibility责任链模式]()√

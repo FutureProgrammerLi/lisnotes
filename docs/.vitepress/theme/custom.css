@@ -8,6 +8,12 @@
     }
 }
 
+:root{
+    --hero-name:-webkit-linear-gradient(120deg,#4ade80, #2563eb);
+    --vp-home-hero-name-color:transparent;
+    --vp-home-hero-name-background:var(--hero-name);
+  }
+
 /* 图片放大 */
 .medium-zoom-overlay {
     z-index: 30;
@@ -17,3 +23,10 @@
     z-index: 9999 !important;
     /* 给的值是21，但是实测盖不住，直接999 */
 }
+
+/* tailwindcss 定义类变量,并在CSS中使用这个变量 */
+/* bg-gradient-to-r	from-blue-500 to-purple-500
+bg-gradient-to-br	from-green-400 to-blue-600
+bg-gradient-to-l	from-pink-500 via-purple-500 to-indigo-500
+bg-gradient-to-tr	from-yellow-400 to-red-500
+bg-gradient-to-b	from-gray-700 to-black */

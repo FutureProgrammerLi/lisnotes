@@ -37,7 +37,7 @@
 Todo:
 1. Flyweight √
 2. Command √
-3. Mediator
+3. Mediator √
 4. Strategy
 5. Template Method
 6. Visitor

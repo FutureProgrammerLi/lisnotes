@@ -41,6 +41,10 @@ Todo:
 4. Strategy √
 5. Template Method √
 6. Visitor
+7. Memento
+
+8. Bridge
+9. Composite
 
 
 

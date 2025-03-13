@@ -5,8 +5,6 @@ import { visualizer } from 'rollup-plugin-visualizer';
 // import viteCompress from 'vite-plugin-compression';
 // import CompressImgs from '../plugins/test';
 
-// import { SearchPlugin } from "vitepress-plugin-search";
-
 // const tailwindCDN = ['script', { src: 'https://cdn.tailwindcss.com' }];
 const favicon = ['link', { rel: 'icon', href: '/favicon.ico' }];
 // const favicon = ['link', { rel: 'icon', href: '/public/favicon.ico' }];
@@ -69,15 +67,11 @@ export default defineConfig({
           // ViteImageOptimizer(),
         ],
         output: {
-          manualChunks(id) { 
-            // if (id.includes('/vue') || id.includes('@vue')) {  // over 500kb
-            //   return 'vue';
-            // }
+          manualChunks(id) {
             if (id.includes('node_modules/vitepress/')) {
               return 'vitepress';
             }
             if (id.includes('/node_modules/')) {
-              // console.log('vendor');
               return 'vendor';
             }
           },
@@ -86,7 +80,6 @@ export default defineConfig({
     },
     plugins: [
       // viteCompress(),
-      // SearchPlugin(),
     ],
   },
   markdown: {
@@ -103,9 +96,9 @@ export default defineConfig({
   title: "What I've learned",
   description: "Learning record",
   themeConfig: {
-    search: {
-      provider: 'local'
-    },
+    // search: {
+    //   provider: 'local', // local
+    // },
     nav: [
       { text: 'Home', link: '/' },
       { text: 'Notes', link: '/react/Official-Docs/Next/Official-Docs' }

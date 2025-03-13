@@ -66,7 +66,7 @@ function ensureStartingSlash(path) {
   return path.startsWith("/") ? path : `/${path}`;
 }
 
-// ../../../../../Program Files/nodejs/node_modules/vitepress/node_modules/.store/@vueuse+shared@12.5.0/node_modules/@vueuse/shared/index.mjs
+// ../../../../../Program Files/nodejs/node_modules/vitepress/node_modules/.store/@vueuse+shared@12.8.2/node_modules/@vueuse/shared/index.mjs
 function tryOnScopeDispose(fn) {
   if (getCurrentScope()) {
     onScopeDispose(fn);
@@ -127,7 +127,7 @@ function watchImmediate(source, cb, options) {
   );
 }
 
-// ../../../../../Program Files/nodejs/node_modules/vitepress/node_modules/.store/@vueuse+core@12.5.0/node_modules/@vueuse/core/index.mjs
+// ../../../../../Program Files/nodejs/node_modules/vitepress/node_modules/.store/@vueuse+core@12.8.2/node_modules/@vueuse/core/index.mjs
 var defaultWindow = isClient ? window : void 0;
 var defaultDocument = isClient ? window.document : void 0;
 var defaultNavigator = isClient ? window.navigator : void 0;
@@ -185,7 +185,7 @@ function useEventListener(...args) {
   return stop;
 }
 function useMounted() {
-  const isMounted = ref(false);
+  const isMounted = shallowRef(false);
   const instance = getCurrentInstance();
   if (instance) {
     onMounted(() => {
@@ -209,9 +209,9 @@ function useSSRWidth() {
 function useMediaQuery(query, options = {}) {
   const { window: window2 = defaultWindow, ssrWidth = useSSRWidth() } = options;
   const isSupported = useSupported(() => window2 && "matchMedia" in window2 && typeof window2.matchMedia === "function");
-  const ssrSupport = ref(typeof ssrWidth === "number");
+  const ssrSupport = shallowRef(typeof ssrWidth === "number");
   const mediaQuery = shallowRef();
-  const matches = ref(false);
+  const matches = shallowRef(false);
   const handler = (event) => {
     matches.value = event.matches;
   };

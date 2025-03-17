@@ -43,7 +43,7 @@ Todo:
 6. Visitor √
 7. Memento √
 
-8. Bridge
+8. Bridge √
 9. Composite
 
 

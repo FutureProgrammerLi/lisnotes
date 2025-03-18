@@ -73,16 +73,16 @@ left:
 ## 完整介绍
 **In-depth patterns(每一个模式都是一篇文章)**
 
-* [Bridge桥接模式](./Patterns/Bridge)
-* [Composite组合模式](./Patterns/Composite)
-* [Flyweight享元模式](./Patterns/Flyweight)
+* [Bridge桥接模式](Bridge)
+* [Composite组合模式](Composite)
+* [Flyweight享元模式](Flyweight)
 
-* [Command命令模式](./Patterns/Command)
-* [Mediator中介者模式](./Patterns/Mediator)
-* [Memento备忘录模式](./Patterns/Memento)
-* [Strategy策略模式](./Patterns/Strategy)
-* [Template-Method模板方法模式](./Patterns/Template-Method)
-* [Visitor访问者模式](./Patterns/Visitor)
+* [Command命令模式](Command)
+* [Mediator中介者模式](Mediator)
+* [Memento备忘录模式](Memento)
+* [Strategy策略模式](Strategy)
+* [Template-Method模板方法模式](Template-Method)
+* [Visitor访问者模式](Visitor)
 
 
 

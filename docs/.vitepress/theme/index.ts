@@ -13,8 +13,8 @@ import 'vitepress-plugin-back-to-top/dist/style.css';
 export default {
     extends: DefaultTheme,
     enhanceApp({ app }) {
-        app.component('ImageWithCaption', defineAsyncComponent(() => import('@/JS/Patterns/components/ImageWithCaption.vue' as string)));
-        app.component('Divider', defineAsyncComponent(() => import('@/JS/Patterns/components/Divider.vue' as string) ));
+        app.component('ImageWithCaption', defineAsyncComponent(() => import('../../JS/Patterns/components/ImageWithCaption.vue' as string)));
+        app.component('Divider', defineAsyncComponent(() => import('../../JS/Patterns/components/Divider.vue' as string) ));
         vitepressBackToTop({
             threshold: 300,
         })

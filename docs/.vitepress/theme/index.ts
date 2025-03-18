@@ -8,17 +8,14 @@ import { useRoute } from 'vitepress';
 import vitepressBackToTop from 'vitepress-plugin-back-to-top';
 import 'vitepress-plugin-back-to-top/dist/style.css';
 
-import ImageWithCaption from '../../JS/Patterns/components/ImageWithCaption.vue';
-import Divider from '../../JS/Patterns/components/Divider.vue';
 
 
 export default {
     extends: DefaultTheme,
     enhanceApp({ app }) {
-        // app.component('ImageWithCaption', defineAsyncComponent(() => import('../../JS/Patterns/components/ImageWithCaption.vue')));
-        // app.component('Divider', defineAsyncComponent(() => import('../../JS/Patterns/components/Divider.vue') ));
-        app.component('ImageWithCaption', ImageWithCaption);
-        app.component('Divider', Divider);
+        // failed when deployed on remote server:Could not resolve "../../JS/Patterns/components/ImageWithCaption.vue" from "docs/.vitepress/theme/index.ts"
+        // app.component('ImageWithCaption', defineAsyncComponent(() => import('@/JS/Patterns/components/ImageWithCaption.vue' as string)));
+        // app.component('Divider', defineAsyncComponent(() => import('@/JS/Patterns/components/Divider.vue' as string) ));
         vitepressBackToTop({
             threshold: 300,
         })

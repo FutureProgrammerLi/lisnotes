@@ -1,4 +1,7 @@
-
+<script setup>
+import ImageWithCaption from './components/ImageWithCaption.vue'
+import Divider from './components/Divider.vue'
+</script>
 # 组合模式
 > [原文地址](https://refactoring.guru/design-patterns/composite)
 

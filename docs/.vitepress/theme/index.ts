@@ -2,15 +2,19 @@ import DefaultTheme from 'vitepress/theme'
 import './custom.css'
 
 import mediumZoom from 'medium-zoom';
-import { onMounted, watch, nextTick } from 'vue';
+import { onMounted, watch, nextTick, defineAsyncComponent } from 'vue';
 import { useRoute } from 'vitepress';
 
 import vitepressBackToTop from 'vitepress-plugin-back-to-top';
 import 'vitepress-plugin-back-to-top/dist/style.css';
 
+
+
 export default {
     extends: DefaultTheme,
     enhanceApp({ app }) {
+        app.component('ImageWithCaption', defineAsyncComponent(() => import('@/JS/Patterns/components/ImageWithCaption.vue' as string)));
+        app.component('Divider', defineAsyncComponent(() => import('@/JS/Patterns/components/Divider.vue' as string) ));
         vitepressBackToTop({
             threshold: 300,
         })

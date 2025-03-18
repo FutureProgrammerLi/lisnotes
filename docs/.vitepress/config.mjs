@@ -2,6 +2,7 @@ import { defineConfig } from 'vitepress';
 // import { sidebarItems } from './sidebar';
 import { generateSidebar } from 'vitepress-sidebar';
 import { visualizer } from 'rollup-plugin-visualizer';
+import path from 'path';
 // import viteCompress from 'vite-plugin-compression';
 // import CompressImgs from '../plugins/test';
 
@@ -32,19 +33,23 @@ const statisticsWithGoogle = [
 
 const SidebarItemsWithPlugins = generateSidebar({
   documentRootPath: '/docs',
-
   collapsed: true,
   capitalizeEachWords: true,
-  manualSortFileNameByPriority: ['vue', 'react', 'js', 'ts', 'css', 'State-Management', 'building', 'git', 'blogs', 'comparisons', 'english'],
+  manualSortFileNameByPriority: ['vue', 'react', 'JS', 'TS', 'css', 'State-Management', 'building', 'git', 'blogs', 'comparisons', 'english'],
   hyphenToSpace: true,
   underscoreToSpace: true,
-  excludePattern: ['api-examples.md', 'markdown-examples.md', 'public/', 'plugins/','*.vue'],
+  excludePattern: ['api-examples.md', 'markdown-examples.md', 'public/', 'plugins/', '*.vue'],
   useFolderLinkFromSameNameSubFile: true,      // Authentication/Authentication.md, 达到无subtree, 但实际目录结构是文件夹+文件的形式, 从而方便添加对应的Authentication/imgs目录
   // includeFolderIndexFile:true,    // index.md作为目录名称显示出来
 });
 
 export default defineConfig({
   vite: {
+    resolve: {
+      alias: {
+        '@': path.resolve(__dirname, '../')
+      }
+    },
     ssr: {
       noExternal: ['medium-zoom'],
     },

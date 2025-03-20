@@ -26,7 +26,8 @@
 * Behavioral Patterns
     * [Chain of Responsibility责任链模式](./A-For-Start#责任链模式)√ 1
     * [Command命令模式](Command) √ 2
-    * Interpreter解释器模式]() 0
+    * [Interpreter解释器模式](Interpreter) 0 
+    * [Iterator](Iterator) 1
     * [Iterator迭代器模式](./A-For-Start#迭代器模式)√ 1
     * [Mediator中介者模式](Mediator) √ 2
     * [Memento备忘录模式](Memento) √ 2
@@ -48,7 +49,7 @@ Todo:
 9. Composite √
 
 left:
-1. Interpreter
+1. Interpreter √
 2. State
 
 ## 简单介绍
@@ -78,11 +79,13 @@ left:
 * [Flyweight享元模式](Flyweight)
 
 * [Command命令模式](Command)
+* [Iterator迭代器模式](Iterator)
 * [Mediator中介者模式](Mediator)
 * [Memento备忘录模式](Memento)
 * [Strategy策略模式](Strategy)
 * [Template-Method模板方法模式](Template-Method)
 * [Visitor访问者模式](Visitor)
+
 
 
 

@@ -1,0 +1,11 @@
+diff --git a/node_modules/mark.js/src/vanilla.js b/node_modules/mark.js/src/vanilla.js
+index 3636b43..20e988f 100644
+--- a/node_modules/mark.js/src/vanilla.js
++++ b/node_modules/mark.js/src/vanilla.js
+@@ -1,4 +1,5 @@
+-import MarkJS from './lib/mark';
++// import MarkJS from './lib/mark';
++import MarkJS from 'mark.js';
+ 
+ export default function Mark(ctx) {
+   const instance = new MarkJS(ctx);

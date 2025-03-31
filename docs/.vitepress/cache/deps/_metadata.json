@@ -1,0 +1,64 @@
+{
+  "hash": "77ebf4da",
+  "configHash": "1820cda3",
+  "lockfileHash": "df1a0125",
+  "browserHash": "5edf6004",
+  "optimized": {
+    "vue": {
+      "src": "../../../../../../../node_modules/vue/dist/vue.runtime.esm-bundler.js",
+      "file": "vue.js",
+      "fileHash": "6b09625e",
+      "needsInterop": false
+    },
+    "vitepress > @vue/devtools-api": {
+      "src": "../../../../node_modules/.store/@vue+devtools-api@7.7.2/node_modules/@vue/devtools-api/dist/index.js",
+      "file": "vitepress___@vue_devtools-api.js",
+      "fileHash": "d07a8d00",
+      "needsInterop": false
+    },
+    "vitepress > @vueuse/core": {
+      "src": "../../../../node_modules/.store/@vueuse+core@12.8.2/node_modules/@vueuse/core/index.mjs",
+      "file": "vitepress___@vueuse_core.js",
+      "fileHash": "2cf1179a",
+      "needsInterop": false
+    },
+    "medium-zoom": {
+      "src": "../../../../node_modules/.store/medium-zoom@1.1.0/node_modules/medium-zoom/dist/medium-zoom.esm.js",
+      "file": "medium-zoom.js",
+      "fileHash": "e6449c09",
+      "needsInterop": false
+    },
+    "vitepress > @vueuse/integrations/useFocusTrap": {
+      "src": "../../../../node_modules/.store/@vueuse+integrations@12.8.2/node_modules/@vueuse/integrations/useFocusTrap.mjs",
+      "file": "vitepress___@vueuse_integrations_useFocusTrap.js",
+      "fileHash": "f768139e",
+      "needsInterop": false
+    },
+    "vitepress > mark.js/src/vanilla.js": {
+      "src": "../../../../node_modules/.store/mark.js@8.11.1/node_modules/mark.js/src/vanilla.js",
+      "file": "vitepress___mark__js_src_vanilla__js.js",
+      "fileHash": "92700c47",
+      "needsInterop": false
+    },
+    "vitepress > minisearch": {
+      "src": "../../../../node_modules/.store/minisearch@7.1.2/node_modules/minisearch/dist/es/index.js",
+      "file": "vitepress___minisearch.js",
+      "fileHash": "d4bb5cc7",
+      "needsInterop": false
+    },
+    "vitepress-plugin-back-to-top": {
+      "src": "../../../../node_modules/.store/vitepress-plugin-back-to-top@1.0.1/node_modules/vitepress-plugin-back-to-top/dist/vitepress-plugin-back-to-top.js",
+      "file": "vitepress-plugin-back-to-top.js",
+      "fileHash": "58ea8157",
+      "needsInterop": false
+    }
+  },
+  "chunks": {
+    "chunk-L6R37BD7": {
+      "file": "chunk-L6R37BD7.js"
+    },
+    "chunk-EF3OL2OY": {
+      "file": "chunk-EF3OL2OY.js"
+    }
+  }
+}

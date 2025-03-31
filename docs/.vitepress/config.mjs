@@ -101,9 +101,9 @@ export default defineConfig({
   title: "What I've learned",
   description: "Learning record",
   themeConfig: {
-    // search: {
-    //   provider: 'local', // local
-    // },
+    search: {
+      provider: 'local', // local
+    },
     nav: [
       { text: 'Home', link: '/' },
       { text: 'Notes', link: '/react/Official-Docs/Next/Official-Docs' }

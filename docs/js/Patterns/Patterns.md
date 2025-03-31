@@ -6,6 +6,16 @@
 > Done 5+适配/装饰/外观/代理 4 + 责任链/迭代器/观察者 3 =12  
 > 参考:https://refactoring.guru/design-patterns/catalog
 
+::: details GoF
+GoF是Gangs of Four Design Patterns的缩写, 是四位作者的名字.他们分别是:
+* Erich Gamma
+* Richard Helm
+* Ralph Johnson
+* John Vlissides
+
+他们是\<Design Patterns: Elements of Reusable Object-Oriented Software\>一书的作者.该书是设计模式领域的经典之作.
+:::
+
 ## 分类
 1 for brief and 2 for in-depth, 0 for left
 * [Creational Patterns](./A-For-Start#创建型模式)
@@ -32,8 +42,7 @@
     * [Mediator中介者模式](Mediator) √ 2
     * [Memento备忘录模式](Memento) √ 2
     * [Observer观察者模式](./A-For-Start#观察者模式)√ 1
-    * State状态模式]() 0
-    * [Strategy策略模式](Strategy) √ 2
+    * [State状态模式](State) 2    * [Strategy策略模式](Strategy) √ 2
     * [Template Method模板方法模式](Template-Method) √ 2
     * [Visitor访问者模式](Visitor) √ 2
 
@@ -50,7 +59,7 @@ Todo:
 
 left:
 1. Interpreter √
-2. State
+2. State √
 
 ## 简单介绍
 [Brief Introduction](./A-For-Start) * 同一篇文章里简要介绍多个模式
@@ -85,7 +94,9 @@ left:
 * [Strategy策略模式](Strategy)
 * [Template-Method模板方法模式](Template-Method)
 * [Visitor访问者模式](Visitor)
+* [State状态模式](State)
 
+2025/3/31 模式的翻译就算结束了.后续的深入就要靠自己实践理解了.
 
 
 

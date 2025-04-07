@@ -15,9 +15,10 @@ import {
   render,
   unref,
   withCtx
-} from "./chunk-EF3OL2OY.js";
+} from "./chunk-LW4I4DCF.js";
+import "./chunk-5WRI5ZAA.js";
 
-// node_modules/.store/vitepress-plugin-back-to-top@1.0.1/node_modules/vitepress-plugin-back-to-top/dist/vitepress-plugin-back-to-top.js
+// node_modules/vitepress-plugin-back-to-top/dist/vitepress-plugin-back-to-top.js
 var E = (e) => (pushScopeId("data-v-09295527"), e = e(), popScopeId(), e);
 var I = E(() => createBaseVNode("svg", {
   class: "icon-top",

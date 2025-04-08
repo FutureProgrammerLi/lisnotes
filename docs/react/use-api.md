@@ -13,9 +13,10 @@
 * React v19 - `<Suspense>`, `use()`
 * Tailwindcss
 
-// 将server action定义和组件定义分离,后者不再需要是Server Component,脱离`async/await`限制.
-// 文件组织方法, app/profiles/action, 将该页面用到的actions定义到与/page,/layout同级的目录下.甚至该页面的组件,可以命名为xxx.component.tsx
-// 结合Suspense,use,在客户端组件中调用server action. 并尝试xxx.component.tsx这种命名方式
+// 将server action定义和组件定义分离,后者不再需要是Server Component,脱离`async/await`限制.  
+// 文件组织方法, app/profiles/action, 将该页面用到的actions定义到与/page,/layout同级的目录下.甚至该页面的组件,可以命名为xxx.component.tsx  
+// 结合Suspense,use,在客户端组件中调用server action. 并尝试xxx.component.tsx这种命名方式  
+// [关于`use`的文章](/react/Official-Docs/React/APIs/use.html)  
 
 ## `use()`是什么
 React衍生的框架,Remix和Next 14,都新增了"服务器组件"这个新概念,各自有服务器端的实现.  
@@ -34,7 +35,7 @@ React衍生的框架,Remix和Next 14,都新增了"服务器组件"这个新概�
 ## Demo:客户端组件中调用服务器行为
 我们创建一个列表数据页面,来展示如何在Client Component里调用Server actions.  
 在`/profiles`页面,通过在服务器上获取用户主页内容,并展示在客户端组件中.  
-![directory](/public/use/dir.webp)
+![directory](/devto/dir.png)
 
 首先我们写个获取数据的函数:
 ```ts
@@ -70,7 +71,7 @@ export default async function ProfilesPage(){
                 <div className='animate-spin rounded-full h-12 w-12 border-b-2 border-blue-500' />
             }>
                 <UsersList userPromise={userPromise} />
-            </Suspense>
+            </Suspense>`
         </div>
     )
 }
@@ -106,12 +107,20 @@ export function UsersList({userPromise}:{userPromise:Promise<any>}){
 ```
 
 ## 结果展示
-![result](/public/use/result.webp)
+![result](/devto/result.png)
 
 总结一下
 1. 定义server actions;
 2. 结合`<Suspense>`, 直接在服务器组件将promise传给客户端组件(如果这里的组件不用async定义是否可行?);
 3. 在客户端组件中使用`use(Promise)`获取数据.
 
+---
+实践回来了,上面`fetch`的URL有问题,直接浏览器是可以获取到的,但到了Next里就获取不了了.  
+**Fetch Failed**  
+![fetch-failed](/devto/fetch-failed.png)
+改到自己编写的接口就通了.哪怕新建的项目完全复制以上代码也会报错,是jsonplaceholder接口的问题.
+
+---
+感谢你能看到这里!
 
 

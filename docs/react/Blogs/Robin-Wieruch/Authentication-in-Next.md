@@ -1,7 +1,7 @@
 # Next.js中的认证
 
 > [原文地址](https://www.robinwieruch.de/next-authorization/)  
-> Authentication和Authorization是有区别的.具体可以看看[曾经翻译过的Next官网的介绍](/react\Official-Docs\Next\Authentication\Authentication)  
+> Authentication和Authorization是有区别的.具体可以看看[曾经翻译过的Next官网的介绍](/react/Official-Docs/Next/Authentication/Authentication)  
 > 简单说,认证(Authentication)是登录前,确认用户是谁,授权(Authorization)是登录后,确认用户能做什么.
 
 如今的React有了Next的加持,完全可以构建全站项目了.其中新问题又来了:我们要如何在全栈项目中实现各种授权操作呢?  

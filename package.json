@@ -11,7 +11,7 @@
     "ybuild": "yarn build",
     "commit": "git add . && git commit",
     "clean": "rimraf docs/.vitepress/dist",
-    "postinstall":"patch-package"
+    "postinstall": "patch-package"
   },
   "author": "FutureProgrammerLi <52388490+FutureProgrammerLi@users.noreply.github.com>",
   "license": "ISC",

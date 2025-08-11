@@ -3,13 +3,13 @@ import {
   toArray,
   tryOnScopeDispose,
   unrefElement
-} from "./chunk-Z5QSWKN2.js";
+} from "./chunk-4FZUCWOW.js";
 import {
   computed,
   shallowRef,
   toValue,
   watch
-} from "./chunk-LW4I4DCF.js";
+} from "./chunk-HVR2FF6M.js";
 import "./chunk-5WRI5ZAA.js";
 
 // node_modules/tabbable/dist/index.esm.js
@@ -394,7 +394,7 @@ function _toPrimitive(t, r) {
   if ("object" != typeof t || !t) return t;
   var e = t[Symbol.toPrimitive];
   if (void 0 !== e) {
-    var i = e.call(t, r || "default");
+    var i = e.call(t, r);
     if ("object" != typeof i) return i;
     throw new TypeError("@@toPrimitive must return a primitive value.");
   }
@@ -948,7 +948,7 @@ var createFocusTrap = function createFocusTrap2(elements, userOptions) {
       }
       state.active = true;
       state.paused = false;
-      state.nodeFocusedBeforeActivation = doc.activeElement;
+      state.nodeFocusedBeforeActivation = _getActiveElement(doc);
       onActivate === null || onActivate === void 0 || onActivate();
       var finishActivation = function finishActivation2() {
         if (checkCanFocusTrap) {
@@ -1098,21 +1098,29 @@ function useFocusTrap(target, options = {}) {
     (els) => {
       if (!els.length)
         return;
-      trap = createFocusTrap(els, {
-        ...focusTrapOptions,
-        onActivate() {
-          hasFocus.value = true;
-          if (options.onActivate)
-            options.onActivate();
-        },
-        onDeactivate() {
-          hasFocus.value = false;
-          if (options.onDeactivate)
-            options.onDeactivate();
+      if (!trap) {
+        trap = createFocusTrap(els, {
+          ...focusTrapOptions,
+          onActivate() {
+            hasFocus.value = true;
+            if (options.onActivate)
+              options.onActivate();
+          },
+          onDeactivate() {
+            hasFocus.value = false;
+            if (options.onDeactivate)
+              options.onDeactivate();
+          }
+        });
+        if (immediate)
+          activate();
+      } else {
+        const isActive = trap == null ? void 0 : trap.active;
+        trap == null ? void 0 : trap.updateContainerElements(els);
+        if (!isActive && immediate) {
+          activate();
         }
-      });
-      if (immediate)
-        activate();
+      }
     },
     { flush: "post" }
   );
@@ -1139,7 +1147,7 @@ tabbable/dist/index.esm.js:
 
 focus-trap/dist/focus-trap.esm.js:
   (*!
-  * focus-trap 7.6.4
+  * focus-trap 7.6.5
   * @license MIT, https://github.com/focus-trap/focus-trap/blob/master/LICENSE
   *)
 */

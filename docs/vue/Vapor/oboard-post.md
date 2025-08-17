@@ -10,7 +10,7 @@ Vapor Mode使Vue.js的一种新的编译策略,它不需要使用VDOM.它将代�
 
 ![vapor-comparison](/vapor/vapor-compilation.png)
 
-![performance](/vapor/perfomrance-comparison.png)
+![performance](/vapor/performance-comparison.png)
 
 ## 如何在Vite项目中启用Vapor Mode
 你可以参考[这个项目](https://github.com/sxzz/vue-vapor-starter)

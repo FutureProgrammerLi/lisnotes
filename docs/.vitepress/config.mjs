@@ -1,7 +1,6 @@
 import { defineConfig } from 'vitepress';
 // import { sidebarItems } from './sidebar';
 import { generateSidebar } from 'vitepress-sidebar';
-import { visualizer } from 'rollup-plugin-visualizer';
 import path from 'path';
 // import viteCompress from 'vite-plugin-compression';
 // import CompressImgs from '../plugins/test';
@@ -65,21 +64,26 @@ export default defineConfig({
       rollupOptions: {
         plugins: [
           // both vite and rollup plugins, run on build.
-          visualizer({
-            // open: true,
-            filename: 'bundle-visualizer.html',
-          }),
           // ViteImageOptimizer(),
         ],
+        // output: {
+        //   advancedChunks:{
+        //     groups:[
+        //       {
+        //         test:'/node_modules\/vitepress',
+        //         name: 'vitepress'
+        //       },
+        //       {
+        //         test:'/node_modules/',
+        //         name: 'vendor'
+        //       },
+        //     ]
+        //   }
+        // }
         output: {
-          manualChunks(id) {
-            if (id.includes('node_modules/vitepress/')) {
-              return 'vitepress';
-            }
-            if (id.includes('/node_modules/')) {
-              return 'vendor';
-            }
-          },
+          advancedChunks: {
+            groups: [{ name: 'vendor', test: /\/react(?:-dom)?/ }]
+          }
         }
       },
     },

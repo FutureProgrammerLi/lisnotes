@@ -1,11 +1,23 @@
 # 用的时候的一些总结,杂乱无章,学到什么写什么
 
+## 汇总
+### Chapter 1
+
 * [怎么自定义布局?](./Experience.md#布局)
 * [Nuxt里怎么获取数据?又要怎么传参?(query,body.getQuery(),readBody().)](./Experience.md#数据获取与传参)
 * [动态路由和动态传参([name].ts和getRouterParam())](./Experience.md#怎么动态传参-依赖值或参数发生变化时重新发送请求-getrouterparam)
 * [怎么使用全局变量?](./Experience.md#全局变量)
 * [怎么根据命令行切换端口?(根据开发环境切换接口地址)](./Experience.md#根据开发生产环境切换端口)
 * [Nuxt里怎么使用jsx?渲染组件的方式有多少种?](./Experience.md#怎么用jsx)
+
+### Chapter 2
+是Nuxt4的callback,时隔了很久重学的一些"新"经验.(上次学已经是24/06/14了)
+* [路由中间件](#组件级使用中间件)(`defineNuxtMiddleware`) (Vue Router)
+* [路由参数](#路由参数) (`$route.params`)
+* [导航](#导航)(declarative/programatic, validation)
+* [`assets`和`public`目录的区别](#assets和public的区别)
+* [状态管理及初始化](#状态管理及初始化)(两种方法:`useState`或者Pinia)
+* [构建本地服务器server目录](#构建本地服务器server目录)
 
 ## 布局
 ### 开启布局
@@ -287,3 +299,276 @@ export default defineComponent({
     <h1>Rendered with template</h1> 
 </template>
 ```
+
+## 组件级使用中间件
+**app/middleware/里的内容是自动引入的,跟`components`,`pages`目录一样,直接在定义中使用就可以了,不用明文引入.**
+
+::: code-group
+```js [app/middleware/test.ts]
+export default defineNuxtMiddleware((to,from) => {
+    console.log('middleware triggered');
+})
+```
+
+```vue [pages/index.vue]
+<script setup lang='ts'>
+definePageMeta({
+    middleware: ['test']
+})
+</script>
+```
+:::
+## 路由中间件
+1. 组件级中间件("Anonymous/Inline")
+2. 具名路由中间件("Named")
+3. 全局路由中间件("Global")
+
+全局路由中间件运行顺序默认按字母排序运行(alphabetically)  
+如果要改变,推荐使用数字prefix改变字母排序
+```txt
+Directory Middleware
+-| middleware/
+---| 01.setup.global.ts
+---| 02.analytics.global.ts
+---| auth.ts
+
+不加01.02前缀的话,analytics会先于setup中间件运行
+```
+运行顺序: 全局 > definePageMeta里声明的顺序(匿名可以先于具名)
+```vue
+<script setup lang='ts'>
+definePageMeta({
+    middleware:[
+        function(to,from){
+            console.log('Inline middleware');
+        },
+        'test',  // 具名中间件
+        ]
+})
+</script>
+<!-- 顺序是01setup,02analytics, Anonymous Inline, test -->
+```
+## 路由参数
+1. 动态参数
+```vue
+<!-- pages/user-[group]/[id].vue -->
+<template>
+    <h1>User {{ group }} {{ id }}</h1>
+</template>
+<script setup lang='ts'>
+const { params:{group, id} } = useRoute();  // 不用手动引入
+</script>
+```
+2. 捕获所有动态参数的方法[...slug]
+```vue
+<!-- pages/[...slug].vue -->
+<!-- /user/123/456 -->
+<template>
+    <h1> {{$route.params.slug }}</h1> 
+    <!-- 结果会是['user','123','456'] -->
+</template>
+```
+
+404,error页面怎么定义?
+
+## 导航
+1. Declarative
+```vue
+<NuxtLink to="/">Home</NuxtLink>
+<NuxtLink to="/about">About</NuxtLink>
+<NuxtLink :to="{ name:'posts-id', params:{id:123}}">Posts</NuxtLink>
+```
+[更多关于`<NuxtLink>`组件的介绍](https://nuxt.com/docs/4.x/api/components/nuxt-link) 
+* `to`: 直接是URL,或者是包含name,params,query,hash.
+* `activeClass`: 激活时添加的class
+* `replace`: 替换当前帧,无法后退.不声明的默认行为是`push`,可以后退
+
+2. Programatic
+```vue
+<template>
+    <button @click="goToPage">Somewhere</button>
+</template>
+<script setup lang='ts'>
+const goToPage = () => {
+    navigateTo({
+        name:'somewhere',
+        params:{
+            id:123
+        },
+        query:{
+            test:456
+        },
+        hash:'#sometitle'
+    });
+}
+</script>
+```
+
+
+
+
+## Route validation
+```vue
+<script setup lang='ts'>
+definePageMeta({
+    validate(route){
+        // 假设访问该路由时携带的动态参数为"id"
+        if(!/^\d+$/.test(route.params.id)){
+            return false;  // => 404
+        }
+        return true;  // => 正常访问
+    }
+})
+</script>
+```
+
+## `assets`和`public`的区别
+* `public`目录下的文件是可以直接用静态URL访问到的,如`/public/img/logo.png`下的文件,在元素中可以直接通过`<img src="/img/logo.png" />`访问.文件原先是怎样就怎样(as-is).  
+* `assets`目录下的内容,一般你是希望通过构建工具对其进行处理,才把资源放到这里.(也就是说放这里的资源会被构建工具加工处理).填写URL时你也无法直接省略`assets`前缀,需要为:`~/assets/img/nuxt.png`.(customarily process these assets through your own plugins/loaders)
+
+[更多关于`assets`和`public`的区别](https://nuxt.com/docs/4.x/getting-started/assets)
+
+## 状态管理及初始化
+Nuxt官方建议两种状态管理方法
+* `useState` composable API, 无需额外安装模块
+* Pinia, 官方开发的,需要额外安装的状态管理模块
+
+1. `useState`
+::: code-group
+```js [stores/local.js]
+export const useGlobalState = () => {
+    const count = useState('count',() => 0);  // 第一个参数是状态的key,第二个是初始值
+    const increment = () => {
+        count.value++;
+    }
+    return {
+        count,
+        increment
+    }
+}
+```
+
+```vue [pages/index.vue]
+<template>
+    <button @click="increment">{{ count }}</button>
+</template>
+<script setup lang='ts'>
+import { useGlobalState } from '~/stores/local';
+const { count, increment } = useGlobalState();
+</script>
+```
+:::
+
+2. Pinia  
+如果用的Nuxt UI添加模块的话直接就安装好,`nuxt.config`里也添加上了`modules:['@pinia/nuxt']`.之后直接在文件中用就可以了
+:::code-group
+```js [stores/pinia.js]
+import {defineStore} from 'pinia';
+
+export const usePiniaStore = defineStore('pinia',{
+    state:() => {
+        count:0
+    },
+    actions:{
+        increment(){
+            this.count++;
+        }
+    }
+})
+```
+
+```vue [pages/index.vue]
+<script setup lang='ts'>
+import { usePiniaStore } from '~/stores/pinia';
+const store = usePiniaStore();
+</script>
+<template>
+    <button @click="store.increment">{{ store.count }}</button>
+</template>
+```
+:::
+
+### 状态初始化
+都要利用`callOnce`这个util函数
+* `useState`直接调用`callOnce`方法进行初始化
+* Pinia则利用`defineStore`里的`actions`,还需要利用`callOnce`,对`state`中的值进行异步赋值
+
+## 构建本地服务器server目录
+直接跟`app`目录同级创建`server`目录,之后创建`/api`,`/route`,`/middleware`目录,对应的就是名字的功能.(后二者之后再深究作用,现在用到`/api`,不用自行额外创建express服务器再返回数据就够了)
+[官方介绍](https://nuxt.com/docs/4.x/guide/directory-structure/server)
+```js
+// server/api/hello.js
+export default defineEventHandler((e) => {
+    return {
+        message:'Hello from server'
+    }
+})
+```
+
+```vue 
+<!-- app/pages/index.vue -->
+<script setup lang='ts'>
+const { data } = await useFetch('/api/hello');
+</script>
+<template>
+    <div>{{ data.value.message }}</div>
+</template>
+```
+
+### 二者结合:利用服务器数据对全局状态进行初始化
+1. `useState`
+::: code-group
+```js [stores/local.js]
+export const useGlobalState = () => {
+    const message = useState('message',() => '');
+    async function initializeMessage() {
+        const { data } = await useFetch('/api/hello');
+        message.value = data.value.message;
+    }
+    return {
+        message,
+        initializeMessage
+    }
+}
+```
+
+```vue [pages/index.vue]
+<script setup lang='ts'>
+import { useGlobalState } from '~/stores/local';
+const { message, initializeMessage } = useGlobalState();
+await callOnce(initializeMessage);
+</script>
+<template>
+    <div>{{ message }}</div>
+</template>
+```
+:::
+
+2. Pinia
+::: code-group
+```js [stores/pinia.js]
+import {defineStore} from 'pinia';
+
+export const usePiniaStore = defineStore('pinia',{
+    state:() => ({
+        message:''
+    }),
+    actions:{
+        async initializeMessage(){
+            const { data } = await useFetch('/api/hello');
+            this.message = data.value.message;
+        }
+    }
+})
+```
+```vue [pages/index.vue]
+<script setup lang='ts'>
+import { usePiniaStore } from '~/stores/pinia';
+const store = usePiniaStore();
+await callOnce(store.initializeMessage);
+</script>
+<template>
+    <div>{{ store.message }}</div>
+</template>
+```
+:::

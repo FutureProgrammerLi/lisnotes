@@ -1,0 +1,1 @@
+import{_ as r,c as e,o as s,j as n,G as t}from"./framework.BeJGjSYE.js";const o={};function u(a,l){return s(),e(t,null,[l[0]||(l[0]=n("hr",null,null,-1)),l[1]||(l[1]=n("div",null,[n("b",null,"原文包括C++的结构分析和伪代码,看不懂先跳过."),n("b",null,"后续用Typescript的代码例子代替.")],-1)),l[2]||(l[2]=n("hr",null,null,-1))],64)}const i=r(o,[["render",u],["__scopeId","data-v-c8355c82"]]);export{i as D};

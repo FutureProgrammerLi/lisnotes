@@ -13,7 +13,7 @@
 ![flashcard](/AI/flashcard.png)
 
 2. Gemini生成storybook
-[Geministorybook的地址](gemini.google.com/gem/storybook/). 输入你想生成的内容,就会根据Prompt生成带有图片和文字描述的,相关的"故事书"
+[Geministorybook的地址](https://gemini.google.com/gem/storybook/). 输入你想生成的内容,就会根据Prompt生成带有图片和文字描述的,相关的"故事书"
 3. Gemini利用提问方式,一步一步引导提问者,自行思考得出答案  
 [Gemini的地址](https://gemini.google.com/app), 就是一个选项:**学习辅导**. 实际更像"举一反三", 先给出你提问的答案,再向你引申其它问题,让你知其然且知其所以然.
 4. Google Lab的Talking Tour.  

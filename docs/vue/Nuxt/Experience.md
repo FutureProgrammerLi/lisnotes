@@ -18,6 +18,7 @@
 * [`assets`和`public`目录的区别](#assets和public的区别)
 * [状态管理及初始化](#状态管理及初始化)(两种方法:`useState`或者Pinia)
 * [构建本地服务器server目录](#构建本地服务器server目录)
+* Server目录下,`/api`,`/routes`,`/middleware`目录的作用
 
 ## 布局
 ### 开启布局
@@ -572,3 +573,14 @@ await callOnce(store.initializeMessage);
 </template>
 ```
 :::
+
+## server目录下api/routes/middleware目录的作用
+可以理解为不同目录下,相同的`defineEventHandler`,导致各自目录下的功能有所差异.
+* `/api`目录自带前缀prefix.一般用于与后端交互,如增删改查
+* `/routes`请求不会自动添加前缀,而且一般不用来请求数据,而是需要专门配置请求数据时才更自定义化在这里返回具体内容.
+* `/middleware`,到这里就不是请求响应的问题了.如果需要请求前对请求信息(如请求头)进行校验或添加,对请求进行前置处理,或是扩充请求对象的话才用到这一层.
+
+区分`/api`还是`/routes`,可以根据你希望的返回内容自定义化进行决定.
+* 需要与后端交互?:`/api`
+* 需要设置请求信息并自定义化返回内容?:`/routes`
+* 需要对请求进行前置处理?:`/middleware`

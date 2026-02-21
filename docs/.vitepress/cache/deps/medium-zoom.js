@@ -463,9 +463,4 @@ var medium_zoom_esm_default = mediumZoom;
 export {
   medium_zoom_esm_default as default
 };
-/*! Bundled license information:
-
-medium-zoom/dist/medium-zoom.esm.js:
-  (*! medium-zoom 1.1.0 | MIT License | https://github.com/francoischalifour/medium-zoom *)
-*/
 //# sourceMappingURL=medium-zoom.js.map

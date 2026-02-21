@@ -1,2 +1,4 @@
 node_modules/
 docs/api.examples.md
+docs/.vitepress/dist/
+docs/.vitepress/cache/

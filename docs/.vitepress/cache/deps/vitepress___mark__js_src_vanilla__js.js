@@ -8,7 +8,7 @@ var require_mark = __commonJS({
   "node_modules/mark.js/dist/mark.js"(exports, module) {
     (function(global, factory) {
       typeof exports === "object" && typeof module !== "undefined" ? module.exports = factory() : typeof define === "function" && define.amd ? define(factory) : global.Mark = factory();
-    })(exports, function() {
+    })(exports, (function() {
       "use strict";
       var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function(obj) {
         return typeof obj;
@@ -20,7 +20,7 @@ var require_mark = __commonJS({
           throw new TypeError("Cannot call a class as a function");
         }
       };
-      var createClass = /* @__PURE__ */ function() {
+      var createClass = /* @__PURE__ */ (function() {
         function defineProperties(target, props) {
           for (var i = 0; i < props.length; i++) {
             var descriptor = props[i];
@@ -35,7 +35,7 @@ var require_mark = __commonJS({
           if (staticProps) defineProperties(Constructor, staticProps);
           return Constructor;
         };
-      }();
+      })();
       var _extends = Object.assign || function(target) {
         for (var i = 1; i < arguments.length; i++) {
           var source = arguments[i];
@@ -47,7 +47,7 @@ var require_mark = __commonJS({
         }
         return target;
       };
-      var DOMIterator = function() {
+      var DOMIterator = (function() {
         function DOMIterator2(ctx) {
           var iframes = arguments.length > 1 && arguments[1] !== void 0 ? arguments[1] : true;
           var exclude = arguments.length > 2 && arguments[2] !== void 0 ? arguments[2] : [];
@@ -357,8 +357,8 @@ var require_mark = __commonJS({
           }
         }]);
         return DOMIterator2;
-      }();
-      var Mark$1 = function() {
+      })();
+      var Mark$1 = (function() {
         function Mark3(ctx) {
           classCallCheck(this, Mark3);
           this.ctx = ctx;
@@ -938,7 +938,7 @@ var require_mark = __commonJS({
           }
         }]);
         return Mark3;
-      }();
+      })();
       function Mark2(ctx) {
         var _this = this;
         var instance = new Mark$1(ctx);
@@ -961,7 +961,7 @@ var require_mark = __commonJS({
         return this;
       }
       return Mark2;
-    });
+    }));
   }
 });
 
@@ -990,14 +990,4 @@ function Mark(ctx) {
 export {
   Mark as default
 };
-/*! Bundled license information:
-
-mark.js/dist/mark.js:
-  (*!***************************************************
-  * mark.js v8.11.1
-  * https://markjs.io/
-  * Copyright (c) 2014–2018, Julian Kühnel
-  * Released under the MIT license https://git.io/vwTVl
-  *****************************************************)
-*/
 //# sourceMappingURL=vitepress___mark__js_src_vanilla__js.js.map

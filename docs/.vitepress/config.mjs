@@ -2,8 +2,8 @@ import { defineConfig } from 'vitepress';
 // import { sidebarItems } from './sidebar';
 import { generateSidebar } from 'vitepress-sidebar';
 import path from 'path';
+import tailwindcss from '@tailwindcss/vite';
 // import viteCompress from 'vite-plugin-compression';
-// import CompressImgs from '../plugins/test';
 
 // const tailwindCDN = ['script', { src: 'https://cdn.tailwindcss.com' }];
 const favicon = ['link', { rel: 'icon', href: '/favicon.ico' }];
@@ -44,6 +44,7 @@ const SidebarItemsWithPlugins = generateSidebar({
 
 export default defineConfig({
   vite: {
+    envDir: path.resolve(__dirname, '../../'),
     resolve: {
       alias: {
         '@': path.resolve(__dirname, '../')
@@ -53,11 +54,23 @@ export default defineConfig({
       noExternal: ['medium-zoom'],
     },
     optimizeDeps: {
-      include: ['medium-zoom'],
+      include: [
+        'medium-zoom',
+        'vitepress-plugin-back-to-top',
+      ],
     },
     server: {
       open: true,
-      port: 5173
+      port: 5173,
+      fs: {
+        cachedChecks: true,
+      },
+      warmup: {
+        clientFiles: [
+          './.vitepress/theme/index.ts',
+          './.vitepress/theme/components/RagChat.vue',
+        ]
+      }
     },
     build: {
       emptyOutDir: true,
@@ -88,6 +101,7 @@ export default defineConfig({
       },
     },
     plugins: [
+      tailwindcss(),
       // viteCompress(),
     ],
   },

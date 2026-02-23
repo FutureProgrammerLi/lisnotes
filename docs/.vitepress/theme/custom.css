@@ -1,9 +1,46 @@
-@import "tailwindcss";
+@import "tailwindcss" source(none);
 
-@layer components {
-    .btn-primary {
-        @apply py-2 px-5 bg-violet-500 text-white font-semibold rounded-full shadow-md hover:bg-violet-700 focus:outline-none focus:ring focus:ring-violet-400 focus:ring-violet-400/75
-    }
+/* ============================================================
+   Tailwind 扫描范围限制（Tailwind v4 @source 语法）
+   只扫描以下真正使用了 Tailwind 工具类的文件，
+   避免扫描全量的 164 个 MD 文件导致首次加载缓慢。
+
+   【新增文件时的操作步骤】
+   如果你新建了一个 Vue 组件或 TS 文件，并且在里面用了 Tailwind 工具类，
+   请在下方按格式添加一行 @source 指令，例如：
+   @source "../path/to/your/NewComponent.vue";
+   ============================================================ */
+
+/* 主题组件 */
+@source "./.vitepress/theme/**/*.vue";
+@source "./.vitepress/theme/**/*.ts";
+
+/* 文档内嵌 Vue 示例组件（真正使用了 Tailwind 工具类的） */
+@source "./CSS/TailwindCSS/ReusingStyles/components/Example.vue";
+@source "./react/Blogs/components/Greeting.vue";
+@source "./react/Blogs/components/WelcomePage.vue";
+@source "./react/Blogs/components/Counter.vue";
+@source "./react/Blogs/components/CollapsableGreeting.vue";
+@source "./react/Blogs/components/PostPreview.vue";
+
+.btn-primary {
+    padding: 0.5rem 1.25rem;
+    background-color: #8b5cf6;
+    color: white;
+    font-weight: 600;
+    border-radius: 9999px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, .1), 0 2px 4px -1px rgba(0, 0, 0, .06);
+    border: none;
+    cursor: pointer;
+    outline: none;
+}
+
+.btn-primary:hover {
+    background-color: #6d28d9;
+}
+
+.btn-primary:focus {
+    box-shadow: 0 0 0 3px rgba(167, 139, 250, 0.75);
 }
 
 :root {

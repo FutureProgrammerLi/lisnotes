@@ -10,9 +10,18 @@ import 'vitepress-plugin-back-to-top/dist/style.css';
 
 
 
+import { h } from 'vue';
+import RagChat from './components/RagChat.vue';
+
 export default {
     extends: DefaultTheme,
-    enhanceApp({ app }) {
+    Layout() {
+        return h(DefaultTheme.Layout, null, {
+            // 将聊天组件注入到 Layout 的根底部
+            'layout-bottom': () => h(RagChat)
+        })
+    },
+    enhanceApp() {
         // failed when deployed on remote server:Could not resolve "../../JS/Patterns/components/ImageWithCaption.vue" from "docs/.vitepress/theme/index.ts"
         // app.component('ImageWithCaption', defineAsyncComponent(() => import('@/JS/Patterns/components/ImageWithCaption.vue' as string)));
         // app.component('Divider', defineAsyncComponent(() => import('@/JS/Patterns/components/Divider.vue' as string) ));

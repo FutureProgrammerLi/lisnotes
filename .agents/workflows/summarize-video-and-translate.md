@@ -1,42 +1,19 @@
 ---
-description: Summarize a YouTube video with concise English bullet points, translate to Chinese, and save to a user-specified .md file.
+description: Create a .md file from a provided transcript and translated summary, asking for location and naming.
 ---
 
-When exactly triggered by the user (or provided with YouTube URLs under this workflow), follow these steps in order:
+When triggered by the user with a transcript and a translated version summary, follow these steps in order:
 
-1. **Extract and Summarize (English)**
-   - Obtain the transcript or content from the provided YouTube URL(s).
-   - Generate an English summary using **structured bullet points**. Instead of just a few words, provide detailed, paragraph-length explanations for each key concept, with sub-bullets for specific nuances if necessary.
-   - Extract the core ideas, frameworks, and actionable points in a comprehensive manner.
+1. **Acknowledge and Prompt for Details**
+   - You will receive a transcript and a translated version summary from the user.
+   - Look for the title of the video within the provided transcript.
+   - If a title is found, use it as the name of the markdown file. Ask the user: "Where would you like to save the markdown file `[Extracted Title].md`? (Please provide the exact directory/location)."
+   - If no title is found, ask the user: "What would you like to name the markdown file, and where would you like to save it? (Please provide the exact directory/location and the desired filename)."
+   - Wait for the user to provide the destination path (and name if applicable).
 
-2. **Translate to Chinese**
-   - Translate the detailed English bullet points into highly fluent, natural-sounding, and colloquial Chinese ("说人话"). 
-   - Avoid stiff, machine-like translations. Ensure the tone is engaging and fits a professional, high-quality blog post or reading note.
-   - For key technical or conceptual terms, provide the Chinese translation followed by the original English term in parentheses (e.g., "驾驶舱法则 (The Cockpit Rule)").
+2. **Create the Markdown File**
+   - Use the `write_to_file` tool to create the `.md` file at the specified location using the determined filename.
+   - Populate the file with the transcript and translated summary provided by the user, formatting it cleanly using markdown. Start with a title heading corresponding to the video title.
 
-3. **Prompt for File Location**
-   - For each video/URL, pause and ask the user: "Where would you like to save the markdown file for this video? (Please provide the exact directory or file path)."
-   - Wait for the user to provide the destination path.
-
-4. **Create the Markdown File**
-   - Use the `write_to_file` tool to create the `.md` file at the location the user specified.
-   - **Format the file exactly as follows:**
-     ```markdown
-     # [Video Title]
-
-     ## Video Summary (English)
-     * [Key Concept 1]: [Detailed explanation...]
-       * [Sub-point]
-     * [Key Concept 2]: [Detailed explanation...]
-
-     ## 视频总结 (Chinese)
-     * [核心概念 1] (English Term): [通顺流畅的详细中文解释...]
-       * [子要点]
-     * [核心概念 2] (English Term): [通顺流畅的详细中文解释...]
-
-     ---
-     **Source**: [[视频频道/作者名称]]([YouTube源链接])
-     ```
-
-5. **Repeat**
-   - If there are more URLs provided, repeat steps 1-4 for each. Let the user know when all are completed.
+3. **Confirmation**
+   - Notify the user once the file has been successfully created.
